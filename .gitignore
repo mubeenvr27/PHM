@@ -1,18 +1,18 @@
 # dependencies
-phm-app/node_modules/
+apps/web/node_modules/
 .pnp
 .pnp.js
 .yarn/install-state.gz
 
 # testing
-phm-app/coverage/
+apps/web/coverage/
 
 # next.js
-phm-app/.next/
-phm-app/out/
+apps/web/.next/
+apps/web/out/
 
 # production
-phm-app/build/
+apps/web/build/
 
 # misc
 .DS_Store
@@ -24,14 +24,14 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-phm-app/.env*.local
+apps/web/.env*.local
 
 # vercel
 .vercel
 
 # typescript
-phm-app/*.tsbuildinfo
-phm-app/next-env.d.ts
+apps/web/*.tsbuildinfo
+apps/web/next-env.d.ts
 
 # Office temp files
 ~$*
