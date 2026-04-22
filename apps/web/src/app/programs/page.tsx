@@ -31,29 +31,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 
-/* ─── Layout helpers ─────────────────────────────────────────── */
-const wrap = {
-  maxWidth: "1100px",
-  marginInline: "auto",
-  paddingInline: "1.5rem",
-} as const;
-
-const sectionPy = {
-  paddingTop: "clamp(80px, 10vw, 100px)",
-  paddingBottom: "clamp(80px, 10vw, 100px)",
-} as const;
-
-/* ─── Filter categories ──────────────────────────────────────── */
+/* ─── Filter categories ────────────────────────────────────────── */
 type Category = "All" | "Chronic Care" | "Sleep Health" | "Wellness" | "Safety";
-
 const categories: Category[] = ["All", "Chronic Care", "Sleep Health", "Wellness", "Safety"];
 
-/* ─── Program data ───────────────────────────────────────────── */
+/* ─── Program data — zero hyphens ─────────────────────────────── */
 interface Program {
   icon: React.ElementType;
   name: string;
   badge: string;
+  badgeStyle: "teal" | "navy" | "rose" | "violet" | "amber";
   category: Category;
   description: string;
   href: string;
@@ -67,13 +56,14 @@ const programs: Program[] = [
     icon: Wind,
     name: "COPD — Respiratory Care",
     badge: "Remote Monitoring",
+    badgeStyle: "teal",
     category: "Chronic Care",
     description:
-      "Daily pulse oximetry and spirometry monitoring helps detect COPD exacerbations before they trigger emergency visits. Clinical alerts are routed directly to the managing physician.",
+      "Daily pulse oximetry and spirometry monitoring helps detect COPD exacerbations before they trigger emergency visits. Clinical alerts route directly to the managing physician.",
     href: "/programs/copd",
     benefits: [
-      "Cellular-connected oximeter shipped to patient",
-      "Physician alert on oxygen desaturation",
+      "Cellular connected oximeter shipped to patient",
+      "Physician alert on oxygen desaturation events",
     ],
     hasVideo: true,
     videoLabel: "Watch: How COPD Monitoring Works",
@@ -82,22 +72,24 @@ const programs: Program[] = [
     icon: HeartPulse,
     name: "Hypertension Monitoring",
     badge: "Remote Monitoring",
+    badgeStyle: "teal",
     category: "Chronic Care",
     description:
       "Daily blood pressure readings captured through a validated cellular cuff and reviewed by our clinical team. Dangerous readings trigger same-day physician notification.",
     href: "/programs/hypertension",
     benefits: [
       "No manual data entry required by patient",
-      "Trend reports delivered to referring physician monthly",
+      "Monthly trend reports delivered to referring physician",
     ],
   },
   {
     icon: Activity,
     name: "Diabetes — Chronic Care Management",
     badge: "CCM",
+    badgeStyle: "navy",
     category: "Chronic Care",
     description:
-      "Structured monthly care coordination for diabetic patients, including glucose monitoring oversight, medication adherence support, and direct A1C trend reporting.",
+      "Structured monthly care coordination for diabetic patients including glucose monitoring oversight, medication adherence support, and direct A1C trend reporting.",
     href: "/programs/ccm/diabetes",
     benefits: [
       "Medicare CCM billing supported",
@@ -108,6 +100,7 @@ const programs: Program[] = [
     icon: Heart,
     name: "Heart Failure — CCM",
     badge: "CCM",
+    badgeStyle: "navy",
     category: "Chronic Care",
     description:
       "Daily weight monitoring catches fluid retention early. Our care team responds to weight gain alerts within hours, coordinating diuretic adjustments with the cardiologist.",
@@ -123,12 +116,13 @@ const programs: Program[] = [
     icon: Moon,
     name: "Obstructive Sleep Apnea",
     badge: "Sleep Health",
+    badgeStyle: "violet",
     category: "Sleep Health",
     description:
       "Home sleep testing and CPAP compliance tracking delivered entirely without overnight lab stays. Therapy initiation and follow-up managed by our respiratory care team.",
     href: "/programs/osa",
     benefits: [
-      "FDA-cleared home sleep test device",
+      "FDA cleared home sleep test device",
       "Results interpreted by board-certified sleep physician",
     ],
   },
@@ -136,9 +130,10 @@ const programs: Program[] = [
     icon: Moon,
     name: "Pediatric Sleep Monitoring",
     badge: "Sleep Health",
+    badgeStyle: "violet",
     category: "Sleep Health",
     description:
-      "Child-appropriate overnight home sleep assessment for children ages 2 to 17. Results are reviewed by a pediatric-trained sleep physician within 72 hours of recording.",
+      "Child-appropriate overnight home sleep assessment for children ages 2 to 17. Results reviewed by a pediatric sleep physician within 72 hours of recording.",
     href: "/programs/sleep/pediatric",
     benefits: [
       "No overnight hospital stay required",
@@ -149,12 +144,13 @@ const programs: Program[] = [
     icon: Moon,
     name: "Adult Sleep Monitoring",
     badge: "Sleep Health",
+    badgeStyle: "violet",
     category: "Sleep Health",
     description:
       "Convenient home sleep testing for adults with suspected sleep-disordered breathing. From device delivery through therapy recommendation, our team manages the full pathway.",
     href: "/programs/sleep/adult",
     benefits: [
-      "WatchPAT or equivalent FDA-cleared device",
+      "WatchPAT or equivalent FDA cleared device",
       "Prepaid return shipping included",
     ],
   },
@@ -162,6 +158,7 @@ const programs: Program[] = [
     icon: Stethoscope,
     name: "ENT Sleep Program",
     badge: "Sleep Health",
+    badgeStyle: "violet",
     category: "Sleep Health",
     description:
       "Pre-operative sleep apnea risk stratification for ENT surgical patients, plus post-operative compliance confirmation — delivered without additional office appointments.",
@@ -175,6 +172,7 @@ const programs: Program[] = [
     icon: Brain,
     name: "Wellness: Mental Health",
     badge: "Wellness",
+    badgeStyle: "amber",
     category: "Wellness",
     description:
       "Behavioral health support integrated alongside chronic disease management. Monthly care coordinator check-ins address anxiety, depression, and stress-related adherence barriers.",
@@ -188,6 +186,7 @@ const programs: Program[] = [
     icon: Salad,
     name: "Nutrition and Weight",
     badge: "Wellness",
+    badgeStyle: "amber",
     category: "Wellness",
     description:
       "Medically tailored, chef-prepared meals delivered weekly through our CookUnity partnership. Meal plans are designed around each patient's clinical dietary requirements.",
@@ -203,6 +202,7 @@ const programs: Program[] = [
     icon: PersonStanding,
     name: "Fall Detection and Safety",
     badge: "Safety",
+    badgeStyle: "rose",
     category: "Safety",
     description:
       "Wearable fall detection sensors alert our 24/7 care coordination team within seconds of a detected event. Escalation protocols ensure caregivers and physicians are notified immediately.",
@@ -214,37 +214,46 @@ const programs: Program[] = [
   },
 ];
 
-/* ─── Video Modal placeholder ────────────────────────────────── */
+/* ─── Badge color map ──────────────────────────────────────────── */
+const badgeColorMap: Record<Program["badgeStyle"], string> = {
+  teal:   "bg-teal-50   text-[#0D7377] border-teal-100",
+  navy:   "bg-[#1B3A5C]/8 text-[#1B3A5C] border-[#1B3A5C]/15",
+  rose:   "bg-rose-50   text-rose-700   border-rose-100",
+  violet: "bg-violet-50 text-violet-700  border-violet-100",
+  amber:  "bg-amber-50  text-amber-700   border-amber-100",
+};
+
+/* ─── Video Modal ──────────────────────────────────────────────── */
 function VideoModal({ label }: { label: string }) {
   return (
     <Dialog>
       <DialogTrigger
-        className="flex items-center gap-2 text-sm font-semibold mt-3 w-full"
-        style={{ color: "var(--color-primary)", minHeight: "44px" }}
+        className="flex min-h-[44px] w-full items-center gap-2 text-sm font-semibold text-[#1B3A5C]"
         aria-label={`Open video: ${label}`}
       >
-        <PlayCircle size={18} style={{ color: "var(--color-accent)", flexShrink: 0 }} />
+        <PlayCircle
+          size={18}
+          className="shrink-0 text-[#0D7377]"
+          aria-hidden="true"
+        />
         <span className="hover:underline underline-offset-2">{label}</span>
       </DialogTrigger>
       <DialogContent
-        className="sm:max-w-2xl p-0 overflow-hidden"
+        className="sm:max-w-2xl overflow-hidden p-0"
         aria-describedby={undefined}
       >
         <DialogHeader className="p-4 pb-0">
-          <DialogTitle style={{ color: "var(--color-primary)" }}>{label}</DialogTitle>
+          <DialogTitle className="text-[#1B3A5C]">{label}</DialogTitle>
         </DialogHeader>
-        {/* 16:9 video placeholder — replace src with real embed */}
         <div
-          className="relative w-full"
-          style={{ paddingBottom: "56.25%", backgroundColor: "#0A2A42" }}
+          className="relative w-full bg-[#0A2A42]"
+          style={{ paddingBottom: "56.25%" }}
           role="img"
           aria-label="Video embed placeholder — content coming soon"
         >
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-            <PlayCircle size={56} style={{ color: "rgba(255,255,255,0.4)" }} aria-hidden="true" />
-            <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
-              Video content coming soon
-            </p>
+            <PlayCircle size={56} className="text-white/30" aria-hidden="true" />
+            <p className="text-sm text-white/50">Video content coming soon</p>
           </div>
         </div>
       </DialogContent>
@@ -252,94 +261,71 @@ function VideoModal({ label }: { label: string }) {
   );
 }
 
-/* ─── Program Card ───────────────────────────────────────────── */
+/* ─── Program Card ─────────────────────────────────────────────── */
 function ProgramCard({ program }: { program: Program }) {
-  const { icon: Icon, name, badge, description, href, benefits, hasVideo, videoLabel } = program;
-
-  const badgeStyle: React.CSSProperties =
-    badge === "CCM"
-      ? { backgroundColor: "rgba(27,58,92,0.09)", color: "var(--color-primary)" }
-      : badge === "Safety"
-      ? { backgroundColor: "rgba(155,28,28,0.08)", color: "var(--color-danger)" }
-      : badge === "Sleep Health"
-      ? { backgroundColor: "rgba(13,115,119,0.09)", color: "var(--color-accent)" }
-      : badge === "Wellness"
-      ? { backgroundColor: "rgba(26,107,74,0.09)", color: "var(--color-success)" }
-      : { backgroundColor: "rgba(13,115,119,0.09)", color: "var(--color-accent)" };
+  const {
+    icon: Icon,
+    name,
+    badge,
+    badgeStyle,
+    description,
+    href,
+    benefits,
+    hasVideo,
+    videoLabel,
+  } = program;
 
   return (
-    <Card
-      className="flex flex-col h-full"
-      style={{
-        backgroundColor: "#ffffff",
-        border: "1px solid var(--color-border)",
-        boxShadow: "0 1px 6px rgba(27,58,92,0.06)",
-        borderRadius: "0.875rem",
-      }}
-    >
+    <Card className="flex h-full flex-col border border-[#E2EBF4] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#0D7377]/50 hover:shadow-xl">
       <CardHeader className="pb-0">
         {/* Icon + Badge row */}
-        <div className="flex items-start justify-between mb-2">
+        <div className="mb-3 flex items-start justify-between">
           <div
-            className="flex items-center justify-center rounded-xl"
-            style={{
-              width: "52px",
-              height: "52px",
-              backgroundColor: "rgba(13,115,119,0.1)",
-              flexShrink: 0,
-            }}
+            className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-xl bg-teal-50"
             aria-hidden="true"
           >
-            <Icon size={26} style={{ color: "var(--color-accent)" }} />
+            <Icon size={26} className="text-[#0D7377]" />
           </div>
           <span
-            className="text-xs font-semibold px-2 py-0.5 rounded-full"
-            style={badgeStyle}
+            className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${badgeColorMap[badgeStyle]}`}
           >
             {badge}
           </span>
         </div>
-        <CardTitle
-          style={{ color: "var(--color-primary)", fontSize: "1.0625rem", fontWeight: 600 }}
-        >
+        <CardTitle className="text-[1.0625rem] font-semibold leading-snug text-[#1B3A5C]">
           {name}
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="flex flex-col flex-1 gap-4 pt-3">
+      <CardContent className="flex flex-1 flex-col gap-4 pt-3">
         {/* Description */}
-        <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>
-          {description}
-        </p>
+        <p className="text-sm leading-relaxed text-slate-500">{description}</p>
 
-        {/* Benefits — CheckCircle2 icons, no hyphens */}
+        {/* Benefits — CheckCircle2, no hyphens */}
         <ul role="list" className="flex flex-col gap-2">
           {benefits.map((b) => (
             <li key={b} className="flex items-start gap-2">
               <CheckCircle2
                 size={15}
-                style={{ color: "var(--color-accent)", flexShrink: 0, marginTop: "2px" }}
+                className="mt-[2px] shrink-0 text-[#0D7377]"
                 aria-hidden="true"
               />
-              <span className="text-xs" style={{ color: "var(--color-text-primary)", lineHeight: 1.55 }}>
-                {b}
-              </span>
+              <span className="text-xs leading-[1.55] text-[#1A1A2E]">{b}</span>
             </li>
           ))}
         </ul>
 
-        {/* Video modal trigger */}
+        {/* Optional video trigger */}
         {hasVideo && videoLabel && <VideoModal label={videoLabel} />}
 
         {/* Primary CTA — pushed to bottom */}
         <div className="mt-auto pt-2">
           <Link
             href={href}
-            className="btn-primary w-full justify-center"
-            style={{ height: "44px", fontSize: "0.9375rem" }}
+            className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg bg-[#0D7377] px-5 text-[0.9375rem] font-bold text-white transition-colors hover:bg-[#0a5f63] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0D7377]"
           >
             View Program Details
-            <ArrowRight size={16} className="ml-2 shrink-0" aria-hidden="true" />
+            <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>
       </CardContent>
@@ -348,7 +334,7 @@ function ProgramCard({ program }: { program: Program }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PAGE COMPONENT
+   PAGE
    ═══════════════════════════════════════════════════════════════ */
 export default function ProgramsPage() {
   const [activeCategory, setActiveCategory] = useState<Category>("All");
@@ -361,104 +347,68 @@ export default function ProgramsPage() {
   return (
     <>
       {/* ══════════════════════════════════════════════════════
-          HERO
+          HERO — matches home page gradient
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="programs-hero-heading"
-        style={{
-          background: "linear-gradient(150deg, var(--color-primary) 0%, #1e4d75 55%, #164463 100%)",
-          paddingTop: "clamp(100px, 12vw, 130px)",
-          paddingBottom: "clamp(80px, 10vw, 110px)",
-          position: "relative",
-          overflow: "hidden",
-        }}
+        className="relative overflow-hidden bg-[#1B3A5C] pb-[clamp(80px,10vw,110px)] pt-[clamp(100px,12vw,130px)]"
       >
-        {/* Watermark icon */}
+        {/* Radial depth layer */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 30% 20%, rgba(30,77,117,0.9) 0%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* ShieldCheck watermark */}
         <ShieldCheck
           aria-hidden="true"
-          style={{
-            position: "absolute",
-            right: "-60px",
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: "420px",
-            height: "420px",
-            color: "rgba(255,255,255,0.04)",
-            flexShrink: 0,
-          }}
+          className="pointer-events-none absolute right-[-60px] top-1/2 -translate-y-1/2 text-white/[0.04]"
+          style={{ width: 420, height: 420 }}
           strokeWidth={0.8}
         />
 
-        <div style={wrap}>
+        <div className="relative mx-auto max-w-[1100px] px-6">
+          {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-1 mb-6 text-sm"
-            style={{ color: "rgba(255,255,255,0.55)" }}
+            className="mb-6 flex items-center gap-1 text-sm text-white/55"
           >
             <Link
               href="/"
-              className="hover:text-white transition-colors"
-              style={{ minHeight: "44px", display: "inline-flex", alignItems: "center" }}
+              className="inline-flex min-h-[44px] items-center transition-colors hover:text-white"
             >
               Home
             </Link>
-            <span aria-hidden="true" style={{ padding: "0 4px" }}>›</span>
-            <span style={{ color: "rgba(255,255,255,0.85)" }}>Programs</span>
+            <span aria-hidden="true" className="px-1">›</span>
+            <span className="text-white/85">Programs</span>
           </nav>
 
-          <div style={{ maxWidth: "660px" }}>
-            <span
-              className="inline-block text-xs font-bold uppercase tracking-widest mb-4 px-3 py-1 rounded-full"
-              style={{ backgroundColor: "rgba(13,115,119,0.3)", color: "#6EE7E9" }}
-            >
+          <div className="max-w-[660px]">
+            <Badge className="mb-4 bg-teal-900/40 text-[#6EE7E9] hover:bg-teal-900/40">
               Full Program Directory
-            </span>
+            </Badge>
             <h1
               id="programs-hero-heading"
-              className="text-balance mb-5"
-              style={{
-                color: "#ffffff",
-                fontSize: "clamp(2rem, 5vw, 3rem)",
-                fontWeight: 700,
-                lineHeight: 1.15,
-                letterSpacing: "-0.02em",
-              }}
+              className="mb-5 text-balance text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.15] tracking-tight text-white"
             >
               A Connected Ecosystem of Care
             </h1>
-            <p
-              style={{
-                color: "rgba(255,255,255,0.8)",
-                fontSize: "clamp(1rem, 2vw, 1.1875rem)",
-                lineHeight: 1.7,
-                maxWidth: "560px",
-              }}
-            >
+            <p className="max-w-[560px] text-[clamp(1rem,2vw,1.1875rem)] leading-[1.7] text-white/80">
               Each program operates independently while integrating into a
               single, proactive monitoring platform — so no clinical signal
               falls through the gap between specialties.
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* ══════════════════════════════════════════════════════
-          FILTER BAR + PROGRAM GRID
-          ══════════════════════════════════════════════════════ */}
-      <section
-        aria-labelledby="grid-heading"
-        style={{ ...sectionPy, backgroundColor: "var(--color-surface)" }}
-      >
-        <div style={wrap}>
-          <h2 id="grid-heading" className="sr-only">
-            Program Directory
-          </h2>
-
-          {/* ── Filter Bar ── */}
+          {/* ── Glassmorphic Filter Bar ── */}
           <div
             role="tablist"
             aria-label="Filter programs by category"
-            className="flex flex-wrap gap-2 mb-10"
+            className="mt-10 flex flex-wrap gap-2 rounded-2xl border border-white/20 bg-white/10 p-3 backdrop-blur-md w-fit"
           >
             {categories.map((cat) => {
               const isActive = activeCategory === cat;
@@ -468,26 +418,38 @@ export default function ProgramsPage() {
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => setActiveCategory(cat)}
-                  className="rounded-full text-sm font-semibold transition-colors"
-                  style={{
-                    height: "44px",
-                    minWidth: "44px",
-                    paddingInline: "1.25rem",
-                    backgroundColor: isActive ? "var(--color-accent)" : "#ffffff",
-                    color: isActive ? "#ffffff" : "var(--color-text-primary)",
-                    border: isActive
-                      ? "2px solid var(--color-accent)"
-                      : "2px solid var(--color-border)",
-                    cursor: "pointer",
-                  }}
+                  className={`min-h-[44px] min-w-[44px] rounded-xl px-5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
+                    ${isActive
+                      ? "bg-[#0D7377] text-white shadow-sm"
+                      : "text-white/75 hover:bg-white/15 hover:text-white"
+                    }`}
                 >
                   {cat}
                 </button>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          PROGRAM GRID
+          ══════════════════════════════════════════════════════ */}
+      <section
+        aria-labelledby="grid-label"
+        className="bg-[#F8FAFC] py-[clamp(80px,10vw,100px)]"
+      >
+        <div className="mx-auto max-w-[1100px] px-6">
+          {/* Results count + active label */}
+          <div className="mb-8 flex items-center justify-between">
+            <h2
+              id="grid-label"
+              className="text-sm font-semibold text-[#1B3A5C]"
+            >
+              {activeCategory === "All" ? "All Programs" : activeCategory}
+            </h2>
             <span
-              className="flex items-center text-sm ml-auto"
-              style={{ color: "var(--color-text-muted)" }}
+              className="text-sm text-slate-400"
               aria-live="polite"
               aria-atomic="true"
             >
@@ -495,10 +457,10 @@ export default function ProgramsPage() {
             </span>
           </div>
 
-          {/* ── Program Grid ── */}
+          {/* Grid */}
           {filtered.length > 0 ? (
             <div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
               role="tabpanel"
               aria-label={`${activeCategory} programs`}
             >
@@ -507,43 +469,25 @@ export default function ProgramsPage() {
               ))}
             </div>
           ) : (
-            <p
-              className="text-center py-20"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+            <p className="py-20 text-center text-slate-400">
               No programs found in this category.
             </p>
           )}
 
           {/* ── Conversion Footer ── */}
-          <div
-            className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl p-8"
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid var(--color-border)",
-              boxShadow: "0 1px 6px rgba(27,58,92,0.05)",
-            }}
-          >
+          <div className="mt-16 flex flex-col items-center justify-between gap-6 rounded-2xl border border-[#E2EBF4] bg-white p-8 shadow-sm sm:flex-row">
             <div className="flex items-start gap-4">
               <div
-                className="flex items-center justify-center rounded-xl shrink-0"
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  backgroundColor: "rgba(27,58,92,0.07)",
-                }}
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#1B3A5C]/7"
                 aria-hidden="true"
               >
-                <MessageCircle size={22} style={{ color: "var(--color-primary)" }} />
+                <MessageCircle size={22} className="text-[#1B3A5C]" />
               </div>
               <div>
-                <p
-                  className="font-semibold"
-                  style={{ color: "var(--color-primary)", fontSize: "1rem" }}
-                >
+                <p className="font-semibold text-[#1B3A5C]">
                   Cannot find a specific program?
                 </p>
-                <p className="text-sm mt-1" style={{ color: "var(--color-text-muted)", lineHeight: 1.6 }}>
+                <p className="mt-1 text-sm leading-[1.6] text-slate-500">
                   Our clinical team reviews each case individually. Contact us to
                   discuss whether a patient may qualify under a custom care plan.
                 </p>
@@ -551,8 +495,8 @@ export default function ProgramsPage() {
             </div>
             <Link
               href="/contact"
-              className="btn-secondary shrink-0"
-              style={{ height: "48px", paddingInline: "1.75rem", whiteSpace: "nowrap" }}
+              className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-2 rounded-lg border-2 border-[#1B3A5C] px-7 font-bold text-[#1B3A5C] transition-colors hover:bg-[#1B3A5C] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B3A5C]"
+              style={{ height: "48px" }}
             >
               Contact Our Team
             </Link>
