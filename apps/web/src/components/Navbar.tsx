@@ -28,18 +28,13 @@ export default function Navbar() {
       role="banner"
       className="sticky top-0 z-50 h-20 bg-[#1B3A5C] bg-opacity-95 backdrop-blur-md border-b border-white/10 transition-all duration-300"
     >
-      <div className="content-max-width flex h-full items-center justify-between py-0">
-
+      <nav className="flex items-center justify-between h-20 px-6 max-w-[1100px] mx-auto" aria-label="Main navigation">
+        
         {/* ── Logo ── */}
-        <div className="flex h-10 items-center">
-          <Logo variant="horizontal" className="h-10 w-auto object-contain" />
-        </div>
+        <Logo variant="horizontal" className="h-10 w-auto object-contain" />
 
         {/* ── Desktop Nav ── */}
-        <nav
-          aria-label="Main navigation"
-          className="hidden md:flex items-center gap-1"
-        >
+        <div className="hidden md:flex items-center gap-6">
           {/* Programs Dropdown */}
           <div className="relative">
             <button
@@ -117,7 +112,7 @@ export default function Navbar() {
           >
             Refer a Patient
           </Link>
-        </nav>
+        </div>
 
         {/* ── Mobile Hamburger ── */}
         <button
@@ -128,7 +123,7 @@ export default function Navbar() {
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-      </div>
+      </nav>
 
       {/* ── Mobile Menu ── */}
       {mobileOpen && (
