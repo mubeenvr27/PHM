@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import ChatWidget from "@/components/ChatWidget";
 
 /* ── Inter — PHM design system typography ── */
 const inter = Inter({
@@ -58,6 +59,7 @@ export default function RootLayout({
 
         {/* Global utilities */}
         <ScrollToTop />
+        <ChatWidget />
       </body>
     </html>
   );
