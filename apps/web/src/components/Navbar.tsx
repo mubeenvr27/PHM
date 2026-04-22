@@ -26,14 +26,13 @@ export default function Navbar() {
   return (
     <header
       role="banner"
-      style={{ backgroundColor: "var(--color-primary)" }}
-      className="sticky top-0 z-50 shadow-md"
+      className="sticky top-0 z-50 h-20 bg-[#1B3A5C] bg-opacity-95 backdrop-blur-md border-b border-white/10 transition-all duration-300"
     >
-      <div className="content-max-width flex items-center justify-between py-0">
+      <div className="content-max-width flex h-full items-center justify-between py-0">
 
         {/* ── Logo ── */}
-        <div className="flex items-center" style={{ minHeight: "64px" }}>
-          <Logo variant="horizontal" />
+        <div className="flex h-10 items-center">
+          <Logo variant="horizontal" className="h-10 w-auto object-contain" />
         </div>
 
         {/* ── Desktop Nav ── */}
@@ -48,8 +47,7 @@ export default function Navbar() {
               aria-expanded={programsOpen}
               onClick={() => setProgramsOpen((o) => !o)}
               onBlur={() => setTimeout(() => setProgramsOpen(false), 150)}
-              className="flex items-center gap-1 text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
-              style={{ height: "64px", minWidth: "44px" }}
+              className="flex h-12 items-center gap-1 text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
             >
               Programs
               <ChevronDown
@@ -98,8 +96,7 @@ export default function Navbar() {
           {/* Contact */}
           <Link
             href="/contact"
-            className="text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
-            style={{ height: "64px", minWidth: "44px", display: "flex", alignItems: "center" }}
+            className="flex h-12 items-center text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
           >
             Contact
           </Link>
@@ -107,8 +104,7 @@ export default function Navbar() {
           {/* Platform Demo */}
           <Link
             href="/platform"
-            className="text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
-            style={{ height: "64px", minWidth: "44px", display: "flex", alignItems: "center" }}
+            className="flex h-12 items-center text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
           >
             Platform Demo
           </Link>
@@ -128,8 +124,7 @@ export default function Navbar() {
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((o) => !o)}
-          className="md:hidden text-white p-2 rounded-md hover:bg-white/10"
-          style={{ minHeight: "44px", minWidth: "44px" }}
+          className="md:hidden flex h-12 w-12 items-center justify-center text-white rounded-md hover:bg-white/10"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>

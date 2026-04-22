@@ -151,7 +151,7 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="hero-heading"
-        className="relative overflow-hidden bg-[#1B3A5C] pt-[clamp(100px,12vw,140px)] pb-[clamp(80px,10vw,120px)]"
+        className="relative overflow-hidden bg-[#1B3A5C] pb-16 pt-24 lg:pb-24 lg:pt-32"
       >
         {/* Radial depth gradient */}
         <div
@@ -230,7 +230,7 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="what-heading"
-        className="bg-[#F8FAFC] py-[clamp(80px,10vw,100px)]"
+        className="bg-[#F8FAFC] py-16 lg:py-24"
       >
         <div className="mx-auto max-w-[1100px] px-6">
           <div className="grid items-center gap-12 md:grid-cols-2">
@@ -287,7 +287,7 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="serve-heading"
-        className="border-t border-[#E2EBF4] bg-white py-[clamp(80px,10vw,100px)]"
+        className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24"
       >
         <div className="mx-auto max-w-[1100px] px-6">
           <div className="mb-12 text-center">
@@ -337,7 +337,7 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="programs-heading"
-        className="border-t border-[#E2EBF4] bg-[#F8FAFC] py-[clamp(80px,10vw,100px)]"
+        className="border-t border-[#E2EBF4] bg-[#F8FAFC] py-16 lg:py-24"
       >
         <div className="mx-auto max-w-[1100px] px-6">
           <div className="mb-12 text-center">
@@ -406,7 +406,7 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="team-heading"
-        className="border-t border-[#E2EBF4] bg-white py-[clamp(80px,10vw,100px)]"
+        className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24"
       >
         <div className="mx-auto max-w-[1100px] px-6">
           <div className="mb-12 text-center">
@@ -453,7 +453,7 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="banner-heading"
-        className="bg-[#0D7377] py-[clamp(72px,9vw,96px)]"
+        className="bg-[#0D7377] py-16 lg:py-24"
       >
         <div className="mx-auto max-w-[1100px] px-6 text-center">
           <h2
