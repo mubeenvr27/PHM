@@ -15,6 +15,7 @@ import {
   Stethoscope,
   UserCheck,
   HeartPulse,
+  Wifi,
 } from "lucide-react";
 import {
   Card,
@@ -22,6 +23,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -30,67 +32,116 @@ export const metadata: Metadata = {
     "Priority Home Monitor delivers clinical-grade remote patient monitoring for COPD, Heart Failure, Diabetes, Hypertension, Sleep Apnea, and more. Daily oversight from a dedicated clinical team — all from home.",
 };
 
-/* ─── Shared layout helpers ─────────────────────────────────────── */
-const wrap = {
-  maxWidth: "1100px",
-  marginInline: "auto",
-  paddingInline: "1.5rem",
-} as const;
-
-const sectionPy = {
-  paddingTop: "clamp(80px, 10vw, 100px)",
-  paddingBottom: "clamp(80px, 10vw, 100px)",
-} as const;
-
 /* ─── Data ───────────────────────────────────────────────────────── */
 const trustBadges = [
-  { icon: Stethoscope,  label: "Clinical Team",       sub: "Board-certified oversight" },
-  { icon: Activity,     label: "Daily Monitoring",    sub: "Real-time readings reviewed" },
-  { icon: Clock,        label: "24/7 Safety",         sub: "Alerts actioned around the clock" },
-  { icon: ShieldCheck,  label: "HIPAA Compliant",     sub: "Your data stays private" },
+  { icon: Stethoscope, label: "Clinical Team",    sub: "Board-certified oversight" },
+  { icon: Activity,    label: "Daily Monitoring", sub: "Real-time readings reviewed" },
+  { icon: Clock,       label: "24/7 Safety",      sub: "Alerts actioned around the clock" },
+  { icon: ShieldCheck, label: "HIPAA Compliant",  sub: "Your data stays private" },
 ];
 
 const weServe = [
-  { icon: HeartPulse,      label: "Chronic Disease Patients",  desc: "COPD, heart failure, diabetes, hypertension, and more managed daily." },
-  { icon: PersonStanding,  label: "Older Adults at Home",      desc: "Independence supported with fall detection and continuous vitals oversight." },
-  { icon: Moon,            label: "Sleep Apnea Patients",      desc: "CPAP compliance tracked and therapy outcomes monitored remotely." },
-  { icon: Users,           label: "Value-Based Care Partners", desc: "Physicians and ACOs reducing readmissions and improving STAR ratings." },
-  { icon: Brain,           label: "Behavioral Health Patients",desc: "Mental wellness integrated alongside physical chronic care management." },
-  { icon: Salad,           label: "Nutrition-Guided Patients", desc: "Medically tailored meal plans coordinated with clinical dietary goals." },
+  { icon: HeartPulse,     label: "Chronic Disease Patients",  desc: "COPD, heart failure, diabetes, hypertension, and more managed daily." },
+  { icon: PersonStanding, label: "Older Adults at Home",      desc: "Independence supported with fall detection and continuous vitals oversight." },
+  { icon: Moon,           label: "Sleep Apnea Patients",      desc: "CPAP compliance tracked and therapy outcomes monitored remotely." },
+  { icon: Users,          label: "Value-Based Care Partners", desc: "Physicians and ACOs reducing readmissions and improving STAR ratings." },
+  { icon: Brain,          label: "Behavioral Health Patients",desc: "Mental wellness integrated alongside physical chronic care management." },
+  { icon: Salad,          label: "Nutrition-Guided Patients", desc: "Medically tailored meal plans coordinated with clinical dietary goals." },
 ];
 
 const programs = [
-  { icon: Brain,       title: "Mental Health",          desc: "Structured behavioral health support integrated into chronic care plans.",    href: "/programs/wellness" },
-  { icon: Moon,        title: "Sleep Health",           desc: "Home sleep testing and therapy compliance monitoring for all ages.",          href: "/programs/osa" },
-  { icon: Salad,       title: "Nutrition and Weight",   desc: "Clinically tailored meal programs and medically supervised weight management.", href: "/programs/nutrition/diet/meals" },
-  { icon: Heart,       title: "Heart Health",           desc: "Daily weight, blood pressure, and symptom tracking for cardiac patients.",    href: "/programs/ccm/heart-failure" },
-  { icon: Wind,        title: "Respiratory Care",       desc: "Continuous oxygen saturation and spirometry monitoring for COPD patients.",   href: "/programs/copd" },
-  { icon: ShieldCheck, title: "Safety and Monitoring",  desc: "Wearable fall detection with 24/7 alert escalation to caregivers.",         href: "/programs/fall-detection" },
+  { icon: Brain,       title: "Mental Health",       desc: "Structured behavioral health support integrated into chronic care plans.",       href: "/programs/wellness" },
+  { icon: Moon,        title: "Sleep Health",         desc: "Home sleep testing and therapy compliance monitoring for all ages.",            href: "/programs/osa" },
+  { icon: Salad,       title: "Nutrition and Weight", desc: "Clinically tailored meal programs and medically supervised weight management.", href: "/programs/nutrition/diet/meals" },
+  { icon: Heart,       title: "Heart Health",         desc: "Daily weight, blood pressure, and symptom tracking for cardiac patients.",      href: "/programs/ccm/heart-failure" },
+  { icon: Wind,        title: "Respiratory Care",     desc: "Continuous oxygen saturation and spirometry monitoring for COPD patients.",     href: "/programs/copd" },
+  { icon: ShieldCheck, title: "Safety and Monitoring",desc: "Wearable fall detection with 24/7 alert escalation to caregivers.",           href: "/programs/fall-detection" },
 ];
 
 const team = [
-  {
-    icon: Stethoscope,
-    role: "Medical Director",
-    name: "Board-Certified Physician",
-    desc: "Oversees all clinical protocols, program standards, and escalation pathways across every monitoring program.",
-  },
-  {
-    icon: UserCheck,
-    role: "Nurse Practitioners and PAs",
-    name: "Advanced Practice Providers",
-    desc: "Review daily patient readings, coordinate with referring physicians, and manage clinical interventions.",
-  },
-  {
-    icon: Users,
-    role: "Care Coordination Team",
-    name: "Dedicated Support Staff",
-    desc: "Handle patient onboarding, device setup, caregiver communication, and ongoing scheduling.",
-  },
+  { icon: Stethoscope, role: "Medical Director",              name: "Board-Certified Physician",    desc: "Oversees all clinical protocols, program standards, and escalation pathways across every monitoring program." },
+  { icon: UserCheck,   role: "Nurse Practitioners and PAs",   name: "Advanced Practice Providers",  desc: "Review daily patient readings, coordinate with referring physicians, and manage clinical interventions." },
+  { icon: Users,       role: "Care Coordination Team",        name: "Dedicated Support Staff",      desc: "Handle patient onboarding, device setup, caregiver communication, and ongoing scheduling." },
 ];
 
+/* ─── Static Dashboard Mockup ────────────────────────────────────── */
+function DashboardMockup() {
+  return (
+    <div
+      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl w-full"
+      role="img"
+      aria-label="Illustration of a patient monitoring dashboard"
+    >
+      {/* Header row */}
+      <div className="flex items-center justify-between mb-5">
+        <div>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Patient Overview</p>
+          <p className="text-sm font-bold text-[#1B3A5C] mt-0.5">Today — Live</p>
+        </div>
+        <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
+          Syncing
+        </span>
+      </div>
+
+      {/* Vitals row */}
+      <div className="grid grid-cols-3 gap-3 mb-5">
+        {[
+          { label: "SpO₂", value: "97%", status: "Normal", color: "emerald" },
+          { label: "BP", value: "122/80", status: "Stable", color: "blue" },
+          { label: "Weight", value: "183 lb", status: "On Target", color: "emerald" },
+        ].map(({ label, value, status, color }) => (
+          <div
+            key={label}
+            className="rounded-xl bg-slate-50 border border-slate-100 p-3 flex flex-col gap-1"
+          >
+            <span className="text-xs text-slate-400 font-medium">{label}</span>
+            <span className="text-lg font-bold text-[#1B3A5C] leading-none">{value}</span>
+            <span
+              className={`text-xs font-semibold px-1.5 py-0.5 rounded-full w-fit
+                ${color === "emerald"
+                  ? "bg-emerald-50 text-emerald-700"
+                  : "bg-blue-50 text-blue-700"
+                }`}
+            >
+              {status}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Fake chart — static bar viz */}
+      <div className="mb-4">
+        <p className="text-xs text-slate-400 font-medium mb-2">7-Day Blood Pressure Trend</p>
+        <div className="flex items-end gap-1.5 h-16">
+          {[55, 72, 60, 80, 65, 70, 58].map((h, i) => (
+            <div key={i} className="flex-1 rounded-t-sm" style={{
+              height: `${h}%`,
+              backgroundColor: i === 3 ? "#0D7377" : "#E2EBF4",
+            }} aria-hidden="true" />
+          ))}
+        </div>
+        <div className="flex justify-between mt-1">
+          {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
+            <span key={d} className="text-xs text-slate-300 flex-1 text-center">{d}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Alert row */}
+      <div className="flex items-center gap-3 rounded-xl bg-teal-50 border border-teal-100 p-3">
+        <Wifi size={16} className="text-[#0D7377] shrink-0" aria-hidden="true" />
+        <div className="min-w-0">
+          <p className="text-xs font-semibold text-[#0D7377]">Readings received 7 of 7 days</p>
+          <p className="text-xs text-teal-600 truncate">Next physician report: Friday</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ═══════════════════════════════════════════════════════════════════
-   PAGE COMPONENT
+   PAGE
    ═══════════════════════════════════════════════════════════════════ */
 export default function HomePage() {
   return (
@@ -100,72 +151,56 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="hero-heading"
-        style={{
-          background: "linear-gradient(150deg, var(--color-primary) 0%, #1e4d75 55%, #164463 100%)",
-          paddingTop: "clamp(100px, 12vw, 140px)",
-          paddingBottom: "clamp(80px, 10vw, 120px)",
-        }}
+        className="relative overflow-hidden bg-[#1B3A5C] pt-[clamp(100px,12vw,140px)] pb-[clamp(80px,10vw,120px)]"
       >
-        <div style={wrap}>
+        {/* Radial depth gradient */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 30% 20%, rgba(30,77,117,0.9) 0%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto max-w-[1100px] px-6">
           {/* Headline */}
           <h1
             id="hero-heading"
-            className="text-balance mb-6"
-            style={{
-              color: "#ffffff",
-              fontSize: "clamp(2.25rem, 5.5vw, 3.25rem)",
-              fontWeight: 700,
-              maxWidth: "720px",
-              lineHeight: 1.15,
-              letterSpacing: "-0.02em",
-            }}
+            className="text-balance mb-6 max-w-[720px] text-[clamp(2.25rem,5.5vw,3.25rem)] font-bold leading-[1.15] tracking-tight text-white"
           >
             Care That Watches Over You Every Day
           </h1>
 
           {/* Subheadline */}
-          <p
-            className="mb-10"
-            style={{
-              color: "rgba(255,255,255,0.82)",
-              fontSize: "clamp(1rem, 2.2vw, 1.25rem)",
-              maxWidth: "580px",
-              lineHeight: 1.7,
-            }}
-          >
-            Priority Home Monitor gives patients with chronic conditions a
-            dedicated clinical team that reviews their vital signs daily and
-            acts on changes before they become emergencies — all from home.
+          <p className="mb-10 max-w-[560px] text-[clamp(1rem,2.2vw,1.2rem)] leading-[1.7] text-white/80">
+            Priority Home Monitor gives patients with chronic conditions a dedicated
+            clinical team that reviews their vital signs daily and acts on changes
+            before they become emergencies — all from home.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-wrap gap-4 items-center mb-14">
+          <div className="mb-14 flex flex-wrap items-center gap-4">
             <Link
               href="/refer"
-              className="btn-primary"
-              style={{ height: "52px", fontSize: "1.0625rem", paddingInline: "2rem" }}
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-lg bg-[#0D7377] px-8 text-[1.0625rem] font-bold text-white transition-colors hover:bg-[#0a5f63] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0D7377]"
+              style={{ height: "52px" }}
             >
               Refer a Patient
-              <ArrowRight size={18} className="ml-2 shrink-0" />
+              <ArrowRight size={18} aria-hidden="true" />
             </Link>
             <Link
               href="/contact"
-              className="btn-secondary"
-              style={{
-                height: "52px",
-                fontSize: "1.0625rem",
-                paddingInline: "2rem",
-                borderColor: "rgba(255,255,255,0.55)",
-                color: "#ffffff",
-              }}
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-lg border-2 border-white/40 px-8 text-[1.0625rem] font-bold text-white transition-colors hover:border-white/70 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
+              style={{ height: "52px" }}
             >
               Request a Provider Consultation
             </Link>
           </div>
 
-          {/* Trust Badges */}
+          {/* Trust Badges — glass effect */}
           <div
-            className="grid grid-cols-2 md:grid-cols-4 gap-4"
+            className="grid grid-cols-2 gap-3 md:grid-cols-4"
             role="list"
             aria-label="Trust indicators"
           >
@@ -173,20 +208,16 @@ export default function HomePage() {
               <div
                 key={label}
                 role="listitem"
-                className="flex items-start gap-3 rounded-xl p-4"
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.08)",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                }}
+                className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm"
               >
                 <Icon
                   size={22}
-                  style={{ color: "var(--color-accent)", flexShrink: 0, marginTop: "2px" }}
+                  className="mt-0.5 shrink-0 text-[#0D7377]"
                   aria-hidden="true"
                 />
                 <div>
-                  <p className="font-semibold text-sm text-white">{label}</p>
-                  <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>{sub}</p>
+                  <p className="text-sm font-semibold text-white">{label}</p>
+                  <p className="mt-0.5 text-xs text-white/55">{sub}</p>
                 </div>
               </div>
             ))}
@@ -195,37 +226,36 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          2. WHAT IS HOME MONITORING
+          2. WHAT IS HOME MONITORING — BENTO BOX
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="what-heading"
-        style={{ ...sectionPy, backgroundColor: "var(--color-surface)" }}
+        className="bg-[#F8FAFC] py-[clamp(80px,10vw,100px)]"
       >
-        <div style={wrap}>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left: copy */}
+        <div className="mx-auto max-w-[1100px] px-6">
+          <div className="grid items-center gap-12 md:grid-cols-2">
+            {/* Left: copy + feature list */}
             <div>
-              <span
-                className="inline-block text-xs font-bold uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
-                style={{ backgroundColor: "rgba(13,115,119,0.1)", color: "var(--color-accent)" }}
+              <Badge
+                className="mb-4 bg-teal-50 text-[#0D7377] hover:bg-teal-50"
+                variant="secondary"
               >
                 How It Works
-              </span>
+              </Badge>
               <h2
                 id="what-heading"
-                className="mb-5"
-                style={{ color: "var(--color-primary)", fontWeight: 700 }}
+                className="mb-5 text-[clamp(1.75rem,4vw,2.25rem)] font-bold leading-tight tracking-tight text-[#1B3A5C]"
               >
                 Continuous Care Between Every Appointment
               </h2>
-              <p className="mb-4" style={{ color: "var(--color-text-muted)", lineHeight: 1.75 }}>
+              <p className="mb-6 leading-[1.75] text-slate-500">
                 Most chronic conditions deteriorate silently between quarterly office
                 visits. Remote patient monitoring closes that gap. Our clinical team
                 reviews patient readings every single day and contacts the physician
                 when a reading requires intervention.
               </p>
 
-              <ul role="list" className="flex flex-col gap-3 mt-6">
+              <ul role="list" className="flex flex-col gap-4">
                 {[
                   "Clinically validated devices shipped directly to the patient",
                   "Daily data reviewed by our clinical team, not an algorithm alone",
@@ -235,10 +265,10 @@ export default function HomePage() {
                   <li key={item} className="flex items-start gap-3">
                     <CheckCircle2
                       size={19}
-                      style={{ color: "var(--color-accent)", flexShrink: 0, marginTop: "2px" }}
+                      className="mt-0.5 shrink-0 text-[#0D7377]"
                       aria-hidden="true"
                     />
-                    <span style={{ color: "var(--color-text-primary)", lineHeight: 1.6, fontSize: "0.9375rem" }}>
+                    <span className="text-[0.9375rem] leading-[1.6] text-[#1A1A2E]">
                       {item}
                     </span>
                   </li>
@@ -246,34 +276,8 @@ export default function HomePage() {
               </ul>
             </div>
 
-            {/* Right: visual placeholder */}
-            <div
-              className="flex flex-col items-center justify-center rounded-2xl"
-              style={{
-                backgroundColor: "#E8EFF6",
-                border: "1px solid var(--color-border)",
-                minHeight: "340px",
-                gap: "16px",
-              }}
-              role="img"
-              aria-label="Patient monitoring dashboard illustration"
-            >
-              <Activity
-                size={56}
-                style={{ color: "var(--color-accent)", opacity: 0.7 }}
-                aria-hidden="true"
-              />
-              <p
-                className="text-sm font-medium text-center px-8"
-                style={{ color: "var(--color-text-muted)" }}
-              >
-                Clinical monitoring dashboard
-                <br />
-                <span style={{ fontSize: "0.8125rem", opacity: 0.7 }}>
-                  Patient portal view coming in Phase 3
-                </span>
-              </p>
-            </div>
+            {/* Right: Static Dashboard Mockup */}
+            <DashboardMockup />
           </div>
         </div>
       </section>
@@ -283,64 +287,44 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="serve-heading"
-        style={{ ...sectionPy, backgroundColor: "#ffffff", borderTop: "1px solid var(--color-border)" }}
+        className="border-t border-[#E2EBF4] bg-white py-[clamp(80px,10vw,100px)]"
       >
-        <div style={wrap}>
-          <div className="text-center mb-12">
-            <span
-              className="inline-block text-xs font-bold uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
-              style={{ backgroundColor: "rgba(13,115,119,0.1)", color: "var(--color-accent)" }}
-            >
+        <div className="mx-auto max-w-[1100px] px-6">
+          <div className="mb-12 text-center">
+            <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Patient Population
-            </span>
+            </Badge>
             <h2
               id="serve-heading"
-              style={{ color: "var(--color-primary)", fontWeight: 700 }}
+              className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C]"
             >
               Who We Serve
             </h2>
-            <p
-              className="mt-3 mx-auto"
-              style={{ color: "var(--color-text-muted)", maxWidth: "520px", lineHeight: 1.7 }}
-            >
+            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-slate-500">
               Our programs are designed for patients managing complex chronic
               conditions, and the physicians and care teams who support them.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {weServe.map(({ icon: Icon, label, desc }) => (
               <Card
                 key={label}
-                className="border-0 shadow-sm"
-                style={{
-                  backgroundColor: "var(--color-surface)",
-                  border: "1px solid var(--color-border)",
-                }}
+                className="border border-[#E2EBF4] bg-[#F8FAFC] shadow-none transition-all duration-300 hover:-translate-y-1 hover:border-[#0D7377]/50 hover:shadow-lg"
               >
                 <CardHeader>
                   <div
-                    className="flex items-center justify-center rounded-lg mb-1"
-                    style={{
-                      width: "44px",
-                      height: "44px",
-                      backgroundColor: "rgba(13,115,119,0.1)",
-                    }}
+                    className="mb-1 flex h-11 w-11 items-center justify-center rounded-lg bg-teal-50"
                     aria-hidden="true"
                   >
-                    <Icon size={22} style={{ color: "var(--color-accent)" }} />
+                    <Icon size={22} className="text-[#0D7377]" />
                   </div>
-                  <CardTitle
-                    className="font-semibold"
-                    style={{ color: "var(--color-primary)", fontSize: "1rem" }}
-                  >
+                  <CardTitle className="text-base font-semibold text-[#1B3A5C]">
                     {label}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm" style={{ color: "var(--color-text-muted)", lineHeight: 1.65 }}>
-                    {desc}
-                  </p>
+                  <p className="text-sm leading-[1.65] text-slate-500">{desc}</p>
                 </CardContent>
               </Card>
             ))}
@@ -353,69 +337,48 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="programs-heading"
-        style={{ ...sectionPy, backgroundColor: "var(--color-surface)", borderTop: "1px solid var(--color-border)" }}
+        className="border-t border-[#E2EBF4] bg-[#F8FAFC] py-[clamp(80px,10vw,100px)]"
       >
-        <div style={wrap}>
-          <div className="text-center mb-12">
-            <span
-              className="inline-block text-xs font-bold uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
-              style={{ backgroundColor: "rgba(13,115,119,0.1)", color: "var(--color-accent)" }}
-            >
+        <div className="mx-auto max-w-[1100px] px-6">
+          <div className="mb-12 text-center">
+            <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Specialties
-            </span>
+            </Badge>
             <h2
               id="programs-heading"
-              style={{ color: "var(--color-primary)", fontWeight: 700 }}
+              className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C]"
             >
               Our Wellness Programs
             </h2>
-            <p
-              className="mt-3 mx-auto"
-              style={{ color: "var(--color-text-muted)", maxWidth: "520px", lineHeight: 1.7 }}
-            >
-              Each program is designed around a specific clinical need, with
-              devices and care protocols tailored accordingly.
+            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-slate-500">
+              Each program is designed around a specific clinical need, with devices
+              and care protocols tailored accordingly.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {programs.map(({ icon: Icon, title, desc, href }) => (
               <Card
                 key={title}
-                className="flex flex-col"
-                style={{
-                  backgroundColor: "#ffffff",
-                  border: "1px solid var(--color-border)",
-                  boxShadow: "0 1px 6px rgba(27,58,92,0.06)",
-                }}
+                className="flex flex-col border border-[#E2EBF4] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#0D7377]/50 hover:shadow-lg"
               >
                 <CardHeader>
                   <div
-                    className="flex items-center justify-center rounded-lg mb-1"
-                    style={{
-                      width: "44px",
-                      height: "44px",
-                      backgroundColor: "rgba(27,58,92,0.07)",
-                    }}
+                    className="mb-1 flex h-11 w-11 items-center justify-center rounded-lg bg-[#1B3A5C]/8"
                     aria-hidden="true"
                   >
-                    <Icon size={22} style={{ color: "var(--color-primary)" }} />
+                    <Icon size={22} className="text-[#1B3A5C]" />
                   </div>
-                  <CardTitle
-                    style={{ color: "var(--color-primary)", fontSize: "1rem", fontWeight: 600 }}
-                  >
+                  <CardTitle className="text-base font-semibold text-[#1B3A5C]">
                     {title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="flex flex-col gap-4 flex-1">
-                  <p className="text-sm" style={{ color: "var(--color-text-muted)", lineHeight: 1.65 }}>
-                    {desc}
-                  </p>
+                <CardContent className="flex flex-1 flex-col gap-4">
+                  <p className="text-sm leading-[1.65] text-slate-500">{desc}</p>
                   <div className="mt-auto">
                     <Link
                       href={href}
-                      className="link-teal text-sm font-semibold inline-flex items-center gap-1"
-                      style={{ minHeight: "44px" }}
+                      className="inline-flex min-h-[44px] items-center gap-1 text-sm font-semibold text-[#0D7377] underline underline-offset-2 hover:text-[#0a5f63]"
                     >
                       Explore Program
                       <ArrowRight size={14} aria-hidden="true" />
@@ -426,11 +389,11 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="text-center mt-10">
+          <div className="mt-10 text-center">
             <Link
               href="/programs"
-              className="btn-secondary"
-              style={{ height: "50px", paddingInline: "2rem" }}
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-lg border-2 border-[#1B3A5C] px-8 font-bold text-[#1B3A5C] transition-colors hover:bg-[#1B3A5C] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#1B3A5C]"
+              style={{ height: "50px" }}
             >
               View All Programs
             </Link>
@@ -443,68 +406,42 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="team-heading"
-        style={{ ...sectionPy, backgroundColor: "#ffffff", borderTop: "1px solid var(--color-border)" }}
+        className="border-t border-[#E2EBF4] bg-white py-[clamp(80px,10vw,100px)]"
       >
-        <div style={wrap}>
-          <div className="text-center mb-12">
-            <span
-              className="inline-block text-xs font-bold uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
-              style={{ backgroundColor: "rgba(13,115,119,0.1)", color: "var(--color-accent)" }}
-            >
+        <div className="mx-auto max-w-[1100px] px-6">
+          <div className="mb-12 text-center">
+            <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Clinical Staff
-            </span>
+            </Badge>
             <h2
               id="team-heading"
-              style={{ color: "var(--color-primary)", fontWeight: 700 }}
+              className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C]"
             >
               Our Dedicated Team
             </h2>
-            <p
-              className="mt-3 mx-auto"
-              style={{ color: "var(--color-text-muted)", maxWidth: "520px", lineHeight: 1.7 }}
-            >
+            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-slate-500">
               Every patient enrolled in our programs is supported by a real clinical
               team, not automated messaging.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {team.map(({ icon: Icon, role, name, desc }) => (
               <div
                 key={role}
-                className="flex flex-col items-center text-center rounded-2xl p-8"
-                style={{
-                  backgroundColor: "var(--color-surface)",
-                  border: "1px solid var(--color-border)",
-                }}
+                className="flex flex-col items-center rounded-2xl border border-[#E2EBF4] bg-[#F8FAFC] p-8 text-center"
               >
-                {/* Avatar circle */}
                 <div
-                  className="flex items-center justify-center rounded-full mb-5"
-                  style={{
-                    width: "72px",
-                    height: "72px",
-                    backgroundColor: "rgba(13,115,119,0.12)",
-                  }}
+                  className="mb-5 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-teal-50"
                   aria-hidden="true"
                 >
-                  <Icon size={30} style={{ color: "var(--color-accent)" }} />
+                  <Icon size={30} className="text-[#0D7377]" />
                 </div>
-                <p
-                  className="text-xs font-bold uppercase tracking-widest mb-1"
-                  style={{ color: "var(--color-accent)" }}
-                >
+                <p className="mb-1 text-xs font-bold uppercase tracking-widest text-[#0D7377]">
                   {role}
                 </p>
-                <h3
-                  className="mb-3"
-                  style={{ color: "var(--color-primary)", fontWeight: 600, fontSize: "1.0625rem" }}
-                >
-                  {name}
-                </h3>
-                <p className="text-sm" style={{ color: "var(--color-text-muted)", lineHeight: 1.7 }}>
-                  {desc}
-                </p>
+                <h3 className="mb-3 text-[1.0625rem] font-semibold text-[#1B3A5C]">{name}</h3>
+                <p className="text-sm leading-[1.7] text-slate-500">{desc}</p>
               </div>
             ))}
           </div>
@@ -516,68 +453,33 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="banner-heading"
-        style={{
-          backgroundColor: "var(--color-accent)",
-          paddingTop: "clamp(72px, 9vw, 96px)",
-          paddingBottom: "clamp(72px, 9vw, 96px)",
-        }}
+        className="bg-[#0D7377] py-[clamp(72px,9vw,96px)]"
       >
-        <div style={{ ...wrap, textAlign: "center" }}>
+        <div className="mx-auto max-w-[1100px] px-6 text-center">
           <h2
             id="banner-heading"
-            className="text-balance mb-4"
-            style={{
-              color: "#ffffff",
-              fontWeight: 700,
-              fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-              letterSpacing: "-0.02em",
-            }}
+            className="mb-4 text-balance text-[clamp(1.75rem,4vw,2.5rem)] font-bold tracking-tight text-white"
           >
             Partner With Us for Proactive Care
           </h2>
-          <p
-            className="mb-10 mx-auto"
-            style={{
-              color: "rgba(255,255,255,0.82)",
-              maxWidth: "540px",
-              lineHeight: 1.7,
-              fontSize: "1.0625rem",
-            }}
-          >
+          <p className="mx-auto mb-10 max-w-[540px] text-[1.0625rem] leading-[1.7] text-white/82">
             See how Priority Home Monitor integrates with your practice workflow
             to reduce readmissions, improve patient outcomes, and capture remote
             care revenue you are already entitled to.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/platform"
-              className="inline-flex items-center justify-center gap-2 font-bold rounded-lg"
-              style={{
-                backgroundColor: "#ffffff",
-                color: "var(--color-accent)",
-                height: "52px",
-                paddingInline: "2rem",
-                fontSize: "1.0625rem",
-                minWidth: "44px",
-                textDecoration: "none",
-              }}
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-lg bg-white px-8 text-[1.0625rem] font-bold text-[#0D7377] transition-colors hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
+              style={{ height: "52px" }}
             >
               Request a Platform Demo
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
             <Link
               href="/refer"
-              className="inline-flex items-center justify-center gap-2 font-bold rounded-lg"
-              style={{
-                backgroundColor: "transparent",
-                color: "#ffffff",
-                border: "2px solid rgba(255,255,255,0.55)",
-                height: "52px",
-                paddingInline: "2rem",
-                fontSize: "1.0625rem",
-                minWidth: "44px",
-                textDecoration: "none",
-              }}
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-lg border-2 border-white/45 px-8 text-[1.0625rem] font-bold text-white transition-colors hover:border-white/70 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
+              style={{ height: "52px" }}
             >
               Refer a Patient Now
             </Link>
