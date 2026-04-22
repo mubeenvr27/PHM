@@ -4,7 +4,7 @@ import ProgramPage from "@/components/ProgramPage";
 export const metadata: Metadata = {
   title: "Diabetes Chronic Care Management (CCM) Program",
   description:
-    "Priority Home Monitor's Diabetes CCM program delivers structured, physician-guided remote monitoring for Type 1 and Type 2 diabetic patients — preventing complications through daily glucose oversight.",
+    "Priority Home Monitor's Diabetes CCM program delivers structured, physician guided remote monitoring for Type 1 and Type 2 diabetic patients, preventing complications through daily glucose oversight.",
 };
 
 const data = {
@@ -15,14 +15,14 @@ const data = {
   ctaHref: "/refer",
   qualifyingConditions: [
     "Diagnosed with Type 1 or Type 2 diabetes mellitus",
-    "A1C above 8.0% at most recent lab draw, or recurrent hypoglycemic episodes",
-    "Currently prescribed insulin, metformin, or other glucose-lowering medications",
+    "A1C above 8.0 percent at most recent lab draw or recurrent hypoglycemic episodes",
+    "Currently prescribed insulin, metformin, or other glucose lowering medications",
     "Medicare or Medicaid beneficiary with at least two chronic conditions",
   ],
   steps: [
     "The referring physician completes a short enrollment form and provides a CCM care plan order.",
     "Our clinical team contacts the patient within 48 hours to ship a connected glucose monitor and complete initial onboarding.",
-    "The patient logs daily readings; care coordinators provide monthly structured check-ins and relay data to the physician.",
+    "The patient logs daily readings and care coordinators provide monthly structured check-ins, relaying data to the physician.",
   ],
 };
 
