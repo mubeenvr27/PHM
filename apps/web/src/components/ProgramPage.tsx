@@ -9,6 +9,7 @@ interface ProgramPageProps {
   description: string;
   primaryCTA: string;
   ctaHref: string;
+  externalCta?: boolean;          // true → opens in new tab with rel=noopener
   qualifyingConditions: string[];
   steps: string[];
 }
@@ -60,12 +61,47 @@ function StepCard({
   );
 }
 
+/* ─── Polymorphic CTA — internal Link or external anchor ────── */
+function CtaLink({
+  href,
+  external,
+  className,
+  style,
+  children,
+}: {
+  href: string;
+  external?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}) {
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        style={style}
+      >
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className} style={style}>
+      {children}
+    </Link>
+  );
+}
+
 /* ─── Main Component ─────────────────────────────────────────── */
 export default function ProgramPage({
   programName,
   description,
   primaryCTA,
   ctaHref,
+  externalCta = false,
   qualifyingConditions,
   steps,
 }: ProgramPageProps) {
@@ -124,14 +160,15 @@ export default function ProgramPage({
 
             {/* Primary CTA */}
             <div className="flex flex-wrap gap-4 items-center">
-              <Link
+              <CtaLink
                 href={ctaHref}
+                external={externalCta}
                 className="btn-primary"
                 style={{ height: "52px", fontSize: "1.0625rem", paddingInline: "2rem" }}
               >
                 {primaryCTA}
                 <ArrowRight size={18} className="ml-2 shrink-0" />
-              </Link>
+              </CtaLink>
               <a
                 href="tel:+19725734015"
                 className="text-white font-semibold text-sm hover:underline"
@@ -275,14 +312,15 @@ export default function ProgramPage({
 
           {/* Bottom CTA */}
           <div className="text-center mt-14">
-            <Link
+            <CtaLink
               href={ctaHref}
+              external={externalCta}
               className="btn-primary"
               style={{ height: "52px", paddingInline: "2.5rem", fontSize: "1.0625rem" }}
             >
               {primaryCTA}
               <ArrowRight size={18} className="ml-2 shrink-0" />
-            </Link>
+            </CtaLink>
           </div>
         </div>
       </section>
@@ -303,8 +341,9 @@ export default function ProgramPage({
         <p className="text-white font-semibold text-sm leading-tight">
           Ready to get started?
         </p>
-        <Link
+        <CtaLink
           href={ctaHref}
+          external={externalCta}
           className="shrink-0 font-bold text-sm rounded-lg px-5"
           style={{
             backgroundColor: "#fff",
@@ -316,7 +355,7 @@ export default function ProgramPage({
           }}
         >
           {primaryCTA} →
-        </Link>
+        </CtaLink>
       </div>
 
       {/* Spacer so sticky bar doesn't overlap footer on mobile */}
