@@ -28,10 +28,10 @@ export default function Navbar() {
       role="banner"
       className="sticky top-0 z-50 h-20 bg-[#1B3A5C] bg-opacity-95 backdrop-blur-md border-b border-white/10 transition-all duration-300"
     >
-      <nav className="flex items-center justify-between h-20 px-6 max-w-[1100px] mx-auto" aria-label="Main navigation">
+      <nav className="flex w-full items-center justify-between h-20 px-6 max-w-[1100px] mx-auto" aria-label="Main navigation">
         
         {/* ── Logo ── */}
-        <Logo variant="horizontal" className="h-10 w-auto object-contain" />
+        <Logo variant="horizontal" className="shrink-0 flex items-center" />
 
         {/* ── Desktop Nav ── */}
         <div className="hidden md:flex items-center gap-6">

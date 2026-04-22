@@ -14,9 +14,9 @@ export default function Logo({ variant = "horizontal", className = "" }: LogoPro
             <Image
                 src={isHorizontal ? "/logo-horizontal.svg" : "/logo-stacked.svg"}
                 alt="Priority Home Monitor"
-                width={isHorizontal ? 200 : 150}
-                height={isHorizontal ? 60 : 150}
-                className="object-contain"
+                width={isHorizontal ? 250 : 150}
+                height={isHorizontal ? 75 : 150}
+                className={`object-contain ${isHorizontal ? 'w-56 lg:w-64 h-auto' : 'w-32 h-auto'}`}
                 priority
             />
         </Link>
