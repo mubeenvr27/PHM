@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 
 /* ── Inter — PHM design system typography ── */
 const inter = Inter({
@@ -54,6 +55,9 @@ export default function RootLayout({
 
         {/* Global footer */}
         <Footer />
+
+        {/* Global utilities */}
+        <ScrollToTop />
       </body>
     </html>
   );
