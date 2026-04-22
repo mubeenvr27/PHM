@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Phone, MapPin } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 
 const footerNav = [
   { label: "Home",            href: "/" },
@@ -20,24 +21,7 @@ export default function Footer() {
 
           {/* ── Brand Column ── */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span
-                className="flex items-center justify-center rounded-md font-extrabold text-sm"
-                style={{
-                  backgroundColor: "var(--color-accent)",
-                  color: "#fff",
-                  width: "36px",
-                  height: "36px",
-                  flexShrink: 0,
-                }}
-              >
-                PHM
-              </span>
-              <span className="font-bold text-lg leading-tight">
-                Priority<br />
-                <span style={{ color: "var(--color-accent)" }}>Home Monitor</span>
-              </span>
-            </div>
+            <Logo variant="stacked" className="mb-6" />
             <p className="text-sm" style={{ color: "rgba(255,255,255,0.65)", lineHeight: "1.6" }}>
               Remote patient monitoring for patients, families,
               and the healthcare providers who care for them.

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Menu, X } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 
 const programs = [
   { label: "COPD — Respiratory Care",              href: "/programs/copd" },
@@ -31,29 +32,9 @@ export default function Navbar() {
       <div className="content-max-width flex items-center justify-between py-0">
 
         {/* ── Logo ── */}
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-bold text-white text-lg leading-tight"
-          aria-label="Priority Home Monitor — Home"
-          style={{ minHeight: "64px" }}
-        >
-          <span
-            className="flex items-center justify-center rounded-md font-extrabold text-sm"
-            style={{
-              backgroundColor: "var(--color-accent)",
-              color: "#fff",
-              width: "36px",
-              height: "36px",
-              flexShrink: 0,
-            }}
-          >
-            PHM
-          </span>
-          <span className="hidden sm:block">
-            Priority<br />
-            <span style={{ color: "var(--color-accent)" }}>Home Monitor</span>
-          </span>
-        </Link>
+        <div className="flex items-center" style={{ minHeight: "64px" }}>
+          <Logo variant="horizontal" />
+        </div>
 
         {/* ── Desktop Nav ── */}
         <nav

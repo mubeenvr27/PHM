@@ -33,6 +33,9 @@ export const metadata: Metadata = {
       "Professional remote patient monitoring — your clinical team, every day.",
     type: "website",
   },
+  icons: {
+    icon: "/logo-horizontal.svg",
+  },
 };
 
 export default function RootLayout({
