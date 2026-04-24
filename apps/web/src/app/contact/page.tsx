@@ -89,7 +89,7 @@ export default function ContactPage() {
 
       {/* ── Header Banner ── */}
       <section className="bg-[#1B3A5C] py-16 lg:py-24">
-        <div className="mx-auto w-full px-6 text-center">
+        <div className="mx-auto max-w-7xl w-full px-6 text-center md:px-8">
           <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
             Contact Us
           </h1>
@@ -101,7 +101,7 @@ export default function ContactPage() {
 
       {/* ── Main Layout ── */}
       <section className="py-16 lg:py-24">
-        <div className="mx-auto w-full px-6">
+        <div className="mx-auto max-w-7xl w-full px-6 md:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
 
             {/* ── Left Column (Dark Form Card) ── */}

@@ -151,7 +151,7 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="hero-heading"
-        className="relative overflow-hidden bg-[#1B3A5C] pb-16 pt-24 lg:pb-24 lg:pt-32"
+        className="relative overflow-hidden bg-[#1B3A5C] pb-16 pt-24 lg:pb-24 lg:pt-32 w-full"
       >
         {/* Radial depth gradient */}
         <div
@@ -163,7 +163,7 @@ export default function HomePage() {
           aria-hidden="true"
         />
 
-        <div className="relative mx-auto w-full px-6">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-8 w-full">
           {/* Headline */}
           <h1
             id="hero-heading"
@@ -230,9 +230,9 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="what-heading"
-        className="bg-[#F8FAFC] py-16 lg:py-24"
+        className="bg-[#F8FAFC] py-16 lg:py-24 w-full"
       >
-        <div className="mx-auto w-full px-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
           <div className="grid items-center gap-12 md:grid-cols-2">
             {/* Left: copy + feature list */}
             <div>
@@ -287,9 +287,9 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="serve-heading"
-        className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24"
+        className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24 w-full"
       >
-        <div className="mx-auto w-full px-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Patient Population
@@ -337,9 +337,9 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="programs-heading"
-        className="border-t border-[#E2EBF4] bg-[#F8FAFC] py-16 lg:py-24"
+        className="border-t border-[#E2EBF4] bg-[#F8FAFC] py-16 lg:py-24 w-full"
       >
-        <div className="mx-auto w-full px-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Specialties
@@ -406,9 +406,9 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="team-heading"
-        className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24"
+        className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24 w-full"
       >
-        <div className="mx-auto w-full px-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Clinical Staff
@@ -453,9 +453,9 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="banner-heading"
-        className="bg-[#0D7377] py-16 lg:py-24"
+        className="bg-[#0D7377] py-16 lg:py-24 w-full"
       >
-        <div className="mx-auto w-full px-6 text-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full text-center">
           <h2
             id="banner-heading"
             className="mb-4 text-balance text-[clamp(1.75rem,4vw,2.5rem)] font-bold tracking-tight text-white"

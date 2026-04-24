@@ -371,7 +371,7 @@ export default function ProgramsPage() {
           strokeWidth={0.8}
         />
 
-        <div className="relative mx-auto w-full px-6">
+        <div className="relative mx-auto max-w-7xl w-full px-6 md:px-8">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
@@ -439,7 +439,7 @@ export default function ProgramsPage() {
         aria-labelledby="grid-label"
         className="bg-[#F8FAFC] py-[clamp(80px,10vw,100px)]"
       >
-        <div className="mx-auto w-full px-6">
+        <div className="mx-auto max-w-7xl w-full px-6 md:px-8">
           {/* Results count + active label */}
           <div className="mb-8 flex items-center justify-between">
             <h2
