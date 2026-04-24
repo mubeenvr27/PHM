@@ -163,7 +163,7 @@ export default function HomePage() {
           aria-hidden="true"
         />
 
-        <div className="relative mx-auto max-w-[1100px] px-6">
+        <div className="relative mx-auto w-full px-6">
           {/* Headline */}
           <h1
             id="hero-heading"
@@ -232,7 +232,7 @@ export default function HomePage() {
         aria-labelledby="what-heading"
         className="bg-[#F8FAFC] py-16 lg:py-24"
       >
-        <div className="mx-auto max-w-[1100px] px-6">
+        <div className="mx-auto w-full px-6">
           <div className="grid items-center gap-12 md:grid-cols-2">
             {/* Left: copy + feature list */}
             <div>
@@ -289,7 +289,7 @@ export default function HomePage() {
         aria-labelledby="serve-heading"
         className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24"
       >
-        <div className="mx-auto max-w-[1100px] px-6">
+        <div className="mx-auto w-full px-6">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Patient Population
@@ -339,7 +339,7 @@ export default function HomePage() {
         aria-labelledby="programs-heading"
         className="border-t border-[#E2EBF4] bg-[#F8FAFC] py-16 lg:py-24"
       >
-        <div className="mx-auto max-w-[1100px] px-6">
+        <div className="mx-auto w-full px-6">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Specialties
@@ -408,7 +408,7 @@ export default function HomePage() {
         aria-labelledby="team-heading"
         className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24"
       >
-        <div className="mx-auto max-w-[1100px] px-6">
+        <div className="mx-auto w-full px-6">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Clinical Staff
@@ -455,7 +455,7 @@ export default function HomePage() {
         aria-labelledby="banner-heading"
         className="bg-[#0D7377] py-16 lg:py-24"
       >
-        <div className="mx-auto max-w-[1100px] px-6 text-center">
+        <div className="mx-auto w-full px-6 text-center">
           <h2
             id="banner-heading"
             className="mb-4 text-balance text-[clamp(1.75rem,4vw,2.5rem)] font-bold tracking-tight text-white"

@@ -125,7 +125,7 @@ export default function ProgramPage({
           strokeWidth={0.7}
         />
 
-        <div className="relative mx-auto max-w-[1100px] px-6">
+        <div className="relative mx-auto w-full px-6">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
@@ -180,7 +180,7 @@ export default function ProgramPage({
         aria-labelledby="qualify-heading"
         className="bg-[#F8FAFC] py-[clamp(80px,10vw,100px)]"
       >
-        <div className="mx-auto max-w-[1100px] px-6">
+        <div className="mx-auto w-full px-6">
           <div className="grid items-start gap-12 md:grid-cols-2">
             {/* Left: copy */}
             <div>
@@ -229,7 +229,7 @@ export default function ProgramPage({
         aria-labelledby="steps-heading"
         className="border-t border-[#E2EBF4] bg-white py-[clamp(80px,10vw,100px)]"
       >
-        <div className="mx-auto max-w-[1100px] px-6">
+        <div className="mx-auto w-full px-6">
           {/* Section header */}
           <div className="mb-14 text-center">
             <span className="mb-3 inline-block rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#0D7377]">

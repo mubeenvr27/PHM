@@ -35,7 +35,7 @@ import { cn } from "@/lib/utils"
 
 /* ─── Data ─────────────────────────────────────────────────── */
 const PHM_PROGRAMS = [
-  "COPD",
+  "COPD (Chronic Obstructive Pulmonary Disease)",
   "Heart Failure",
   "Diabetes",
   "Hypertension",
@@ -50,11 +50,11 @@ const PHM_PROGRAMS = [
 
 /* ─── Schema ────────────────────────────────────────────────── */
 const contactFormSchema = z.object({
-  fullName:        z.string().min(2, { message: "Name must be at least 2 characters." }),
-  phone:           z.string().min(1, { message: "Phone number is required." }),
-  email:           z.string().email({ message: "Please enter a valid email address." }),
+  fullName: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  phone: z.string().min(1, { message: "Phone number is required." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
   programInterest: z.array(z.string()).optional(),
-  message:         z.string().min(10, { message: "Message must be at least 10 characters." }),
+  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
 })
 
 type ContactFormValues = z.infer<typeof contactFormSchema>
@@ -62,16 +62,16 @@ type ContactFormValues = z.infer<typeof contactFormSchema>
 /* ─── Page ──────────────────────────────────────────────────── */
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [popoverOpen, setPopoverOpen]   = useState(false)
+  const [popoverOpen, setPopoverOpen] = useState(false)
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      fullName:        "",
-      phone:           "",
-      email:           "",
+      fullName: "",
+      phone: "",
+      email: "",
       programInterest: [],
-      message:         "",
+      message: "",
     },
   })
 
@@ -89,7 +89,7 @@ export default function ContactPage() {
 
       {/* ── Header Banner ── */}
       <section className="bg-[#1B3A5C] py-16 lg:py-24">
-        <div className="mx-auto max-w-[1100px] px-6 text-center">
+        <div className="mx-auto w-full px-6 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
             Contact Us
           </h1>
@@ -101,7 +101,7 @@ export default function ContactPage() {
 
       {/* ── Main Layout ── */}
       <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-[1100px] px-6">
+        <div className="mx-auto w-full px-6">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
 
             {/* ── Left Column (Dark Form Card) ── */}
@@ -315,7 +315,7 @@ export default function ContactPage() {
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-[#0D7377]" />
                   <span className="text-[#1B3A5C]/80">
-                    A free consultation to evaluate your specific clinical needs and monitoring goals.
+                    Consultation to evaluate your specific clinical needs and monitoring goals.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
