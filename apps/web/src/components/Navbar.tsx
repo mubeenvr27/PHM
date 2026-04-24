@@ -6,32 +6,32 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
 const programs = [
-  { label: "COPD — Respiratory Care",              href: "/programs/copd" },
-  { label: "Hypertension Monitoring",               href: "/programs/hypertension" },
-  { label: "Diabetes — CCM",                        href: "/programs/ccm/diabetes" },
-  { label: "Heart Failure — CCM",                   href: "/programs/ccm/heart-failure" },
-  { label: "Obstructive Sleep Apnea",               href: "/programs/osa" },
-  { label: "Pediatric Sleep Monitoring",            href: "/programs/sleep/pediatric" },
-  { label: "Adult Sleep Monitoring",                href: "/programs/sleep/adult" },
-  { label: "ENT Sleep Program",                     href: "/programs/sleep/ent" },
-  { label: "Wellness: Mental, Nutrition, Weight",   href: "/programs/wellness" },
-  { label: "Prepared Meal Program (CookUnity)",     href: "/programs/nutrition/diet/meals" },
-  { label: "Fall Detection — Safety & Monitoring",  href: "/programs/fall-detection" },
+  { label: "COPD — Respiratory Care", href: "/programs/copd" },
+  { label: "Hypertension Monitoring", href: "/programs/hypertension" },
+  { label: "Diabetes — CCM", href: "/programs/ccm/diabetes" },
+  { label: "Heart Failure — CCM", href: "/programs/ccm/heart-failure" },
+  { label: "Obstructive Sleep Apnea", href: "/programs/osa" },
+  { label: "Pediatric Sleep Monitoring", href: "/programs/sleep/pediatric" },
+  { label: "Adult Sleep Monitoring", href: "/programs/sleep/adult" },
+  { label: "ENT Sleep Program", href: "/programs/sleep/ent" },
+  { label: "Wellness: Mental, Nutrition, Weight", href: "/programs/wellness" },
+  { label: "Prepared Meal Program (CookUnity)", href: "/programs/nutrition/diet/meals" },
+  { label: "Fall Detection — Safety & Monitoring", href: "/programs/fall-detection" },
 ];
 
 export default function Navbar() {
   const [programsOpen, setProgramsOpen] = useState(false);
-  const [mobileOpen, setMobileOpen]     = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header
       role="banner"
-      className="sticky top-0 z-50 h-20 bg-[#1B3A5C] bg-opacity-95 backdrop-blur-md border-b border-white/10 transition-all duration-300"
+      className="sticky top-0 z-50 h-16 bg-[#1B3A5C] bg-opacity-95 backdrop-blur-md border-b border-white/10 transition-all duration-300"
     >
-      <nav className="flex w-full items-center justify-between h-20 px-6 max-w-[1100px] mx-auto" aria-label="Main navigation">
-        
+      <nav className="flex w-full items-center justify-between h-16 px-6 max-w-[1100px] mx-auto" aria-label="Main navigation">
+
         {/* ── Logo ── */}
-        <Logo variant="horizontal" className="shrink-0 flex items-center" />
+        <Logo variant="horizontal" className="shrink-0 flex items-center w-40" />
 
         {/* ── Desktop Nav ── */}
         <div className="hidden md:flex items-center gap-6">
@@ -107,8 +107,8 @@ export default function Navbar() {
           {/* Primary CTA — Refer a Patient */}
           <Link
             href="/refer"
-            className="btn-primary ml-4"
-            style={{ height: "44px" }}
+            className="btn-primary ml-4 flex items-center justify-center rounded-md font-bold transition-colors"
+            style={{ height: "44px", backgroundColor: "#0D7377", color: "white", padding: "0 1.5rem" }}
           >
             Refer a Patient
           </Link>
@@ -178,7 +178,8 @@ export default function Navbar() {
             <Link
               href="/refer"
               onClick={() => setMobileOpen(false)}
-              className="btn-primary mt-2 w-full justify-center"
+              className="mt-2 w-full flex items-center justify-center rounded-md font-bold transition-colors"
+              style={{ height: "48px", backgroundColor: "#0D7377", color: "white" }}
             >
               Refer a Patient
             </Link>
