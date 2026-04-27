@@ -12,7 +12,8 @@ const data = {
   description:
     "Nutrition is medicine. For patients managing chronic conditions like heart failure, diabetes, or kidney disease, what they eat between appointments matters as much as any prescription. Our partnership with CookUnity delivers fresh, chef prepared, nutritionist reviewed meals tailored to each patient's clinical needs shipped directly to their door every week.",
   primaryCTA: "Order Meals via CookUnity",
-  ctaHref: "https://www.cookunity.com",
+  ctaHref: "https://www.cookunity.com/business/priorityhomemonitor",
+  externalCta: true,
   externalCta: true,
   qualifyingConditions: [
     "Managing a chronic condition with dietary restrictions such as low sodium for heart failure, carbohydrate controlled for diabetes, or renal diet for chronic kidney disease",

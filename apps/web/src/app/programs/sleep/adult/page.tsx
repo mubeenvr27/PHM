@@ -12,7 +12,7 @@ const data = {
   description:
     "Nearly 80 percent of moderate to severe sleep apnea cases remain undiagnosed in adults. Our home sleep testing program makes diagnosis accessible with no overnight lab stay required. From initial assessment through therapy initiation, our clinical team manages the entire pathway alongside your physician.",
   primaryCTA: "Start Adult Sleep Program",
-  ctaHref: "/refer",
+  ctaHref: "/contact",
   qualifyingConditions: [
     "Adult age 18 or older presenting with loud snoring, observed apnea events, or excessive daytime sleepiness",
     "Epworth Sleepiness Scale score of 10 or higher, or STOP BANG questionnaire indicating elevated risk",

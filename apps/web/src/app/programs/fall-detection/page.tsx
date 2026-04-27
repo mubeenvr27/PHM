@@ -12,7 +12,7 @@ const data = {
   description:
     "Falls are the leading cause of injury related death among adults over 65 and most happen at home. Our Fall Detection program equips patients with clinically validated wearable sensors that automatically detect a fall and immediately notify caregivers and our 24/7 care coordination team, ensuring help arrives without delay.",
   primaryCTA: "Enroll in Fall Protection",
-  ctaHref: "/refer",
+  ctaHref: "/contact",
   qualifyingConditions: [
     "History of one or more falls in the past 12 months with or without injury",
     "Gait abnormality, lower extremity weakness, or balance disorder documented by a physician",

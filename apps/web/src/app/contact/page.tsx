@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { ArrowRight, CheckCircle2, Check, ChevronsUpDown, Mail, MapPin, Phone, X } from "lucide-react"
+import { ArrowRight, CheckCircle2, Check, ChevronsUpDown, Mail, MapPin, Phone, X, Instagram, FileDown } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -357,6 +357,28 @@ export default function ContactPage() {
                   <div>
                     <p className="text-sm font-medium text-[#1B3A5C]/60">Location</p>
                     <p className="font-semibold text-[#1B3A5C]">Waxahachie, TX, USA</p>
+                  </div>
+                </li>
+                <li className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-50 text-[#0D7377]">
+                    <Instagram className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-[#1B3A5C]/60">Social</p>
+                    <a href="https://instagram.com/priorityhomemonitor" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#1B3A5C] hover:text-[#0D7377]">
+                      @priorityhomemonitor
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-50 text-[#0D7377]">
+                    <FileDown className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-[#1B3A5C]/60">Resources</p>
+                    <a href="/PRIORITY%20HOME%20LEAFLET.pdf" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#1B3A5C] hover:text-[#0D7377]">
+                      Download Program Flyer
+                    </a>
                   </div>
                 </li>
               </ul>

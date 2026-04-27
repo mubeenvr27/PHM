@@ -26,6 +26,9 @@ interface ProgramPageProps {
     quote: string;
     author: string;
   };
+  secondaryCTA?: string;
+  secondaryCtaHref?: string;
+  devices?: string[];
 }
 
 /* ─── Polymorphic CTA ──────────────────────────────────────────── */
@@ -77,6 +80,9 @@ export default function ProgramPage({
     quote: '"Daily monitoring provides the clinical confidence we need to keep patients out of the hospital while improving their quality of life."',
     author: "Clinical Advisory Board",
   },
+  secondaryCTA,
+  secondaryCtaHref,
+  devices,
 }: ProgramPageProps) {
   return (
     <>
@@ -143,6 +149,14 @@ export default function ProgramPage({
                   {primaryCTA}
                   <ArrowRight className="w-5 h-5" aria-hidden="true" />
                 </CtaLink>
+                {secondaryCTA && secondaryCtaHref && (
+                  <CtaLink
+                    href={secondaryCtaHref}
+                    className="inline-flex h-14 items-center justify-center rounded-xl border-2 border-white/20 px-6 text-base font-bold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    {secondaryCTA}
+                  </CtaLink>
+                )}
                 <a
                   href="tel:+19725734015"
                   className="inline-flex h-14 items-center gap-1.5 text-base font-semibold text-white/80 transition-colors hover:text-white px-4"
@@ -152,8 +166,8 @@ export default function ProgramPage({
               </div>
             </div>
 
-            {/* Right Column: Clinical Backing (Premium Glassmorphic Card) */}
-            <div className="w-full max-w-lg lg:ml-auto">
+            {/* Right Column: Clinical Backing & Devices */}
+            <div className="w-full max-w-lg lg:ml-auto space-y-6">
               <div className="bg-[#1B3A5C]/5 backdrop-blur-md border border-[#1B3A5C]/10 rounded-2xl p-8 shadow-lg relative overflow-hidden bg-white/10 border-white/20 text-white">
                 <div className="mb-8">
                   <span className="text-4xl font-extrabold tracking-tight text-[#6EE7E9]">{clinicalBacking.stat}</span>
@@ -177,6 +191,20 @@ export default function ProgramPage({
                   </div>
                 </div>
               </div>
+
+              {devices && devices.length > 0 && (
+                <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-lg">
+                  <h3 className="text-xs font-extrabold uppercase tracking-widest text-[#6EE7E9] mb-4">What's Inside Your Kit</h3>
+                  <ul className="space-y-3">
+                    {devices.map((device, i) => (
+                      <li key={i} className="flex items-start gap-3 text-white/90 text-sm font-medium">
+                        <CheckCircle2 size={18} className="text-[#0D7377] shrink-0 mt-0.5" />
+                        <span className="leading-snug">{device}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>

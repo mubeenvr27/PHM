@@ -12,7 +12,7 @@ const data = {
   description:
     "Untreated sleep apnea dramatically increases the risk of hypertension, stroke, and cardiac events yet CPAP adherence remains below 50 percent nationally. Our remote monitoring program tracks nightly therapy data, identifies compliance barriers early, and keeps your care team informed without requiring additional office visits.",
   primaryCTA: "Enroll in OSA Monitoring",
-  ctaHref: "/refer",
+  ctaHref: "/contact",
   qualifyingConditions: [
     "Diagnosed with mild, moderate, or severe obstructive sleep apnea via sleep study",
     "Prescribed CPAP, BiPAP, or APAP therapy within the last 90 days or currently on therapy",

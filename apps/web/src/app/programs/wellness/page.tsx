@@ -12,7 +12,7 @@ const data = {
   description:
     "Physical conditions rarely exist in isolation. Our Wellness program takes an integrative approach, addressing the mental health, nutritional, and weight management factors that directly drive chronic disease outcomes. Care coordinators work with patients between physician visits to build sustainable habits and reduce clinical risk.",
   primaryCTA: "Start Wellness Program",
-  ctaHref: "/refer",
+  ctaHref: "/contact",
   qualifyingConditions: [
     "BMI at or above 30, or BMI at or above 27 with one or more weight related comorbidities such as Type 2 diabetes or hypertension",
     "Diagnosed with anxiety, depression, or a stress related condition impacting chronic disease management",

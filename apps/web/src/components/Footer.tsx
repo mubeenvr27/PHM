@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, MapPin } from "lucide-react";
+import { Phone, MapPin, Instagram, FileDown } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
 const footerNav = [
@@ -74,6 +74,32 @@ export default function Footer() {
                     Waxahachie, TX
                   </address>
                 </div>
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/priorityhomemonitor"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+                  aria-label="Follow us on Instagram"
+                  style={{ minHeight: "44px" }}
+                >
+                  <Instagram size={16} style={{ color: "var(--color-accent)", flexShrink: 0 }} />
+                  <span className="font-semibold">Instagram</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/PRIORITY%20HOME%20LEAFLET.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+                  aria-label="Download Program Flyer"
+                  style={{ minHeight: "44px" }}
+                >
+                  <FileDown size={16} style={{ color: "var(--color-accent)", flexShrink: 0 }} />
+                  <span className="font-semibold">Download Program Flyer</span>
+                </a>
               </li>
             </ul>
 

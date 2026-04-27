@@ -449,7 +449,102 @@ export default function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          6. CONVERSION BANNER
+          6. PATIENT SUCCESS STORIES (Social Proof)
+          ══════════════════════════════════════════════════════ */}
+      <section
+        aria-labelledby="reviews-heading"
+        className="bg-[#F8FAFC] py-16 lg:py-24 w-full"
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
+          <div className="mb-12 text-center">
+            <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
+              Success Stories
+            </Badge>
+            <h2
+              id="reviews-heading"
+              className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C]"
+            >
+              Patient Success Stories
+            </h2>
+            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-slate-500">
+              Hear what our patients are saying about their experience with Pulmonics Home Monitoring.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { name: "John D.", text: "The daily monitoring has given my family so much peace of mind. The clinical team is always responsive and truly cares about my health.", rating: 5 },
+              { name: "Sarah M.", text: "I've been able to manage my COPD much better since starting this program. The equipment is easy to use and the support is fantastic.", rating: 5 },
+              { name: "Robert T.", text: "Pulmonics Home Monitoring caught an issue before it became an emergency. I can't thank them enough for their proactive care.", rating: 5 },
+            ].map((review, i) => (
+              <Card key={i} className="border-none shadow-sm hover:shadow-md transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex gap-1 mb-4 text-[#0D7377]">
+                    {[...Array(review.rating)].map((_, j) => (
+                      <svg key={j} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-slate-600 mb-4 text-sm leading-relaxed">&ldquo;{review.text}&rdquo;</p>
+                  <p className="font-semibold text-[#1B3A5C] text-sm">{review.name}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          7. FOLLOW US (Instagram Integration)
+          ══════════════════════════════════════════════════════ */}
+      <section
+        aria-labelledby="social-heading"
+        className="bg-white py-16 lg:py-24 w-full border-t border-[#E2EBF4]"
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full text-center">
+          <h2
+            id="social-heading"
+            className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C] mb-4"
+          >
+            Follow Us on Instagram
+          </h2>
+          <a 
+            href="https://instagram.com/priorityhomemonitor" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[#0D7377] font-semibold hover:text-[#0a5f63] transition-colors mb-10"
+          >
+            @priorityhomemonitor
+          </a>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map((i) => (
+              <a 
+                key={i}
+                href="https://instagram.com/priorityhomemonitor"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-square bg-slate-100 rounded-xl overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-[#1B3A5C]/0 group-hover:bg-[#1B3A5C]/10 transition-colors z-10 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 p-3 rounded-full text-[#1B3A5C]">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="w-full h-full bg-slate-200 animate-pulse flex items-center justify-center text-slate-400">
+                  <span className="text-xs font-medium">Post {i}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          8. CONVERSION BANNER
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="banner-heading"

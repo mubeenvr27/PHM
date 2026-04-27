@@ -13,6 +13,9 @@ const copdData = {
     "Chronic Obstructive Pulmonary Disease is manageable with the right daily support. Our remote monitoring program delivers clinical-grade oversight directly to your home so your care team can detect changes in your breathing before they become emergencies.",
   primaryCTA: "Refer a Patient",
   ctaHref: "/refer",
+  secondaryCTA: "Purchase Device Bundle",
+  secondaryCtaHref: "/shop",
+  devices: ["Digital Peak Flow Meter", "Bluetooth Pulse Oximeter"],
   qualifyingConditions: [
     "Diagnosed with COPD, emphysema, or chronic bronchitis",
     "One or more COPD related hospitalizations in the past 12 months",

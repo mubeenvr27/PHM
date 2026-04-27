@@ -12,7 +12,10 @@ const data = {
   description:
     "Heart failure readmissions are often preventable. A one kilogram overnight weight gain can signal dangerous fluid buildup days before a patient feels breathless. Our program catches those changes early, giving your physician the window they need to adjust diuretics and keep patients out of the hospital.",
   primaryCTA: "Start Heart Failure Program",
-  ctaHref: "/refer",
+  ctaHref: "/contact",
+  secondaryCTA: "Purchase Device Bundle",
+  secondaryCtaHref: "/shop",
+  devices: ["4G Blood Pressure Cuff", "4G Weight Scale"],
   qualifyingConditions: [
     "Diagnosed with congestive heart failure in any stage",
     "One or more heart failure related hospitalizations within the past 12 months",

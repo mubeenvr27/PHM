@@ -97,12 +97,14 @@ export default function Navbar() {
           </Link>
 
           {/* Platform Demo */}
-          <Link
-            href="/platform"
+          <a
+            href="https://calendly.com/priorityhomemonitor/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex h-12 items-center text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
           >
             Platform Demo
-          </Link>
+          </a>
 
           {/* Primary CTA — Refer a Patient */}
           <Link
@@ -167,14 +169,16 @@ export default function Navbar() {
             >
               Contact
             </Link>
-            <Link
-              href="/platform"
+            <a
+              href="https://calendly.com/priorityhomemonitor/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
               className="text-white px-2 py-2 rounded-md hover:bg-white/10 font-medium"
               style={{ minHeight: "44px", display: "flex", alignItems: "center" }}
             >
               Platform Demo
-            </Link>
+            </a>
             <Link
               href="/refer"
               onClick={() => setMobileOpen(false)}

@@ -12,7 +12,7 @@ const data = {
   description:
     "Ear, nose, and throat surgeons frequently operate on patients with underlying sleep disordered breathing. Our ENT Sleep program provides pre operative home sleep testing to stratify anesthetic risk and post operative monitoring to confirm surgical outcomes, delivered entirely without additional in office visits.",
   primaryCTA: "Enroll an ENT Patient",
-  ctaHref: "/refer",
+  ctaHref: "/contact",
   qualifyingConditions: [
     "Scheduled for adenotonsillectomy, uvulopalatopharyngoplasty, or other upper airway surgical procedures",
     "Pre operative evaluation requiring sleep apnea risk stratification",
