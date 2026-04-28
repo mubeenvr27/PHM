@@ -379,8 +379,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-[#1B3A5C]/60">Social</p>
-                    <a href="https://instagram.com/priorityhomemonitor" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#1B3A5C] hover:text-[#0D7377]">
-                      @priorityhomemonitor
+                    <a href="https://www.instagram.com/priority_home_monitor?igsh=MXZoYnJqMnd4MDk=" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#1B3A5C] hover:text-[#0D7377]">
+                      @priority_home_monitor
                     </a>
                   </div>
                 </li>

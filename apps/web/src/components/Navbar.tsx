@@ -88,6 +88,20 @@ export default function Navbar() {
             )}
           </div>
 
+          {/* Shop */}
+          <Link
+            href="/shop"
+            className="flex h-12 items-center text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
+          >
+            <span className="relative">
+              Shop
+              <span className="absolute -top-1 -right-3 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: "#0D7377" }}></span>
+                <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: "#0D7377" }}></span>
+              </span>
+            </span>
+          </Link>
+
           {/* Contact */}
           <Link
             href="/contact"
@@ -161,6 +175,17 @@ export default function Navbar() {
               </Link>
             ))}
             <hr style={{ borderColor: "rgba(255,255,255,0.15)", margin: "8px 0" }} />
+            <Link
+              href="/shop"
+              onClick={() => setMobileOpen(false)}
+              className="text-white px-2 py-2 rounded-md hover:bg-white/10 font-medium flex items-center gap-2"
+              style={{ minHeight: "44px" }}
+            >
+              Shop
+              <span className="text-[10px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "#0D7377", color: "white", lineHeight: 1 }}>
+                New
+              </span>
+            </Link>
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}

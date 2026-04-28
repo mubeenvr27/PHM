@@ -77,7 +77,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://instagram.com/priorityhomemonitor"
+                  href="https://www.instagram.com/priority_home_monitor?igsh=MXZoYnJqMnd4MDk="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
@@ -109,11 +109,11 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
-                  aria-label="Download Program Flyer"
+                  aria-label="PRIORITY HOME LEAFLET"
                   style={{ minHeight: "44px" }}
                 >
                   <FileDown size={16} style={{ color: "var(--color-accent)", flexShrink: 0 }} />
-                  <span className="font-semibold">Download Program Flyer</span>
+                  <span className="font-semibold">PRIORITY HOME LEAFLET</span>
                 </a>
               </li>
             </ul>

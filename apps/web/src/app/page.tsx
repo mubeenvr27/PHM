@@ -34,34 +34,57 @@ export const metadata: Metadata = {
 
 /* ─── Data ───────────────────────────────────────────────────────── */
 const trustBadges = [
-  { icon: Stethoscope, label: "Clinical Team",    sub: "Board-certified oversight" },
-  { icon: Activity,    label: "Daily Monitoring", sub: "Real-time readings reviewed" },
-  { icon: Clock,       label: "24/7 Safety",      sub: "Alerts actioned around the clock" },
-  { icon: ShieldCheck, label: "HIPAA Compliant",  sub: "Your data stays private" },
+  { icon: Stethoscope, label: "Clinical Team", sub: "Board-certified oversight" },
+  { icon: Activity, label: "Daily Monitoring", sub: "Real-time readings reviewed" },
+  { icon: Clock, label: "24/7 Safety", sub: "Alerts actioned around the clock" },
+  { icon: ShieldCheck, label: "HIPAA Compliant", sub: "Your data stays private" },
 ];
 
 const weServe = [
-  { icon: HeartPulse,     label: "Chronic Disease Patients",  desc: "COPD, heart failure, diabetes, hypertension, and more managed daily." },
-  { icon: PersonStanding, label: "Older Adults at Home",      desc: "Independence supported with fall detection and continuous vitals oversight." },
-  { icon: Moon,           label: "Sleep Apnea Patients",      desc: "CPAP compliance tracked and therapy outcomes monitored remotely." },
-  { icon: Users,          label: "Value-Based Care Partners", desc: "Physicians and ACOs reducing readmissions and improving STAR ratings." },
-  { icon: Brain,          label: "Behavioral Health Patients",desc: "Mental wellness integrated alongside physical chronic care management." },
-  { icon: Salad,          label: "Nutrition-Guided Patients", desc: "Medically tailored meal plans coordinated with clinical dietary goals." },
+  { icon: HeartPulse, label: "Chronic Disease Patients", desc: "COPD, heart failure, diabetes, hypertension, and more managed daily." },
+  { icon: PersonStanding, label: "Older Adults at Home", desc: "Independence supported with fall detection and continuous vitals oversight." },
+  { icon: Moon, label: "Sleep Apnea Patients", desc: "CPAP compliance tracked and therapy outcomes monitored remotely." },
+  { icon: Users, label: "Value-Based Care Partners", desc: "Physicians and ACOs reducing readmissions and improving STAR ratings." },
+  { icon: Brain, label: "Behavioral Health Patients", desc: "Mental wellness integrated alongside physical chronic care management." },
+  { icon: Salad, label: "Nutrition-Guided Patients", desc: "Medically tailored meal plans coordinated with clinical dietary goals." },
 ];
 
 const programs = [
-  { icon: Brain,       title: "Mental Health",       desc: "Structured behavioral health support integrated into chronic care plans.",       href: "/programs/wellness" },
-  { icon: Moon,        title: "Sleep Health",         desc: "Home sleep testing and therapy compliance monitoring for all ages.",            href: "/programs/osa" },
-  { icon: Salad,       title: "Nutrition and Weight", desc: "Clinically tailored meal programs and medically supervised weight management.", href: "/programs/nutrition/diet/meals" },
-  { icon: Heart,       title: "Heart Health",         desc: "Daily weight, blood pressure, and symptom tracking for cardiac patients.",      href: "/programs/ccm/heart-failure" },
-  { icon: Wind,        title: "Respiratory Care",     desc: "Continuous oxygen saturation and spirometry monitoring for COPD patients.",     href: "/programs/copd" },
-  { icon: ShieldCheck, title: "Safety and Monitoring",desc: "Wearable fall detection with 24/7 alert escalation to caregivers.",           href: "/programs/fall-detection" },
+  { icon: Brain, title: "Mental Health", desc: "Structured behavioral health support integrated into chronic care plans.", href: "/programs/wellness" },
+  { icon: Moon, title: "Sleep Health", desc: "Home sleep testing and therapy compliance monitoring for all ages.", href: "/programs/osa" },
+  { icon: Salad, title: "Nutrition and Weight", desc: "Clinically tailored meal programs and medically supervised weight management.", href: "/programs/nutrition/diet/meals" },
+  { icon: Heart, title: "Heart Health", desc: "Daily weight, blood pressure, and symptom tracking for cardiac patients.", href: "/programs/ccm/heart-failure" },
+  { icon: Wind, title: "Respiratory Care", desc: "Continuous oxygen saturation and spirometry monitoring for COPD patients.", href: "/programs/copd" },
+  { icon: ShieldCheck, title: "Safety and Monitoring", desc: "Wearable fall detection with 24/7 alert escalation to caregivers.", href: "/programs/fall-detection" },
+];
+
+const socialPosts = [
+  { 
+    url: "https://www.instagram.com/priority_home_monitor/reel/DXpkLyek2L2/",
+    label: "Instant Alert For Symptoms",
+    image: "/images/social/ig_post_1.png"
+  },
+  { 
+    url: "https://www.instagram.com/priority_home_monitor/p/DXpIw_IjZg3/",
+    label: "Smart Healthcare Savings",
+    image: "/images/social/ig_post_2.png"
+  },
+  { 
+    url: "https://www.instagram.com/priority_home_monitor/reel/DXh10vbCUFH/",
+    label: "Sudden Weight Gain Warning",
+    image: "/images/social/ig_post_3.png"
+  },
+  { 
+    url: "https://www.instagram.com/priority_home_monitor/p/DXhhJ42iDNz/",
+    label: "Healthcare Without Office Visits",
+    image: "/images/social/ig_post_4.png"
+  }
 ];
 
 const team = [
-  { icon: Stethoscope, role: "Medical Director",              name: "Board-Certified Physician",    desc: "Oversees all clinical protocols, program standards, and escalation pathways across every monitoring program." },
-  { icon: UserCheck,   role: "Nurse Practitioners and PAs",   name: "Advanced Practice Providers",  desc: "Review daily patient readings, coordinate with referring physicians, and manage clinical interventions." },
-  { icon: Users,       role: "Care Coordination Team",        name: "Dedicated Support Staff",      desc: "Handle patient onboarding, device setup, caregiver communication, and ongoing scheduling." },
+  { icon: Stethoscope, role: "Medical Director", name: "Board-Certified Physician", desc: "Oversees all clinical protocols, program standards, and escalation pathways across every monitoring program." },
+  { icon: UserCheck, role: "Nurse Practitioners and PAs", name: "Advanced Practice Providers", desc: "Review daily patient readings, coordinate with referring physicians, and manage clinical interventions." },
+  { icon: Users, role: "Care Coordination Team", name: "Dedicated Support Staff", desc: "Handle patient onboarding, device setup, caregiver communication, and ongoing scheduling." },
 ];
 
 /* ─── Static Dashboard Mockup ────────────────────────────────────── */
@@ -250,9 +273,7 @@ export default function HomePage() {
               </h2>
               <p className="mb-6 leading-[1.75] text-slate-500">
                 Most chronic conditions deteriorate silently between quarterly office
-                visits. Remote patient monitoring closes that gap. Our clinical team
-                reviews patient readings every single day and contacts the physician
-                when a reading requires intervention.
+                visits. Remote patient monitoring closes that gap.
               </p>
 
               <ul role="list" className="flex flex-col gap-4">
@@ -509,33 +530,42 @@ export default function HomePage() {
           >
             Follow Us on Instagram
           </h2>
-          <a 
-            href="https://instagram.com/priorityhomemonitor" 
-            target="_blank" 
+          <a
+            href="https://www.instagram.com/priority_home_monitor?igsh=MXZoYnJqMnd4MDk="
+            target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-[#0D7377] font-semibold hover:text-[#0a5f63] transition-colors mb-10"
           >
-            @priorityhomemonitor
+            @priority_home_monitor
           </a>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1, 2, 3, 4].map((i) => (
-              <a 
+            {socialPosts.map((post, i) => (
+              <a
                 key={i}
-                href="https://instagram.com/priorityhomemonitor"
+                href={post.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative aspect-square bg-slate-100 rounded-xl overflow-hidden"
+                className="group relative aspect-square bg-slate-100 rounded-xl overflow-hidden shadow-sm transition-transform hover:scale-[1.02]"
               >
-                <div className="absolute inset-0 bg-[#1B3A5C]/0 group-hover:bg-[#1B3A5C]/10 transition-colors z-10 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 p-3 rounded-full text-[#1B3A5C]">
+                {/* Image background */}
+                <img 
+                  src={post.image} 
+                  alt={post.label} 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+
+                <div className="absolute inset-0 bg-[#1B3A5C]/0 group-hover:bg-[#1B3A5C]/20 transition-colors z-10 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 p-3 rounded-full text-[#1B3A5C] shadow-lg">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                   </div>
                 </div>
-                <div className="w-full h-full bg-slate-200 animate-pulse flex items-center justify-center text-slate-400">
-                  <span className="text-xs font-medium">Post {i}</span>
+
+                {/* Optional overlay label */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <p className="text-white text-[10px] font-bold uppercase tracking-wider">{post.label}</p>
                 </div>
               </a>
             ))}
