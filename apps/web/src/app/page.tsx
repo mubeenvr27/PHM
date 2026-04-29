@@ -27,9 +27,9 @@ import { Badge } from "@/components/ui/badge";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Priority Home Monitor — Care That Watches Over You Every Day",
+  title: "Priority Home Monitor - Care That Watches Over You Every Day",
   description:
-    "Priority Home Monitor delivers clinical-grade remote patient monitoring for COPD, Heart Failure, Diabetes, Hypertension, Sleep Apnea, and more. Daily oversight from a dedicated clinical team — all from home.",
+    "Priority Home Monitor delivers clinical-grade remote patient monitoring for COPD, Heart Failure, Diabetes, Hypertension, Sleep Apnea, and more. Daily oversight from a dedicated clinical team - all from home.",
 };
 
 /* ─── Data ───────────────────────────────────────────────────────── */
@@ -59,23 +59,23 @@ const programs = [
 ];
 
 const socialPosts = [
-  { 
+  {
     url: "https://www.instagram.com/priority_home_monitor/reel/DXpkLyek2L2/",
     label: "Instant Alert For Symptoms",
-    image: "/images/social/ig_post_1.png"
+    image: "/images/social/ig_post_1.jpg"
   },
-  { 
+  {
     url: "https://www.instagram.com/priority_home_monitor/p/DXpIw_IjZg3/",
     label: "Smart Healthcare Savings",
-    image: "/images/social/ig_post_2.png"
+    image: "/images/social/ig_post_2.jpg"
   },
-  { 
+  {
     url: "https://www.instagram.com/priority_home_monitor/reel/DXh10vbCUFH/",
     label: "Sudden Weight Gain Warning",
-    image: "/images/social/ig_post_3.png"
+    image: "/images/social/ig_post_3.jpg"
   },
-  { 
-    url: "https://www.instagram.com/priority_home_monitor/p/DXhhJ42iDNz/",
+  {
+    url: "https://www.instagram.com/reel/DXsI-SzGwKP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     label: "Healthcare Without Office Visits",
     image: "/images/social/ig_post_4.png"
   }
@@ -174,39 +174,51 @@ export default function HomePage() {
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="hero-heading"
-        className="relative overflow-hidden bg-[#1B3A5C] pb-16 pt-24 lg:pb-24 lg:pt-32 w-full"
+        className="relative overflow-hidden bg-[#1B3A5C] pb-16 pt-32 lg:pb-24 lg:pt-40 w-full flex flex-col min-h-[90vh]"
       >
-        {/* Radial depth gradient */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 60% at 30% 20%, rgba(30,77,117,0.9) 0%, transparent 70%)",
+        {/* Video Background */}
+        <video
+          id="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/web-vid.mp4" type="video/mp4" />
+        </video>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.getElementById('hero-video').playbackRate = 0.60;`
           }}
-          aria-hidden="true"
         />
 
-        <div className="relative max-w-7xl mx-auto px-6 md:px-8 w-full">
+        {/* Visual Overlay */}
+        <div className="absolute inset-0 w-full h-full bg-[#1B3A5C]/70" aria-hidden="true" />
+
+        {/* Centered Main Content */}
+        <div className="relative max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col items-center justify-center text-center flex-1">
           {/* Headline */}
           <h1
             id="hero-heading"
-            className="text-balance mb-6 max-w-[720px] text-[clamp(2.25rem,5.5vw,3.25rem)] font-bold leading-[1.15] tracking-tight text-white"
+            className="text-balance mb-6 max-w-5xl text-5xl md:text-7xl font-bold leading-[1.15] tracking-tight text-white"
           >
             Care That Watches Over You Every Day
           </h1>
 
           {/* Subheadline */}
-          <p className="mb-10 max-w-[560px] text-[clamp(1rem,2.2vw,1.2rem)] leading-[1.7] text-white/80">
+          <p className="mb-10 max-w-3xl text-xl md:text-2xl leading-[1.7] text-white/80">
             Priority Home Monitor gives patients with chronic conditions a dedicated
             clinical team that reviews their vital signs daily and acts on changes
-            before they become emergencies — all from home.
+            before they become emergencies - all from home.
           </p>
 
           {/* CTAs */}
-          <div className="mb-14 flex flex-wrap items-center gap-4">
+          <div className="mb-14 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <Link
               href="/refer"
-              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-lg bg-[#0D7377] px-8 text-[1.0625rem] font-bold text-white transition-colors hover:bg-[#0a5f63] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0D7377]"
+              className="inline-flex min-h-[44px] min-w-[44px] w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-[#0D7377] px-8 text-[1.0625rem] font-bold text-white transition-colors hover:bg-[#0a5f63] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0D7377]"
               style={{ height: "52px" }}
             >
               Refer a Patient
@@ -214,14 +226,16 @@ export default function HomePage() {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-lg border-2 border-white/40 px-8 text-[1.0625rem] font-bold text-white transition-colors hover:border-white/70 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
+              className="inline-flex min-h-[44px] min-w-[44px] w-full sm:w-auto items-center justify-center gap-2 rounded-lg border-2 border-white/40 px-8 text-[1.0625rem] font-bold text-white transition-colors hover:border-white/70 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
               style={{ height: "52px" }}
             >
               Request a Provider Consultation
             </Link>
           </div>
+        </div>
 
-          {/* Trust Badges — glass effect */}
+        {/* Trust Badges — moved to the bottom */}
+        <div className="relative max-w-7xl mx-auto px-6 md:px-12 w-full mt-auto pt-8">
           <div
             className="grid grid-cols-2 gap-3 md:grid-cols-4"
             role="list"
@@ -231,7 +245,7 @@ export default function HomePage() {
               <div
                 key={label}
                 role="listitem"
-                className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm"
+                className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm text-left"
               >
                 <Icon
                   size={22}
@@ -255,8 +269,8 @@ export default function HomePage() {
         aria-labelledby="what-heading"
         className="bg-[#F8FAFC] py-16 lg:py-24 w-full"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
-          <div className="grid items-center gap-12 md:grid-cols-2">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
+          <div className="grid items-center gap-12 2xl:gap-24 md:grid-cols-2">
             {/* Left: copy + feature list */}
             <div>
               <Badge
@@ -267,11 +281,11 @@ export default function HomePage() {
               </Badge>
               <h2
                 id="what-heading"
-                className="mb-5 text-[clamp(1.75rem,4vw,2.25rem)] font-bold leading-tight tracking-tight text-[#1B3A5C]"
+                className="mb-5 text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-[#1B3A5C]"
               >
                 Continuous Care Between Every Appointment
               </h2>
-              <p className="mb-6 leading-[1.75] text-slate-500">
+              <p className="mb-6 leading-[1.75] text-lg md:text-xl lg:text-2xl text-slate-500">
                 Most chronic conditions deteriorate silently between quarterly office
                 visits. Remote patient monitoring closes that gap.
               </p>
@@ -310,24 +324,24 @@ export default function HomePage() {
         aria-labelledby="serve-heading"
         className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24 w-full"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Patient Population
             </Badge>
             <h2
               id="serve-heading"
-              className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C]"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1B3A5C]"
             >
               Who We Serve
             </h2>
-            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-slate-500">
+            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-lg md:text-xl lg:text-2xl text-slate-500">
               Our programs are designed for patients managing complex chronic
               conditions, and the physicians and care teams who support them.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:gap-8">
             {weServe.map(({ icon: Icon, label, desc }) => (
               <Card
                 key={label}
@@ -360,24 +374,24 @@ export default function HomePage() {
         aria-labelledby="programs-heading"
         className="border-t border-[#E2EBF4] bg-[#F8FAFC] py-16 lg:py-24 w-full"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Specialties
             </Badge>
             <h2
               id="programs-heading"
-              className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C]"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1B3A5C]"
             >
               Our Wellness Programs
             </h2>
-            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-slate-500">
+            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-lg md:text-xl lg:text-2xl text-slate-500">
               Each program is designed around a specific clinical need, with devices
               and care protocols tailored accordingly.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:gap-8">
             {programs.map(({ icon: Icon, title, desc, href }) => (
               <Card
                 key={title}
@@ -429,24 +443,24 @@ export default function HomePage() {
         aria-labelledby="team-heading"
         className="border-t border-[#E2EBF4] bg-white py-16 lg:py-24 w-full"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Clinical Staff
             </Badge>
             <h2
               id="team-heading"
-              className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C]"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1B3A5C]"
             >
               Our Dedicated Team
             </h2>
-            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-slate-500">
+            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-lg md:text-xl lg:text-2xl text-slate-500">
               Every patient enrolled in our programs is supported by a real clinical
               team, not automated messaging.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 2xl:gap-12">
             {team.map(({ icon: Icon, role, name, desc }) => (
               <div
                 key={role}
@@ -476,23 +490,23 @@ export default function HomePage() {
         aria-labelledby="reviews-heading"
         className="bg-[#F8FAFC] py-16 lg:py-24 w-full"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
           <div className="mb-12 text-center">
             <Badge className="mb-3 bg-teal-50 text-[#0D7377] hover:bg-teal-50" variant="secondary">
               Success Stories
             </Badge>
             <h2
               id="reviews-heading"
-              className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C]"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1B3A5C]"
             >
               Patient Success Stories
             </h2>
-            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-slate-500">
+            <p className="mx-auto mt-3 max-w-[520px] leading-[1.7] text-lg md:text-xl lg:text-2xl text-slate-500">
               Hear what our patients are saying about their experience with Pulmonics Home Monitoring.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 2xl:gap-12">
             {[
               { name: "John D.", text: "The daily monitoring has given my family so much peace of mind. The clinical team is always responsive and truly cares about my health.", rating: 5 },
               { name: "Sarah M.", text: "I've been able to manage my COPD much better since starting this program. The equipment is easy to use and the support is fantastic.", rating: 5 },
@@ -523,10 +537,10 @@ export default function HomePage() {
         aria-labelledby="social-heading"
         className="bg-white py-16 lg:py-24 w-full border-t border-[#E2EBF4]"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full text-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center">
           <h2
             id="social-heading"
-            className="text-[clamp(1.75rem,4vw,2.25rem)] font-bold tracking-tight text-[#1B3A5C] mb-4"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1B3A5C] mb-4"
           >
             Follow Us on Instagram
           </h2>
@@ -539,7 +553,7 @@ export default function HomePage() {
             @priority_home_monitor
           </a>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 2xl:gap-10">
             {socialPosts.map((post, i) => (
               <a
                 key={i}
@@ -549,9 +563,9 @@ export default function HomePage() {
                 className="group relative aspect-square bg-slate-100 rounded-xl overflow-hidden shadow-sm transition-transform hover:scale-[1.02]"
               >
                 {/* Image background */}
-                <img 
-                  src={post.image} 
-                  alt={post.label} 
+                <img
+                  src={post.image}
+                  alt={post.label}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
 
@@ -580,14 +594,14 @@ export default function HomePage() {
         aria-labelledby="banner-heading"
         className="bg-[#0D7377] py-16 lg:py-24 w-full"
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full text-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center">
           <h2
             id="banner-heading"
-            className="mb-4 text-balance text-[clamp(1.75rem,4vw,2.5rem)] font-bold tracking-tight text-white"
+            className="mb-4 text-balance text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white"
           >
             Partner With Us for Proactive Care
           </h2>
-          <p className="mx-auto mb-10 max-w-[540px] text-[1.0625rem] leading-[1.7] text-white/82">
+          <p className="mx-auto mb-10 max-w-[540px] text-lg md:text-xl lg:text-2xl leading-[1.7] text-white/82">
             See how Priority Home Monitor integrates with your practice workflow
             to reduce readmissions, improve patient outcomes, and capture remote
             care revenue you are already entitled to.
