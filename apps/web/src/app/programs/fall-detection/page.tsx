@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const data = {
-  programName: "Fall Detection — Safety and Monitoring",
+  programName: "Fall Detection - Safety and Monitoring",
   description:
     "Falls are the leading cause of injury related death among adults over 65 and most happen at home. Our Fall Detection program equips patients with clinically validated wearable sensors that automatically detect a fall and immediately notify caregivers and our 24/7 care coordination team, ensuring help arrives without delay.",
   primaryCTA: "Enroll in Fall Protection",
