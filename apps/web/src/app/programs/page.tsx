@@ -54,7 +54,7 @@ interface Program {
 const programs: Program[] = [
   {
     icon: Wind,
-    name: "COPD — Respiratory Care",
+    name: "COPD - Respiratory Care",
     badge: "Remote Monitoring",
     badgeStyle: "teal",
     category: "Chronic Care",
@@ -84,7 +84,7 @@ const programs: Program[] = [
   },
   {
     icon: Activity,
-    name: "Diabetes — Chronic Care Management",
+    name: "Diabetes - Chronic Care Management",
     badge: "CCM",
     badgeStyle: "navy",
     category: "Chronic Care",
@@ -98,7 +98,7 @@ const programs: Program[] = [
   },
   {
     icon: Heart,
-    name: "Heart Failure — CCM",
+    name: "Heart Failure - CCM",
     badge: "CCM",
     badgeStyle: "navy",
     category: "Chronic Care",
@@ -216,11 +216,11 @@ const programs: Program[] = [
 
 /* ─── Badge color map ──────────────────────────────────────────── */
 const badgeColorMap: Record<Program["badgeStyle"], string> = {
-  teal:   "bg-teal-50   text-[#0D7377] border-teal-100",
-  navy:   "bg-[#1B3A5C]/8 text-[#1B3A5C] border-[#1B3A5C]/15",
-  rose:   "bg-rose-50   text-rose-700   border-rose-100",
+  teal: "bg-teal-50   text-[#0D7377] border-teal-100",
+  navy: "bg-[#1B3A5C]/8 text-[#1B3A5C] border-[#1B3A5C]/15",
+  rose: "bg-rose-50   text-rose-700   border-rose-100",
   violet: "bg-violet-50 text-violet-700  border-violet-100",
-  amber:  "bg-amber-50  text-amber-700   border-amber-100",
+  amber: "bg-amber-50  text-amber-700   border-amber-100",
 };
 
 /* ─── Video Modal ──────────────────────────────────────────────── */
@@ -399,7 +399,7 @@ export default function ProgramsPage() {
             </h1>
             <p className="max-w-[560px] text-[clamp(1rem,2vw,1.1875rem)] leading-[1.7] text-white/80">
               Each program operates independently while integrating into a
-              single, proactive monitoring platform — so no clinical signal
+              single, proactive monitoring platform - so no clinical signal
               falls through the gap between specialties.
             </p>
           </div>
