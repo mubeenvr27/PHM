@@ -26,9 +26,9 @@ export default function Navbar() {
   return (
     <header
       role="banner"
-      className="sticky top-0 z-50 h-16 bg-[#1B3A5C] bg-opacity-95 backdrop-blur-md border-b border-white/10 transition-all duration-300"
+      className="sticky top-0 z-50 h-16 bg-[#11263d] border-b border-white/10 transition-all duration-300"
     >
-      <nav className="flex w-full items-center justify-between h-16 px-6 max-w-7xl mx-auto" aria-label="Main navigation">
+      <nav className="flex items-center justify-between h-16 max-w-7xl mx-auto px-6 md:px-12 w-full" aria-label="Main navigation">
 
         {/* ── Logo ── */}
         <Logo variant="horizontal" className="shrink-0 flex items-center w-40" />
@@ -93,13 +93,7 @@ export default function Navbar() {
             href="/shop"
             className="flex h-12 items-center text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
           >
-            <span className="relative">
-              Shop
-              <span className="absolute -top-1 -right-3 flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: "#0D7377" }}></span>
-                <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: "#0D7377" }}></span>
-              </span>
-            </span>
+            Shop
           </Link>
 
           {/* Contact */}
@@ -182,9 +176,6 @@ export default function Navbar() {
               style={{ minHeight: "44px" }}
             >
               Shop
-              <span className="text-[10px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "#0D7377", color: "white", lineHeight: 1 }}>
-                New
-              </span>
             </Link>
             <Link
               href="/contact"
