@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const copdData = {
-  programName: "COPD — Respiratory Care Program",
+  programName: "COPD - Respiratory Care Program",
   description:
     "Chronic Obstructive Pulmonary Disease is manageable with the right daily support. Our remote monitoring program delivers clinical-grade oversight directly to your home so your care team can detect changes in your breathing before they become emergencies.",
   primaryCTA: "Refer a Patient",
