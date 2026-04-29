@@ -387,47 +387,63 @@ export default function ProgramsPage() {
             <span className="text-white/85">Programs</span>
           </nav>
 
-          <div className="max-w-[660px]">
-            <Badge className="mb-4 bg-teal-900/40 text-[#6EE7E9] hover:bg-teal-900/40">
-              Full Program Directory
-            </Badge>
-            <h1
-              id="programs-hero-heading"
-              className="mb-5 text-balance text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.15] tracking-tight text-white"
-            >
-              A Connected Ecosystem of Care
-            </h1>
-            <p className="max-w-[560px] text-[clamp(1rem,2vw,1.1875rem)] leading-[1.7] text-white/80">
-              Each program operates independently while integrating into a
-              single, proactive monitoring platform - so no clinical signal
-              falls through the gap between specialties.
-            </p>
-          </div>
-
-          {/* ── Glassmorphic Filter Bar ── */}
-          <div
-            role="tablist"
-            aria-label="Filter programs by category"
-            className="mt-10 flex flex-wrap gap-2 rounded-2xl border border-white/20 bg-white/10 p-3 backdrop-blur-md w-fit"
-          >
-            {categories.map((cat) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`min-h-[44px] min-w-[44px] rounded-xl px-5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
-                    ${isActive
-                      ? "bg-[#0D7377] text-white shadow-sm"
-                      : "text-white/75 hover:bg-white/15 hover:text-white"
-                    }`}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column */}
+            <div className="flex flex-col items-start">
+              <div className="max-w-[660px]">
+                <Badge className="mb-4 bg-teal-900/40 text-[#6EE7E9] hover:bg-teal-900/40">
+                  Full Program Directory
+                </Badge>
+                <h1
+                  id="programs-hero-heading"
+                  className="mb-5 text-balance text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.15] tracking-tight text-white"
                 >
-                  {cat}
-                </button>
-              );
-            })}
+                  A Connected Ecosystem of Care
+                </h1>
+                <p className="max-w-[560px] text-[clamp(1rem,2vw,1.1875rem)] leading-[1.7] text-white/80">
+                  Each program operates independently while integrating into a
+                  single, proactive monitoring platform - so no clinical signal
+                  falls through the gap between specialties.
+                </p>
+              </div>
+
+              {/* ── Glassmorphic Filter Bar ── */}
+              <div
+                role="tablist"
+                aria-label="Filter programs by category"
+                className="mt-10 flex flex-wrap gap-2 rounded-2xl border border-white/20 bg-white/10 p-3 backdrop-blur-md w-fit"
+              >
+                {categories.map((cat) => {
+                  const isActive = activeCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      role="tab"
+                      aria-selected={isActive}
+                      onClick={() => setActiveCategory(cat)}
+                      className={`min-h-[44px] min-w-[44px] rounded-xl px-5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
+                        ${isActive
+                          ? "bg-[#0D7377] text-white shadow-sm"
+                          : "text-white/75 hover:bg-white/15 hover:text-white"
+                        }`}
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Column: Featured Image */}
+            <div className="w-full relative lg:ml-auto flex items-center justify-center lg:justify-end mt-12 lg:mt-0">
+              <div className="relative aspect-square sm:aspect-[4/3] w-full max-w-lg rounded-2xl shadow-2xl border-4 border-white/10 overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+                <img 
+                  src="/PHM Program pictures/OUR_PROGRAMS.png" 
+                  alt="Priority Home Monitor Programs Overview" 
+                  className="absolute inset-0 w-full h-full object-cover" 
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>

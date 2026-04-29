@@ -24,6 +24,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import HeroSlideshow from "@/components/HeroSlideshow";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -176,23 +177,7 @@ export default function HomePage() {
         aria-labelledby="hero-heading"
         className="relative overflow-hidden bg-[#1B3A5C] pb-16 pt-32 lg:pb-24 lg:pt-40 w-full flex flex-col min-h-[90vh]"
       >
-        {/* Video Background */}
-        <video
-          id="hero-video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/web-vid.mp4" type="video/mp4" />
-        </video>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `document.getElementById('hero-video').playbackRate = 0.60;`
-          }}
-        />
+        <HeroSlideshow />
 
         {/* Visual Overlay */}
         <div className="absolute inset-0 w-full h-full bg-[#1B3A5C]/70" aria-hidden="true" />
