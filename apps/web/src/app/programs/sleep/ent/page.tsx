@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const data = {
   programName: "ENT Sleep Program",
   description:
-    "Ear, nose, and throat surgeons frequently operate on patients with underlying sleep disordered breathing. Our ENT Sleep program provides pre operative home sleep testing to stratify anesthetic risk and post operative monitoring to confirm surgical outcomes, delivered entirely without additional in office visits.",
+    "Our ENT Sleep program identifies candidates for Inspire therapy and surgical airway management via home diagnostics and virtual consults—delivering expert referrals and reports without the office visits.",
   primaryCTA: "Enroll an ENT Patient",
   ctaHref: "/contact",
   qualifyingConditions: [
