@@ -91,7 +91,7 @@ export default function ProgramPage({
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="hero-heading"
-        className="relative overflow-hidden bg-[#1B3A5C] py-24 lg:py-32"
+        className="relative overflow-hidden bg-[#1B3A5C] py-24 lg:py-32 w-full"
       >
         {/* Radial depth layer */}
         <div
@@ -106,7 +106,7 @@ export default function ProgramPage({
           strokeWidth={0.5}
         />
 
-        <div className="relative mx-auto w-full max-w-7xl px-6 md:px-8">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-12 w-full">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
@@ -131,12 +131,12 @@ export default function ProgramPage({
               
               <h1
                 id="hero-heading"
-                className="mb-6 text-5xl font-extrabold text-balance tracking-tight text-white"
+                className="mb-6 text-4xl md:text-6xl lg:text-8xl font-extrabold text-balance tracking-tight text-white"
               >
                 {programName}
               </h1>
 
-              <p className="mb-10 max-w-xl text-lg text-balance leading-relaxed text-white/80">
+              <p className="mb-10 max-w-xl text-lg md:text-xl lg:text-2xl text-balance leading-relaxed text-white/80">
                 {description}
               </p>
 
@@ -215,25 +215,25 @@ export default function ProgramPage({
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="qualify-heading"
-        className="bg-[#F8FAFC] py-20 lg:py-32"
+        className="bg-[#F8FAFC] py-20 lg:py-32 w-full"
       >
-        <div className="mx-auto w-full max-w-7xl px-6 md:px-8">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
           <div className="mb-14 text-center max-w-2xl mx-auto">
             <span className="mb-3 inline-block rounded-full bg-teal-50 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-[#0D7377]">
               Eligibility
             </span>
             <h2
               id="qualify-heading"
-              className="mb-4 text-4xl font-bold tracking-tight text-balance text-[#1B3A5C]"
+              className="mb-4 text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance text-[#1B3A5C]"
             >
               Who Qualifies?
             </h2>
-            <p className="text-lg leading-relaxed text-balance text-slate-500">
+            <p className="text-lg md:text-xl lg:text-2xl leading-relaxed text-balance text-slate-500">
               Our clinical team works with your physician to confirm eligibility. You may qualify if you or your loved one has been diagnosed with any of the conditions below.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:gap-16">
             {qualifyingConditions.map((condition, i) => (
               <Card 
                 key={i}
@@ -258,25 +258,25 @@ export default function ProgramPage({
           ══════════════════════════════════════════════════════ */}
       <section
         aria-labelledby="steps-heading"
-        className="bg-white py-20 lg:py-32 border-t border-[#E2EBF4]"
+        className="bg-white py-20 lg:py-32 border-t border-[#E2EBF4] w-full"
       >
-        <div className="mx-auto w-full max-w-7xl px-6 md:px-8">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
           <div className="mb-14 text-center max-w-2xl mx-auto">
             <span className="mb-3 inline-block rounded-full bg-teal-50 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-[#0D7377]">
               Process
             </span>
             <h2
               id="steps-heading"
-              className="mb-4 text-4xl font-bold tracking-tight text-balance text-[#1B3A5C]"
+              className="mb-4 text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance text-[#1B3A5C]"
             >
               What to Expect
             </h2>
-            <p className="text-lg leading-relaxed text-balance text-slate-500">
+            <p className="text-lg md:text-xl lg:text-2xl leading-relaxed text-balance text-slate-500">
               Enrollment is simple and your care team handles the heavy lifting.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3 2xl:gap-16">
             {steps.map((step, i) => (
               <Card 
                 key={i}
