@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const data = {
-  programName: "Heart Failure — Chronic Care Management",
+  programName: "Heart Failure - Chronic Care Management",
   description:
     "Heart failure readmissions are often preventable. A one kilogram overnight weight gain can signal dangerous fluid buildup days before a patient feels breathless. Our program catches those changes early, giving your physician the window they need to adjust diuretics and keep patients out of the hospital.",
   primaryCTA: "Start Heart Failure Program",
