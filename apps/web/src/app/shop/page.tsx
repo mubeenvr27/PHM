@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { ShoppingCart, Package } from "lucide-react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -9,7 +10,8 @@ const products = [
     name: "Hypertension Bundle",
     price: 50,
     items: ["Bluetooth Blood Pressure Cuff", "Bluetooth Weight Scale"],
-    description: "Essential home monitoring tools for daily blood pressure tracking."
+    description: "Essential home monitoring tools for daily blood pressure tracking.",
+    href: "/programs/hypertension"
   },
   {
     id: "diabetes",
@@ -65,7 +67,15 @@ export default function ShopPage() {
                   <div className="aspect-square bg-[#F8FAFC] rounded-lg mb-4 flex items-center justify-center border border-[#E2EBF4]/50 p-6">
                     <img src="/logo-horizontal.svg" alt={product.name} className="opacity-20 max-w-full h-auto object-contain" />
                   </div>
-                  <CardTitle className="text-xl text-[#1B3A5C] leading-tight">{product.name}</CardTitle>
+                  <CardTitle className="text-xl leading-tight">
+                    {product.href ? (
+                      <Link href={product.href} className="text-[#1B3A5C] hover:text-[#0D7377] transition-colors underline-offset-4 hover:underline">
+                        {product.name}
+                      </Link>
+                    ) : (
+                      <span className="text-[#1B3A5C]">{product.name}</span>
+                    )}
+                  </CardTitle>
                   <p className="text-2xl font-bold text-[#0D7377] mt-2">${product.price.toFixed(2)}</p>
                 </CardHeader>
                 <CardContent className="flex-1">
