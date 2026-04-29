@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const data = {
-  programName: "Diabetes — Chronic Care Management",
+  programName: "Diabetes - Chronic Care Management",
   description:
     "Managing diabetes requires consistent daily attention that extends well beyond quarterly clinic visits. Our Chronic Care Management program pairs patients with a dedicated care coordinator and daily glucose monitoring to reduce A1C drift, prevent hypoglycemic episodes, and keep complications at bay.",
   primaryCTA: "Start Diabetes CCM Program",
