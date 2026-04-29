@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ProgramPage from "@/components/ProgramPage";
 
 export const metadata: Metadata = {
-  title: "Prepared Meal Program — Medically Tailored Meals via CookUnity",
+  title: "Prepared Meal Program - Medically Tailored Meals via CookUnity",
   description:
     "Priority Home Monitor partners with CookUnity to deliver fresh, chef prepared, clinically appropriate meals directly to patients managing chronic conditions, supporting nutrition as a pillar of remote care.",
 };
