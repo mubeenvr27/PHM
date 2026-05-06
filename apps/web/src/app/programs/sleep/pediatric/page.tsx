@@ -24,6 +24,8 @@ const data = {
     "We ship a child appropriate, FDA cleared overnight monitoring device directly to the family along with a setup video guide.",
     "The recorded data is interpreted by a board certified sleep physician within 72 hours, and a full report is sent to the referring provider.",
   ],
+  image1: "/PHM Program pictures/PEADS_SLEEP_1.png",
+  image2: "/PHM Program pictures/Peades_sleep_2.png",
 };
 
 export default function PediatricSleepPage() {

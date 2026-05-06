@@ -27,6 +27,8 @@ const data = {
     "We ship a validated cellular connected blood pressure cuff directly to the patient's door at no out of pocket cost.",
     "Daily readings sync automatically. Our care coordinators review trends and alert your physician when intervention is needed.",
   ],
+  image1: "/PHM Program pictures/HYPERTENSION_MONITORING_1.png",
+  image2: "/PHM Program pictures/HYPERTENSION_MONITORING_2.png",
 };
 
 export default function HypertensionPage() {

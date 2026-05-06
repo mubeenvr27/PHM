@@ -27,6 +27,8 @@ const data = {
     "We ship a cellular connected scale and symptom tracking tablet to the patient's home within 48 hours.",
     "The patient weighs in daily. Our care team reviews trends and escalates fluid gain alerts directly to the managing physician.",
   ],
+  image1: "/PHM Program pictures/HEART_FAILURE_1.png",
+  image2: "/PHM Program pictures/HEART_FAILURE_2.png",
 };
 
 export default function HeartFailureCCMPage() {

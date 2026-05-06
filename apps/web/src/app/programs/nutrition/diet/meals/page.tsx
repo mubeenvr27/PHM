@@ -26,6 +26,8 @@ const data = {
     "You select your weekly meal preferences on the CookUnity platform using fresh, chef cooked options with full nutritional labels.",
     "Meals arrive fresh each week. Your care team reviews adherence and coordinates dietary adjustments with your physician as needed.",
   ],
+  image1: "/PHM Program pictures/MENTAL_PHYSICAL_AND_NUTRITIONAL_WELLNESS_1.png",
+  image2: "/PHM Program pictures/MENTAL_PHYSICAL_AND_NUTRITIONAL_WELLNESS_2.png",
 };
 
 export default function MealsPage() {

@@ -24,6 +24,8 @@ const data = {
     "A care coordinator schedules an initial 30 minute onboarding call to complete a wellness assessment and set personal goals.",
     "Monthly structured check-ins track progress. Behavioral health resources, nutrition guides, and physician updates are shared throughout.",
   ],
+  image1: "/PHM Program pictures/MENTAL_PHYSICAL_AND_NUTRITIONAL_WELLNESS_1.png",
+  image2: "/PHM Program pictures/MENTAL_PHYSICAL_AND_NUTRITIONAL_WELLNESS_2.png",
 };
 
 export default function WellnessPage() {

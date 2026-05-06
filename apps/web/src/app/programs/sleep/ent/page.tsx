@@ -24,6 +24,7 @@ const data = {
     "We ship a home sleep test device within 48 hours and completed results are returned to the surgeon before the procedure date.",
     "For post op patients, we provide 30 and 90 day monitoring check-ins and deliver a compliance report to confirm surgical outcomes.",
   ],
+  image1: "/PHM Program pictures/ENT SLEEP_.png",
 };
 
 export default function ENTSleepPage() {

@@ -24,6 +24,8 @@ const data = {
     "We mail a WatchPAT or equivalent FDA cleared home sleep testing device with prepaid return shipping.",
     "Results are scored and interpreted within 72 hours. Therapy recommendations and a full report are sent directly to the referring physician.",
   ],
+  image1: "/PHM Program pictures/ADULT_SLEEP_MONITORING_1.png",
+  image2: "/PHM Program pictures/ADULT_SLEEP_MONITORING _2.png",
 };
 
 export default function AdultSleepPage() {

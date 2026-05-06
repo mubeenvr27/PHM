@@ -73,12 +73,12 @@ const socialPosts = [
   {
     url: "https://www.instagram.com/priority_home_monitor/reel/DXh10vbCUFH/",
     label: "Sudden Weight Gain Warning",
-    image: "/images/social/ig_post_3.jpg"
+    image: "/images/social/ig_post_7.jpg"
   },
   {
     url: "https://www.instagram.com/reel/DXsI-SzGwKP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     label: "Healthcare Without Office Visits",
-    image: "/images/social/ig_post_4.png"
+    image: "/images/social/ig_post_6.jpg"
   }
 ];
 

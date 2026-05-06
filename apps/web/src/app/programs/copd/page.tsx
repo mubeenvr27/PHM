@@ -29,6 +29,8 @@ const copdData = {
     "We ship a clinically validated pulse oximeter and spirometer directly to the patient's home.",
     "The patient records daily readings. Our care team reviews alerts and coordinates with the physician.",
   ],
+  image1: "/PHM Program pictures/COPD_RESPIRATORY_CARE_1.png",
+  image2: "/PHM Program pictures/COPD_RESPIRATORY_CARE_2.png",
 };
 
 export default function COPDPage() {

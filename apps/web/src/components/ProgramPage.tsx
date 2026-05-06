@@ -29,6 +29,8 @@ interface ProgramPageProps {
   secondaryCTA?: string;
   secondaryCtaHref?: string;
   devices?: string[];
+  image1?: string;
+  image2?: string;
 }
 
 /* ─── Polymorphic CTA ──────────────────────────────────────────── */
@@ -83,7 +85,13 @@ export default function ProgramPage({
   secondaryCTA,
   secondaryCtaHref,
   devices,
+  image1,
+  image2,
 }: ProgramPageProps) {
+  // Fallback generic image if a program is missing images entirely or only provides one.
+  const fallbackImg = "/PHM Program pictures/CLINICAL TEAM_4040.jpg";
+  const finalImage1 = image1 || fallbackImg;
+  const finalImage2 = image2 || (image1 ? undefined : fallbackImg);
   return (
     <>
       {/* ══════════════════════════════════════════════════════
@@ -166,45 +174,24 @@ export default function ProgramPage({
               </div>
             </div>
 
-            {/* Right Column: Clinical Backing & Devices */}
-            <div className="w-full max-w-lg lg:ml-auto space-y-6">
-              <div className="bg-[#1B3A5C]/5 backdrop-blur-md border border-[#1B3A5C]/10 rounded-2xl p-8 shadow-lg relative overflow-hidden bg-white/10 border-white/20 text-white">
-                <div className="mb-8">
-                  <span className="text-4xl font-extrabold tracking-tight text-[#6EE7E9]">{clinicalBacking.stat}</span>
-                  <p className="text-sm font-semibold uppercase tracking-widest text-white/70 mt-1">{clinicalBacking.statLabel}</p>
-                </div>
-                
-                <div className="relative">
-                  {/* Subtle quote mark decoration */}
-                  <span className="absolute -top-4 -left-4 text-6xl text-white/10 font-serif leading-none">&quot;</span>
-                  <p className="text-lg leading-relaxed text-balance italic text-white/90 relative z-10">
-                    {clinicalBacking.quote}
-                  </p>
-                  <div className="mt-6 flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-[#0D7377] flex items-center justify-center text-sm font-bold text-white shrink-0">
-                      CAB
+            {/* Right Column: Featured Imagery */}
+            <div className="w-full relative lg:ml-auto flex items-center justify-center lg:justify-end mt-12 lg:mt-0">
+              <div className="relative w-full max-w-lg grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {finalImage1 && finalImage2 ? (
+                  <>
+                    <div className="relative aspect-[4/5] w-full rounded-2xl shadow-2xl border-4 border-white/10 overflow-hidden transform sm:translate-y-6 sm:-rotate-2 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300">
+                      <img src={finalImage1} alt={`${programName} Image 1`} className="absolute inset-0 w-full h-full object-cover" />
                     </div>
-                    <div>
-                      <p className="text-sm font-bold tracking-tight text-white">{clinicalBacking.author}</p>
-                      <p className="text-xs font-medium text-white/60 text-balance">Priority Home Monitor</p>
+                    <div className="relative aspect-[4/5] w-full rounded-2xl shadow-2xl border-4 border-white/10 overflow-hidden transform sm:-translate-y-6 sm:rotate-2 hover:rotate-0 hover:-translate-y-7 transition-transform duration-300 hidden sm:block">
+                      <img src={finalImage2} alt={`${programName} Image 2`} className="absolute inset-0 w-full h-full object-cover" />
                     </div>
+                  </>
+                ) : (
+                  <div className="relative aspect-square sm:aspect-[4/3] w-full sm:col-span-2 rounded-2xl shadow-2xl border-4 border-white/10 overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+                    <img src={finalImage1 || finalImage2} alt={`${programName} Image`} className="absolute inset-0 w-full h-full object-cover" />
                   </div>
-                </div>
+                )}
               </div>
-
-              {devices && devices.length > 0 && (
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-lg">
-                  <h3 className="text-xs font-extrabold uppercase tracking-widest text-[#6EE7E9] mb-4">What's Inside Your Kit</h3>
-                  <ul className="space-y-3">
-                    {devices.map((device, i) => (
-                      <li key={i} className="flex items-start gap-3 text-white/90 text-sm font-medium">
-                        <CheckCircle2 size={18} className="text-[#0D7377] shrink-0 mt-0.5" />
-                        <span className="leading-snug">{device}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
           </div>
         </div>

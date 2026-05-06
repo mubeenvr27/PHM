@@ -27,6 +27,8 @@ const data = {
     "Our clinical team contacts the patient within 48 hours to ship a connected glucose monitor and complete initial onboarding.",
     "The patient logs daily readings and care coordinators provide monthly structured check-ins, relaying data to the physician.",
   ],
+  image1: "/PHM Program pictures/DIABESTES_MONITORING_1.png",
+  image2: "/PHM Program pictures/DIABESTES_MONITORING_2.png",
 };
 
 export default function DiabetesCCMPage() {

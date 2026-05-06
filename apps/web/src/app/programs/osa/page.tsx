@@ -24,6 +24,8 @@ const data = {
     "Our respiratory therapist contacts the patient to review CPAP settings and ship any replacement supplies.",
     "Nightly compliance data is reviewed weekly. Non-adherent patients receive a proactive check-in call from our clinical team.",
   ],
+  image1: "/PHM Program pictures/OBSTRUCTIVE SLEEP APNEA_1.png",
+  image2: "/PHM Program pictures/OBSTRUCTIVE SLEEP_APNEA _2.png",
 };
 
 export default function OSAPage() {

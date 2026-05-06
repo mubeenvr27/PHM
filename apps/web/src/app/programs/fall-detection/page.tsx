@@ -24,6 +24,8 @@ const data = {
     "We ship a lightweight, waterproof fall detection wearable and program the emergency contact list during a setup call with the patient.",
     "In the event of a fall, our care team is alerted within seconds and contacts the patient, caregiver, and physician per the established escalation protocol.",
   ],
+  image1: "/PHM Program pictures/fall_detection_pic1.png",
+  image2: "/PHM Program pictures/fall_detection_pic2.png",
 };
 
 export default function FallDetectionPage() {
