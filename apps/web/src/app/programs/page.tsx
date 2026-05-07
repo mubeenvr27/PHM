@@ -434,14 +434,90 @@ export default function ProgramsPage() {
               </div>
             </div>
 
-            {/* Right Column: Featured Image */}
+            {/* Right Column: Featured Imagery — Diagonal Staircase */}
             <div className="w-full relative lg:ml-auto flex items-center justify-center lg:justify-end mt-12 lg:mt-0">
-              <div className="relative aspect-square sm:aspect-[4/3] w-full max-w-lg rounded-2xl shadow-2xl border-4 border-white/10 overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
-                <img 
-                  src="/PHM Program pictures/OUR_PROGRAMS.png" 
-                  alt="Priority Home Monitor Programs Overview" 
-                  className="absolute inset-0 w-full h-full object-cover" 
-                />
+              <div
+                className="relative w-full max-w-[500px]"
+                style={{ height: "400px" }}
+              >
+                {/* ── Card 1: top-left, tilted counter-clockwise ── */}
+                <div
+                  className="absolute overflow-hidden rounded-2xl border-[3px] border-white/30 shadow-[0_16px_48px_rgba(0,0,0,0.50)] transition-transform duration-500 hover:-translate-y-1"
+                  style={{
+                    width: "62%",
+                    aspectRatio: "3/2",
+                    top: "0",
+                    left: "0",
+                    transform: "rotate(-2.5deg)",
+                    zIndex: 2,
+                  }}
+                >
+                  <img
+                    src="/PHM Program pictures/OUR_PROGRAMS.png"
+                    alt="Priority Home Monitor Programs Overview"
+                    className="w-full h-full object-cover object-center"
+                  />
+                  <div
+                    className="absolute bottom-0 left-0 right-0 px-3 py-2"
+                    style={{ background: "rgba(13,115,119,0.75)", backdropFilter: "blur(10px)" }}
+                  >
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white">
+                      Connected Care Ecosystem
+                    </p>
+                  </div>
+                </div>
+
+
+
+                {/* ── Center connector dot ── */}
+                <div
+                  className="absolute flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#6EE7E9]/60 bg-[#0D7377] shadow-lg"
+                  style={{ top: "50%", left: "50%", transform: "translate(-50%,-50%)", zIndex: 5 }}
+                >
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#6EE7E9]" />
+                </div>
+
+                {/* ── Pulsing live badge ── */}
+                <div
+                  className="absolute flex items-center gap-1.5 rounded-full bg-[#0D7377] px-3 py-1.5 shadow-lg"
+                  style={{ top: "52%", left: "50%", transform: "translate(-50%, 18px)", zIndex: 6, whiteSpace: "nowrap" }}
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#6EE7E9] opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#6EE7E9]" />
+                  </span>
+                  <span className="text-[10px] font-bold text-white">Active Monitoring</span>
+                </div>
+
+                {/* ── Stat chip top-right ── */}
+                <div
+                  className="absolute rounded-xl border border-white/25 px-3 py-2 text-center shadow-xl"
+                  style={{
+                    top: "6%",
+                    right: "2%",
+                    background: "rgba(255,255,255,0.13)",
+                    backdropFilter: "blur(14px)",
+                    zIndex: 6,
+                  }}
+                >
+                  <p className="text-lg font-extrabold text-white">11+</p>
+                  <p className="text-[9px] font-semibold uppercase tracking-wider text-white/70">Programs</p>
+                </div>
+
+                {/* ── Stat chip bottom-left ── */}
+                <div
+                  className="absolute rounded-xl border border-white/25 px-3 py-2 text-center shadow-xl"
+                  style={{
+                    bottom: "6%",
+                    left: "2%",
+                    background: "rgba(255,255,255,0.13)",
+                    backdropFilter: "blur(14px)",
+                    zIndex: 6,
+                  }}
+                >
+                  <p className="text-lg font-extrabold text-white">24/7</p>
+                  <p className="text-[9px] font-semibold uppercase tracking-wider text-white/70">Care Team</p>
+                </div>
               </div>
             </div>
           </div>

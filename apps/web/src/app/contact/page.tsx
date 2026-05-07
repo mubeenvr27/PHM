@@ -4,7 +4,8 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { ArrowRight, CheckCircle2, Check, ChevronsUpDown, Mail, MapPin, Phone, X, FileDown } from "lucide-react"
+import { ArrowRight, CheckCircle2, Check, ChevronsUpDown, Mail, MapPin, Phone, X, FileDown, Sparkles } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -63,6 +64,7 @@ type ContactFormValues = z.infer<typeof contactFormSchema>
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [popoverOpen, setPopoverOpen] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -75,13 +77,49 @@ export default function ContactPage() {
     },
   })
 
-  function onSubmit(data: ContactFormValues) {
+  async function onSubmit(data: ContactFormValues) {
     setIsSubmitting(true)
-    setTimeout(() => {
-      console.log("Form submitted:", data)
-      form.reset()
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        // Show success animation
+        setShowSuccess(true)
+        
+        // Show toast notification
+        toast.success("Message sent successfully!", {
+          description: "Our team will contact you within 24 hours.",
+          duration: 5000,
+        })
+
+        // Reset form
+        form.reset()
+
+        // Hide success animation after 3 seconds
+        setTimeout(() => {
+          setShowSuccess(false)
+        }, 3000)
+      } else {
+        toast.error("Failed to send message", {
+          description: result.message || "Please try again later.",
+        })
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      toast.error("An error occurred", {
+        description: "Please try again or contact us directly.",
+      })
+    } finally {
       setIsSubmitting(false)
-    }, 1500)
+    }
   }
 
   return (
@@ -105,7 +143,29 @@ export default function ContactPage() {
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
 
             {/* ── Left Column (Dark Form Card) ── */}
-            <div className="rounded-2xl bg-[#1B3A5C] p-8 shadow-xl md:p-10">
+            <div className="rounded-2xl bg-[#1B3A5C] p-8 shadow-xl md:p-10 relative overflow-hidden">
+              {/* Success Overlay */}
+              {showSuccess && (
+                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#0D7377] animate-in fade-in zoom-in duration-500">
+                  <div className="text-center">
+                    <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-white/20 animate-in zoom-in duration-700">
+                      <CheckCircle2 className="h-12 w-12 text-white animate-in zoom-in duration-1000" />
+                    </div>
+                    <h3 className="mb-2 text-2xl font-bold text-white animate-in slide-in-from-bottom-4 duration-700">
+                      Message Sent!
+                    </h3>
+                    <p className="text-white/90 animate-in slide-in-from-bottom-4 duration-700 delay-100">
+                      We'll get back to you within 24 hours
+                    </p>
+                    <div className="mt-6 flex justify-center gap-2">
+                      <Sparkles className="h-5 w-5 text-white/60 animate-pulse" />
+                      <Sparkles className="h-5 w-5 text-white/80 animate-pulse delay-150" />
+                      <Sparkles className="h-5 w-5 text-white/60 animate-pulse delay-300" />
+                    </div>
+                  </div>
+                </div>
+              )}
+              
               <h2 className="mb-6 text-2xl font-bold text-white">Send us a message</h2>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

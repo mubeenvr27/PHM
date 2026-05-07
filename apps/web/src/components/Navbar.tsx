@@ -2,21 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
 const programs = [
-  { label: "COPD — Respiratory Care", href: "/programs/copd" },
+  { label: "COPD Respiratory Care", href: "/programs/copd" },
   { label: "Hypertension Monitoring", href: "/programs/hypertension" },
-  { label: "Diabetes — CCM", href: "/programs/ccm/diabetes" },
-  { label: "Heart Failure — CCM", href: "/programs/ccm/heart-failure" },
+  { label: "Diabetes CCM", href: "/programs/ccm/diabetes" },
+  { label: "Heart Failure CCM", href: "/programs/ccm/heart-failure" },
   { label: "Obstructive Sleep Apnea", href: "/programs/osa" },
   { label: "Pediatric Sleep Monitoring", href: "/programs/sleep/pediatric" },
   { label: "Adult Sleep Monitoring", href: "/programs/sleep/adult" },
   { label: "ENT Sleep Program", href: "/programs/sleep/ent" },
   { label: "Wellness: Mental, Nutrition, Weight", href: "/programs/wellness" },
   { label: "Prepared Meal Program (CookUnity)", href: "/programs/nutrition/diet/meals" },
-  { label: "Fall Detection — Safety & Monitoring", href: "/programs/fall-detection" },
+  { label: "Fall Detection Safety & Monitoring", href: "/programs/fall-detection" },
 ];
 
 export default function Navbar() {
@@ -63,25 +63,30 @@ export default function Navbar() {
                 <Link
                   href="/programs"
                   role="menuitem"
-                  className="block px-4 py-2 text-sm font-semibold transition-colors"
-                  style={{ color: "var(--color-accent)", minHeight: "44px", display: "flex", alignItems: "center" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#F8FAFC")}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+                  className="group relative flex items-center justify-between px-4 py-2 text-sm font-bold text-[#0D7377] transition-all duration-300 hover:bg-teal-50/60 rounded-t-md"
+                  style={{ minHeight: "44px" }}
                 >
-                  View All Programs →
+                  <span className="transform transition-transform duration-300 group-hover:translate-x-1">
+                    View All Programs
+                  </span>
+                  <ArrowRight size={16} className="transform transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
-                <hr style={{ borderColor: "var(--color-border)", margin: "4px 0" }} />
+                <div className="mx-3 my-1 h-[1px] bg-slate-100" />
                 {programs.map((p) => (
                   <Link
                     key={p.href}
                     href={p.href}
                     role="menuitem"
-                    className="block px-4 py-2 text-sm transition-colors"
-                    style={{ color: "var(--color-text-primary)", minHeight: "44px", display: "flex", alignItems: "center" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#F8FAFC")}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+                    className="group relative flex items-center justify-between px-4 py-2 text-sm font-medium text-slate-600 transition-all duration-300 hover:bg-teal-50/40 hover:text-[#0D7377]"
+                    style={{ minHeight: "44px" }}
                   >
-                    {p.label}
+                    <span className="transform transition-transform duration-300 group-hover:translate-x-1.5">
+                      {p.label}
+                    </span>
+                    <ArrowRight 
+                      size={14} 
+                      className="opacity-0 -translate-x-2 transform transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 text-[#0D7377]" 
+                    />
                   </Link>
                 ))}
               </div>

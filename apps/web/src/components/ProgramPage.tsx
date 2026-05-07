@@ -174,24 +174,133 @@ export default function ProgramPage({
               </div>
             </div>
 
-            {/* Right Column: Featured Imagery */}
+            {/* Right Column: Featured Imagery — Diagonal Staircase */}
             <div className="w-full relative lg:ml-auto flex items-center justify-center lg:justify-end mt-12 lg:mt-0">
-              <div className="relative w-full max-w-lg grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {finalImage1 && finalImage2 ? (
-                  <>
-                    <div className="relative aspect-[4/5] w-full rounded-2xl shadow-2xl border-4 border-white/10 overflow-hidden transform sm:translate-y-6 sm:-rotate-2 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300">
-                      <img src={finalImage1} alt={`${programName} Image 1`} className="absolute inset-0 w-full h-full object-cover" />
+              {finalImage1 && finalImage2 ? (
+                /* ── Diagonal staircase: both images fully visible ── */
+                <div
+                  className="relative w-full max-w-[500px]"
+                  style={{ height: "400px" }}
+                >
+                  {/* ── Card 1: top-left, tilted counter-clockwise ── */}
+                  <div
+                    className="absolute overflow-hidden rounded-2xl border-[3px] border-white/30 shadow-[0_16px_48px_rgba(0,0,0,0.50)] transition-transform duration-500 hover:-translate-y-1"
+                    style={{
+                      width: "62%",
+                      aspectRatio: "3/2",
+                      top: "0",
+                      left: "0",
+                      transform: "rotate(-2.5deg)",
+                      zIndex: 2,
+                    }}
+                  >
+                    <img
+                      src={finalImage1}
+                      alt={`${programName} — primary`}
+                      className="w-full h-full object-cover object-center"
+                    />
+                    {/* label strip */}
+                    <div
+                      className="absolute bottom-0 left-0 right-0 px-3 py-2"
+                      style={{ background: "rgba(13,115,119,0.75)", backdropFilter: "blur(10px)" }}
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-white">
+                        {programName}
+                      </p>
                     </div>
-                    <div className="relative aspect-[4/5] w-full rounded-2xl shadow-2xl border-4 border-white/10 overflow-hidden transform sm:-translate-y-6 sm:rotate-2 hover:rotate-0 hover:-translate-y-7 transition-transform duration-300 hidden sm:block">
-                      <img src={finalImage2} alt={`${programName} Image 2`} className="absolute inset-0 w-full h-full object-cover" />
-                    </div>
-                  </>
-                ) : (
-                  <div className="relative aspect-square sm:aspect-[4/3] w-full sm:col-span-2 rounded-2xl shadow-2xl border-4 border-white/10 overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
-                    <img src={finalImage1 || finalImage2} alt={`${programName} Image`} className="absolute inset-0 w-full h-full object-cover" />
                   </div>
-                )}
-              </div>
+
+                  {/* ── Card 2: bottom-right, tilted clockwise ── */}
+                  <div
+                    className="absolute overflow-hidden rounded-2xl border-[3px] border-white/30 shadow-[0_16px_48px_rgba(0,0,0,0.50)] transition-transform duration-500 hover:translate-y-1"
+                    style={{
+                      width: "62%",
+                      aspectRatio: "3/2",
+                      bottom: "0",
+                      right: "0",
+                      transform: "rotate(2.5deg)",
+                      zIndex: 2,
+                    }}
+                  >
+                    <img
+                      src={finalImage2}
+                      alt={`${programName} — secondary`}
+                      className="w-full h-full object-cover object-center"
+                    />
+                    {/* label strip */}
+                    <div
+                      className="absolute bottom-0 left-0 right-0 px-3 py-2"
+                      style={{ background: "rgba(27,58,92,0.75)", backdropFilter: "blur(10px)" }}
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-white">
+                        Monitoring &amp; Support
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* ── Center connector dot ── */}
+                  <div
+                    className="absolute flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#6EE7E9]/60 bg-[#0D7377] shadow-lg"
+                    style={{ top: "50%", left: "50%", transform: "translate(-50%,-50%)", zIndex: 5 }}
+                  >
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#6EE7E9]" />
+                  </div>
+
+                  {/* ── Pulsing live badge ── */}
+                  <div
+                    className="absolute flex items-center gap-1.5 rounded-full bg-[#0D7377] px-3 py-1.5 shadow-lg"
+                    style={{ top: "52%", left: "50%", transform: "translate(-50%, 18px)", zIndex: 6, whiteSpace: "nowrap" }}
+                  >
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#6EE7E9] opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-[#6EE7E9]" />
+                    </span>
+                    <span className="text-[10px] font-bold text-white">Active Monitoring</span>
+                  </div>
+
+                  {/* ── Stat chip top-right ── */}
+                  <div
+                    className="absolute rounded-xl border border-white/25 px-3 py-2 text-center shadow-xl"
+                    style={{
+                      top: "6%",
+                      right: "2%",
+                      background: "rgba(255,255,255,0.13)",
+                      backdropFilter: "blur(14px)",
+                      zIndex: 6,
+                    }}
+                  >
+                    <p className="text-lg font-extrabold text-white">24/7</p>
+                    <p className="text-[9px] font-semibold uppercase tracking-wider text-white/70">Care Team</p>
+                  </div>
+
+                  {/* ── Stat chip bottom-left ── */}
+                  <div
+                    className="absolute rounded-xl border border-white/25 px-3 py-2 text-center shadow-xl"
+                    style={{
+                      bottom: "6%",
+                      left: "2%",
+                      background: "rgba(255,255,255,0.13)",
+                      backdropFilter: "blur(14px)",
+                      zIndex: 6,
+                    }}
+                  >
+                    <p className="text-lg font-extrabold text-white">92%</p>
+                    <p className="text-[9px] font-semibold uppercase tracking-wider text-white/70">Adherence</p>
+                  </div>
+                </div>
+              ) : (
+                /* ── Single image ── */
+                <div
+                  className="relative w-full max-w-[480px] overflow-hidden rounded-2xl border-4 border-white/20 shadow-2xl hover:scale-[1.02] transition-transform duration-300"
+                  style={{ aspectRatio: "3/2" }}
+                >
+                  <img
+                    src={finalImage1 || finalImage2}
+                    alt={`${programName} Image`}
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

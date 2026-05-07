@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import ChatWidget from "@/components/ChatWidget";
+import { Toaster } from "@/components/ui/sonner";
 
 /* ── Inter — PHM design system typography ── */
 const inter = Inter({
@@ -60,6 +61,7 @@ export default function RootLayout({
         {/* Global utilities */}
         <ScrollToTop />
         <ChatWidget />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

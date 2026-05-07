@@ -63,22 +63,22 @@ const socialPosts = [
   {
     url: "https://www.instagram.com/priority_home_monitor/reel/DXpkLyek2L2/",
     label: "Instant Alert For Symptoms",
-    image: "/images/social/ig_post_1.jpg"
+    image: "/insta_images/social/ig_post_1.jpg"
   },
   {
     url: "https://www.instagram.com/priority_home_monitor/p/DXpIw_IjZg3/",
     label: "Smart Healthcare Savings",
-    image: "/images/social/ig_post_2.jpg"
+    image: "/insta_images/social/ig_post_2.jpg"
   },
   {
     url: "https://www.instagram.com/priority_home_monitor/reel/DXh10vbCUFH/",
     label: "Sudden Weight Gain Warning",
-    image: "/images/social/ig_post_7.jpg"
+    image: "/insta_images/social/ig_post_7.jpg"
   },
   {
     url: "https://www.instagram.com/reel/DXsI-SzGwKP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     label: "Healthcare Without Office Visits",
-    image: "/images/social/ig_post_6.jpg"
+    image: "/insta_images/social/ig_post_6.jpg"
   }
 ];
 
