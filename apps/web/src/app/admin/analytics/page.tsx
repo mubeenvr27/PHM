@@ -22,7 +22,12 @@ interface AnalyticsData {
   leadsByDate: { name: string; value: number }[]
 }
 
-const COLORS = ["#1B3A5C", "#0D7377", "#475569", "#94A3B8", "#CBD5E1"]
+const STATUS_COLORS: Record<string, string> = {
+  New: "#64748B",
+  Contacted: "#F59E0B",
+  Enrolled: "#0D7377",
+  Closed: "#1B3A5C",
+}
 
 export default function AnalyticsPage() {
   const pathname = usePathname()
@@ -90,10 +95,10 @@ export default function AnalyticsPage() {
   const PremiumTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-white shadow-xl">
+        <div className="rounded-xl border border-slate-700 bg-[#0F172A] px-4 py-3 text-sm text-white shadow-2xl">
           <p className="mb-1 font-semibold text-slate-300">{label}</p>
           <p className="font-medium">
-            <span style={{ color: payload[0].color || "#0D7377" }} className="mr-2">●</span>
+            <span style={{ color: payload[0].payload?.fill || payload[0].color || "#0D7377" }} className="mr-2">●</span>
             {payload[0].name}: {payload[0].value}
           </p>
         </div>
@@ -147,7 +152,7 @@ export default function AnalyticsPage() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           
           {/* Chart 1: Lead Velocity (Full Width) */}
-          <div className="rounded-3xl border border-slate-200/60 bg-white p-8 shadow-sm lg:col-span-2">
+          <div className="rounded-3xl border border-slate-100 bg-white p-8 shadow-md lg:col-span-2">
             <div className="mb-6 flex items-center gap-2">
               <TrendingUp className="text-[#0D7377]" size={20} />
               <h2 className="text-lg font-bold text-[#1B3A5C]">Lead Velocity (Last 30 Days)</h2>
@@ -173,7 +178,7 @@ export default function AnalyticsPage() {
                       return `${d.getMonth()+1}/${d.getDate()}`;
                     }}
                   />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
+                  <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
                   <Tooltip content={<PremiumTooltip />} />
                   <Area type="monotone" dataKey="value" name="Leads" stroke="#0D7377" strokeWidth={3} fillOpacity={1} fill="url(#colorCount)" />
                 </AreaChart>
@@ -182,7 +187,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Chart 2: Program Distribution */}
-          <div className="rounded-3xl border border-slate-200/60 bg-white p-8 shadow-sm">
+          <div className="rounded-3xl border border-slate-100 bg-white p-8 shadow-md">
             <div className="mb-6 flex items-center gap-2">
               <Target className="text-[#0D7377]" size={20} />
               <h2 className="text-lg font-bold text-[#1B3A5C]">Top Programs</h2>
@@ -191,15 +196,15 @@ export default function AnalyticsPage() {
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data.leadsByProgram} layout="vertical" margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
-                  <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
+                  <XAxis type="number" allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
                   <YAxis 
                     type="category" 
                     dataKey="name" 
                     axisLine={false} 
                     tickLine={false} 
-                    width={100}
+                    width={140}
                     tick={{ fill: "#64748b", fontSize: 11 }} 
-                    tickFormatter={(val) => val.length > 15 ? val.substring(0, 15) + '...' : val}
+                    tickFormatter={(val) => val.length > 20 ? val.substring(0, 20) + '...' : val}
                   />
                   <Tooltip content={<PremiumTooltip />} />
                   <Bar dataKey="value" name="Leads" fill="#1B3A5C" radius={[0, 4, 4, 0]} barSize={24} />
@@ -209,7 +214,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Chart 3: Conversion Funnel */}
-          <div className="rounded-3xl border border-slate-200/60 bg-white p-8 shadow-sm">
+          <div className="rounded-3xl border border-slate-100 bg-white p-8 shadow-md">
             <div className="mb-6 flex items-center gap-2">
               <Activity className="text-[#0D7377]" size={20} />
               <h2 className="text-lg font-bold text-[#1B3A5C]">Status Breakdown</h2>
@@ -221,14 +226,14 @@ export default function AnalyticsPage() {
                     data={funnelData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={70}
-                    outerRadius={100}
+                    innerRadius={85}
+                    outerRadius={110}
                     paddingAngle={5}
                     dataKey="value"
                     stroke="none"
                   >
                     {funnelData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={STATUS_COLORS[entry.name]} stroke="none" />
                     ))}
                   </Pie>
                   <Tooltip content={<PremiumTooltip />} />
