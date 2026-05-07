@@ -112,7 +112,7 @@ export default function AdminLeadsPage() {
     setLoading(true)
     setFetchError(null)
     try {
-      const res = await fetch("/api/admin/leads?limit=200")
+      const res = await fetch("/api/admin/leads?limit=200", { cache: "no-store" })
       const data = await res.json()
       if (res.ok && data.success) {
         setLeads(data.data)
@@ -167,8 +167,15 @@ export default function AdminLeadsPage() {
   }
 
   async function handleStatusChange(leadId: string, newStatus: LeadStatus) {
+    const oldStatus = leads.find(l => l.id === leadId)?.status || "new"
+    if (oldStatus === newStatus) return
+
     // Optimistic update
     setLeads(prev => prev.map(l => l.id === leadId ? { ...l, status: newStatus } : l))
+    if (selectedLead?.id === leadId) {
+      setSelectedLead(prev => prev ? { ...prev, status: newStatus } : null)
+    }
+    
     setUpdatingId(leadId)
     try {
       const res = await fetch(`/api/admin/leads/${leadId}`, {
@@ -182,10 +189,17 @@ export default function AdminLeadsPage() {
       } else {
         // Revert on failure
         toast.error("Failed to update status", { description: data.error ?? "Database error. Please try again." })
-        setLeads(prev => prev.map(l => l.id === leadId ? { ...l, status: l.status } : l))
+        setLeads(prev => prev.map(l => l.id === leadId ? { ...l, status: oldStatus } : l))
+        if (selectedLead?.id === leadId) {
+          setSelectedLead(prev => prev ? { ...prev, status: oldStatus } : null)
+        }
       }
     } catch {
       toast.error("Connection error", { description: "Could not reach the database." })
+      setLeads(prev => prev.map(l => l.id === leadId ? { ...l, status: oldStatus } : l))
+      if (selectedLead?.id === leadId) {
+        setSelectedLead(prev => prev ? { ...prev, status: oldStatus } : null)
+      }
     } finally {
       setUpdatingId(null)
     }
@@ -504,10 +518,7 @@ export default function AdminLeadsPage() {
                   <span className="text-sm font-medium text-slate-500">Update Status</span>
                   <Select
                     value={selectedLead.status}
-                    onValueChange={v => {
-                      handleStatusChange(selectedLead.id, v as LeadStatus)
-                      setSelectedLead(prev => prev ? { ...prev, status: v as LeadStatus } : null)
-                    }}
+                    onValueChange={v => handleStatusChange(selectedLead.id, v as LeadStatus)}
                   >
                     <SelectTrigger className={`h-8 w-[140px] border text-xs font-medium ${statusConfig[selectedLead.status].cls}`}>
                       <SelectValue />
