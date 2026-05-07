@@ -346,36 +346,35 @@ export default function AdminLeadsPage() {
                   paginated.map(lead => (
                     <TableRow
                       key={lead.id}
-                      onClick={() => setSelectedLead(lead)}
                       className="cursor-pointer border-b border-slate-50 transition-colors hover:bg-teal-50/30"
                     >
-                      <TableCell className="whitespace-nowrap text-sm text-slate-500">
+                      <TableCell className="whitespace-nowrap text-sm text-slate-500" onClick={() => setSelectedLead(lead)}>
                         {fmtDate(lead.created_at)}
                       </TableCell>
-                      <TableCell>
+                      <TableCell onClick={() => setSelectedLead(lead)}>
                         <div className="font-medium text-[#1B3A5C]">{lead.patient_name}</div>
                         {lead.provider_name && (
                           <div className="text-xs text-slate-400">via {lead.provider_name}</div>
                         )}
                       </TableCell>
-                      <TableCell>
+                      <TableCell onClick={() => setSelectedLead(lead)}>
                         <Badge variant="outline" className={`text-xs ${typeConfig[lead.type].cls}`}>
                           {typeConfig[lead.type].label}
                         </Badge>
                       </TableCell>
-                      <TableCell className="max-w-[200px]">
+                      <TableCell className="max-w-[200px]" onClick={() => setSelectedLead(lead)}>
                         <span className="block truncate text-sm text-slate-600">
                           {lead.condition_interest ?? "—"}
                         </span>
                       </TableCell>
-                      <TableCell>
+                      <TableCell onClick={() => setSelectedLead(lead)}>
                         <div className="space-y-0.5 text-sm">
                           {lead.email && <div className="text-slate-600">{lead.email}</div>}
                           {lead.phone && <div className="text-slate-400">{lead.phone}</div>}
                           {!lead.email && !lead.phone && <span className="text-slate-300">—</span>}
                         </div>
                       </TableCell>
-                      <TableCell onClick={e => e.stopPropagation()}>
+                      <TableCell>
                         <Select
                           value={lead.status}
                           onValueChange={v => handleStatusChange(lead.id, v as LeadStatus)}
