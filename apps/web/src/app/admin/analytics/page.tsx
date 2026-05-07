@@ -18,8 +18,8 @@ interface AnalyticsData {
     enrolled: number
     closed: number
   }
-  leadsByProgram: { program: string; count: number }[]
-  leadsByDate: { date: string; count: number }[]
+  leadsByProgram: { name: string; value: number }[]
+  leadsByDate: { name: string; value: number }[]
 }
 
 const COLORS = ["#1B3A5C", "#0D7377", "#475569", "#94A3B8", "#CBD5E1"]
@@ -163,7 +163,7 @@ export default function AnalyticsPage() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                   <XAxis 
-                    dataKey="date" 
+                    dataKey="name" 
                     axisLine={false} 
                     tickLine={false} 
                     tick={{ fill: "#64748b", fontSize: 12 }} 
@@ -175,7 +175,7 @@ export default function AnalyticsPage() {
                   />
                   <YAxis axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
                   <Tooltip content={<PremiumTooltip />} />
-                  <Area type="monotone" dataKey="count" name="Leads" stroke="#0D7377" strokeWidth={3} fillOpacity={1} fill="url(#colorCount)" />
+                  <Area type="monotone" dataKey="value" name="Leads" stroke="#0D7377" strokeWidth={3} fillOpacity={1} fill="url(#colorCount)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -194,7 +194,7 @@ export default function AnalyticsPage() {
                   <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
                   <YAxis 
                     type="category" 
-                    dataKey="program" 
+                    dataKey="name" 
                     axisLine={false} 
                     tickLine={false} 
                     width={100}
@@ -202,7 +202,7 @@ export default function AnalyticsPage() {
                     tickFormatter={(val) => val.length > 15 ? val.substring(0, 15) + '...' : val}
                   />
                   <Tooltip content={<PremiumTooltip />} />
-                  <Bar dataKey="count" name="Leads" fill="#1B3A5C" radius={[0, 4, 4, 0]} barSize={24} />
+                  <Bar dataKey="value" name="Leads" fill="#1B3A5C" radius={[0, 4, 4, 0]} barSize={24} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

@@ -33,23 +33,34 @@ export async function GET(request: NextRequest) {
         GROUP BY status
       `),
       
-      // 4. Leads by Program (Top 5)
+      // 4. Leads by Program (Top 5, parsed from comma-separated string)
       query(`
-        SELECT condition_interest as program, COUNT(*) as count 
+        SELECT 
+          TRIM(unnest(string_to_array(condition_interest, ','))) as name, 
+          COUNT(*) as value 
         FROM leads 
-        WHERE condition_interest IS NOT NULL 
-        GROUP BY condition_interest 
-        ORDER BY count DESC 
+        WHERE condition_interest IS NOT NULL AND condition_interest != ''
+        GROUP BY name 
+        ORDER BY value DESC 
         LIMIT 5
       `),
       
-      // 5. Leads by Date (Last 30 Days velocity)
+      // 5. Leads by Date (Last 30 Days velocity, gap-filled)
       query(`
-        SELECT created_at::date as date, COUNT(*) as count 
-        FROM leads 
-        WHERE created_at >= NOW() - INTERVAL '30 days' 
-        GROUP BY created_at::date 
-        ORDER BY date ASC
+        WITH date_series AS (
+          SELECT generate_series(
+            CURRENT_DATE - INTERVAL '29 days', 
+            CURRENT_DATE, 
+            '1 day'::interval
+          )::date AS date
+        )
+        SELECT 
+          ds.date as name, 
+          COUNT(l.id) as value 
+        FROM date_series ds
+        LEFT JOIN leads l ON l.created_at::date = ds.date
+        GROUP BY ds.date 
+        ORDER BY ds.date ASC
       `)
     ]);
 
@@ -68,17 +79,16 @@ export async function GET(request: NextRequest) {
       return acc;
     }, { new: 0, contacted: 0, enrolled: 0, closed: 0 }); // Pre-fill with zeros
 
-    // Format leads by program
+    // Format leads by program for Recharts
     const leadsByProgram = programResult.rows.map((row: any) => ({
-      program: row.program,
-      count: parseInt(row.count, 10)
+      name: row.name,
+      value: parseInt(row.value, 10)
     }));
 
-    // Format leads by date
+    // Format leads by date for Recharts
     const leadsByDate = dateResult.rows.map((row: any) => ({
-      // Handle the date string format correctly depending on pg driver output
-      date: row.date instanceof Date ? row.date.toISOString().split('T')[0] : String(row.date),
-      count: parseInt(row.count, 10)
+      name: row.name instanceof Date ? row.name.toISOString().split('T')[0] : String(row.name),
+      value: parseInt(row.value, 10)
     }));
 
     return NextResponse.json({
