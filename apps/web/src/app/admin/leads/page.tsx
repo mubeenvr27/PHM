@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useMemo, useEffect, useCallback } from "react"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
 import { toast } from "sonner"
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -17,6 +19,7 @@ import {
   ChevronUp, ChevronDown, ChevronsUpDown,
   ChevronLeft, ChevronRight, Mail, Phone,
   Globe, MessageSquare, User, Calendar, Stethoscope,
+  ListTodo, BarChart3,
 } from "lucide-react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -97,6 +100,7 @@ function SortIcon({ field, sortField, sortDir }: { field: SortField; sortField: 
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminLeadsPage() {
+  const pathname = usePathname()
   const [leads, setLeads] = useState<Lead[]>([])
   const [loading, setLoading] = useState(true)
   const [fetchError, setFetchError] = useState<string | null>(null)
@@ -260,19 +264,40 @@ export default function AdminLeadsPage() {
     <div className="min-h-screen bg-[#F8FAFC] p-6 lg:p-10">
       <div className="mx-auto max-w-7xl space-y-8">
 
-        {/* ── Page Header ── */}
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+        {/* ── Header & Tabs ── */}
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight" style={{ color: "#1B3A5C" }}>
+            <h1 className="text-3xl font-bold tracking-tight text-[#1B3A5C]">
               Lead Management
             </h1>
             <p className="mt-1 text-sm text-slate-500">
               Monitor and manage all patient and provider inquiries in real time.
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs text-slate-400">
-            <Activity size={14} className="text-[#0D7377]" />
-            <span>Last synced: just now</span>
+
+          <div className="flex w-fit items-center rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+            <Link
+              href="/admin/leads"
+              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                pathname === "/admin/leads"
+                  ? "bg-slate-100 text-[#1B3A5C]"
+                  : "text-slate-500 hover:text-[#1B3A5C]"
+              }`}
+            >
+              <ListTodo size={16} />
+              Lead Management
+            </Link>
+            <Link
+              href="/admin/analytics"
+              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                pathname === "/admin/analytics"
+                  ? "bg-slate-100 text-[#1B3A5C]"
+                  : "text-slate-500 hover:text-[#1B3A5C]"
+              }`}
+            >
+              <BarChart3 size={16} />
+              Analytics
+            </Link>
           </div>
         </div>
 
