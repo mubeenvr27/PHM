@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
+import { ChevronDown, Menu, X, ArrowRight, ShoppingCart } from "lucide-react";
 import Logo from "@/components/ui/Logo";
+import { useCartStore, selectTotalItems } from "@/store/cartStore";
 
 const programs = [
   { label: "COPD Respiratory Care", href: "/programs/copd" },
@@ -22,6 +23,11 @@ const programs = [
 export default function Navbar() {
   const [programsOpen, setProgramsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const totalItems = useCartStore(selectTotalItems);
+
+  // Hydration guard: only render badge after mount to avoid SSR mismatch
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return (
     <header
@@ -99,6 +105,23 @@ export default function Navbar() {
             className="flex h-12 items-center text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
           >
             Shop
+          </Link>
+
+          {/* Cart */}
+          <Link
+            href="/cart"
+            className="relative flex h-12 w-12 items-center justify-center text-white rounded-md transition-colors hover:bg-white/10"
+            aria-label={`Shopping cart${mounted && totalItems > 0 ? `, ${totalItems} item${totalItems !== 1 ? 's' : ''}` : ''}`}
+          >
+            <ShoppingCart size={20} />
+            {mounted && totalItems > 0 && (
+              <span
+                className="absolute -top-0.5 -right-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#0D7377] px-1 text-[11px] font-bold text-white ring-2 ring-[#11263d] tabular-nums"
+                aria-hidden="true"
+              >
+                {totalItems > 99 ? '99+' : totalItems}
+              </span>
+            )}
           </Link>
 
           {/* Contact */}
@@ -181,6 +204,20 @@ export default function Navbar() {
               style={{ minHeight: "44px" }}
             >
               Shop
+            </Link>
+            <Link
+              href="/cart"
+              onClick={() => setMobileOpen(false)}
+              className="text-white px-2 py-2 rounded-md hover:bg-white/10 font-medium flex items-center gap-2"
+              style={{ minHeight: "44px" }}
+            >
+              <ShoppingCart size={18} />
+              Cart
+              {mounted && totalItems > 0 && (
+                <span className="ml-auto flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#0D7377] px-1.5 text-xs font-bold text-white tabular-nums">
+                  {totalItems}
+                </span>
+              )}
             </Link>
             <Link
               href="/contact"

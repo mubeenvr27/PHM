@@ -1,11 +1,12 @@
 "use client"
 
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { ShoppingCart, Package, CheckCircle2, Layers, Cpu } from "lucide-react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { useCartStore } from "@/store/cartStore"
+import { toast } from "sonner"
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -136,7 +137,7 @@ function ProductCard({
   onAddToCart,
 }: {
   product: Product
-  onAddToCart: (name: string) => void
+  onAddToCart: (product: Product) => void
 }) {
   return (
     <Card className="group flex flex-col h-full bg-white border border-slate-200/60 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
@@ -221,7 +222,7 @@ function ProductCard({
 
       <CardFooter className="p-8 pt-6">
         <button
-          onClick={() => onAddToCart(product.name)}
+          onClick={() => onAddToCart(product)}
           className="w-full bg-[#0D7377] hover:bg-[#0a5f63] text-white h-14 rounded-2xl font-bold flex items-center justify-center gap-3 transition-colors duration-300 shadow-md hover:shadow-lg focus:ring-4 focus:ring-[#0D7377]/20 outline-none"
         >
           <ShoppingCart size={20} />
@@ -235,16 +236,23 @@ function ProductCard({
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function ShopPage() {
-  const router = useRouter()
-  const [toastMessage, setToastMessage] = useState<string | null>(null)
+  const addItem = useCartStore((s) => s.addItem)
   const [activeTab, setActiveTab] = useState<Tab>("devices")
 
-  const handleAddToCart = (productName: string) => {
-    setToastMessage(`Added "${productName}" to cart. Redirecting to enrollment...`)
-    setTimeout(() => {
-      setToastMessage(null)
-      router.push("/contact")
-    }, 2000)
+  const handleAddToCart = (product: Product) => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price_cents: product.price * 100,
+      image: product.images[0],
+    })
+    toast.success(`Added "${product.name}" to cart`, {
+      description: "View your cart to proceed with enrollment.",
+      action: {
+        label: "View Cart",
+        onClick: () => (window.location.href = "/cart"),
+      },
+    })
   }
 
   const isBundle = activeTab === "bundles"
@@ -255,15 +263,6 @@ export default function ShopPage() {
 
   return (
     <div className="min-h-screen bg-white relative">
-      {/* ── Toast Notification ── */}
-      {toastMessage && (
-        <div className="fixed top-6 right-6 z-50 bg-[#1B3A5C] text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-in slide-in-from-top-4 fade-in duration-300">
-          <div className="bg-[#0D7377] p-2 rounded-full">
-            <ShoppingCart size={16} className="text-white" />
-          </div>
-          <span className="font-semibold">{toastMessage}</span>
-        </div>
-      )}
 
       {/* ── Hero Header ── */}
       <section className="w-full bg-[#1B3A5C] py-24 border-b border-slate-200">

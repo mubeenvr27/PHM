@@ -1,37 +1,49 @@
-# dependencies
-apps/web/node_modules/
-.pnp
-.pnp.js
-.yarn/install-state.gz
+# ============================================================
+# PHM Monorepo — .gitignore
+# Covers all apps/* and packages/* subdirectories
+# ============================================================
 
-# testing
-apps/web/coverage/
+# ── Node / npm ───────────────────────────────────────────────
+**/node_modules/
+**/.pnp
+**/.pnp.js
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+package-lock.json
 
-# next.js
-apps/web/.next/
-apps/web/out/
+# ── Next.js ──────────────────────────────────────────────────
+**/.next/
+**/out/
+**/build/
+**/dist/
 
-# production
-apps/web/build/
+# ── Testing ──────────────────────────────────────────────────
+**/coverage/
 
-# misc
+# ── Environment variables (NEVER commit secrets) ──────────────
+**/.env
+**/.env.local
+**/.env.*.local
+# .env.example files ARE committed (they contain no secrets)
+!**/.env.example
+
+# ── TypeScript build cache ────────────────────────────────────
+**/*.tsbuildinfo
+**/next-env.d.ts
+
+# ── OS / Editor ───────────────────────────────────────────────
 .DS_Store
+Thumbs.db
 *.pem
+~$*
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-apps/web/.env*.local
-
-# vercel
+# ── Vercel ───────────────────────────────────────────────────
 .vercel
 
-# typescript
-apps/web/*.tsbuildinfo
-apps/web/next-env.d.ts
+# ── AWS / Amplify ─────────────────────────────────────────────
+.amplify-hosting/
 
-# Office temp files
-~$*
+# ── Misc ──────────────────────────────────────────────────────
+*.log
+.vscode/settings.json

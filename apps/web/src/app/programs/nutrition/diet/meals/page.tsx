@@ -14,7 +14,6 @@ const data = {
   primaryCTA: "Order Meals via CookUnity",
   ctaHref: "https://www.cookunity.com/business/priorityhomemonitor",
   externalCta: true,
-  externalCta: true,
   qualifyingConditions: [
     "Managing a chronic condition with dietary restrictions such as low sodium for heart failure, carbohydrate controlled for diabetes, or renal diet for chronic kidney disease",
     "Physician or registered dietitian has identified nutritional deficiency or dietary non-compliance as a clinical concern",

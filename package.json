@@ -1,0 +1,21 @@
+{
+  "name": "phm-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Priority Home Monitor — AWS-ready monorepo (npm workspaces)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/web",
+    "lint": "npm run lint --workspace=apps/web",
+    "test": "npm run test --workspace=apps/web",
+    "install:all": "npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

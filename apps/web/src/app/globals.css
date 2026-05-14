@@ -211,4 +211,20 @@
     text-underline-offset: 3px;
     font-weight: 500;
   }
+
+  /* Success Checkmark Animation */
+  .animate-checkmark {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: checkmark 0.8s ease-in-out 0.2s forwards;
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }

@@ -76,15 +76,8 @@ export default function ProgramPage({
   qualifyingConditions,
   steps,
   icon: Icon = Activity,
-  clinicalBacking = {
-    stat: "92%",
-    statLabel: "Patient Adherence",
-    quote: '"Daily monitoring provides the clinical confidence we need to keep patients out of the hospital while improving their quality of life."',
-    author: "Clinical Advisory Board",
-  },
   secondaryCTA,
   secondaryCtaHref,
-  devices,
   image1,
   image2,
 }: ProgramPageProps) {

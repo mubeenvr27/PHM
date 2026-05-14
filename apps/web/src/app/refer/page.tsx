@@ -134,7 +134,7 @@ export default function ReferPage() {
             Refer a Patient
           </h1>
           <p className="mt-4 text-lg text-white/80">
-            Partner with Priority Home Monitor to extend care directly into your patients' homes.
+            Partner with Priority Home Monitor to extend care directly into your patients&apos; homes.
           </p>
         </div>
       </section>
@@ -157,7 +157,7 @@ export default function ReferPage() {
                       Referral Submitted!
                     </h3>
                     <p className="text-white/90 animate-in slide-in-from-bottom-4 duration-700 delay-100">
-                      We'll contact the patient within 24 hours
+                      We&apos;ll contact the patient within 24 hours
                     </p>
                     <div className="mt-6 flex justify-center gap-2">
                       <Sparkles className="h-5 w-5 text-white/60 animate-pulse" />

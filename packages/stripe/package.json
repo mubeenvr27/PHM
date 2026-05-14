@@ -1,0 +1,22 @@
+{
+  "name": "@phm/stripe",
+  "version": "1.0.0",
+  "description": "Shared Stripe configuration and webhook utilities for PHM services",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "stripe": "^22.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

@@ -11,7 +11,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./schema.sql:/docker-entrypoint-initdb.d/init.sql
+      # Schema files consolidated into infrastructure/database/
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./database/orders.sql:/docker-entrypoint-initdb.d/02_orders.sql
       - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
 

@@ -1,378 +1,201 @@
-# Priority Home Monitor (PHM) - Admin Dashboard Backend
+﻿# Priority Home Monitor (PHM) â€” Monorepo
 
-Complete backend implementation for the PHM Admin Dashboard, following the **Technical Architecture — Revision 4 | April 2026** specifications.
+> **AWS-ready, npm-workspace monorepo** for the Priority Home Monitor remote patient monitoring platform.
 
-## 🚀 Quick Start (3 Commands)
-
-```bash
-# 1. Setup database (Windows PowerShell)
-.\setup.ps1
-
-# OR (Linux/Mac/WSL/Git Bash)
-bash setup.sh
-
-# 2. Start development server
-cd apps/web
-npm run dev
-
-# 3. Test the API (Windows PowerShell)
-.\test-api.ps1
-
-# OR (Linux/Mac/WSL/Git Bash)
-bash test-api.sh
-```
-
-## 📚 Documentation
-
-| Document | Purpose |
-|----------|---------|
-| **README.md** | This file - Overview and quick start |
-| **[README_BACKEND_SETUP.md](README_BACKEND_SETUP.md)** | Complete backend documentation |
-| **[ADMIN_DASHBOARD_GUIDE.md](ADMIN_DASHBOARD_GUIDE.md)** | Admin dashboard guide |
-| **[FORMS_INTEGRATION_GUIDE.md](FORMS_INTEGRATION_GUIDE.md)** | Forms integration guide (NEW!) |
-| **[FORMS_FIX_SUMMARY.md](FORMS_FIX_SUMMARY.md)** | Forms fix summary (NEW!) |
-| **[QUICK_START.md](QUICK_START.md)** | Quick reference commands |
-| **[SETUP_GUIDE.md](SETUP_GUIDE.md)** | Detailed setup and troubleshooting |
-| **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** | Technical implementation details |
-| **[VERIFICATION_CHECKLIST.md](VERIFICATION_CHECKLIST.md)** | Complete verification checklist |
-
-## 🎯 What's Implemented
-
-### Database Layer
-- ✅ PostgreSQL 16 in Docker
-- ✅ Strict schema with ENUMs (lead_type, lead_status)
-- ✅ Leads table with all required columns
-- ✅ Performance indexes
-- ✅ Native `pg` connection pooling (NO ORM)
-
-### API Endpoints
-- ✅ `GET /api/admin/leads` - List all leads with filtering & pagination
-- ✅ `GET /api/admin/leads/[id]` - Get single lead by UUID
-- ✅ `PATCH /api/admin/leads/[id]` - Update lead status (Optimistic UI)
-- ✅ `GET /api/admin/analytics` - High-performance data aggregation (NEW!)
-  - ✅ Concurrent queries via `Promise.all`
-  - ✅ PostgreSQL `generate_series` for gap-filling zero-lead days
-  - ✅ `unnest(string_to_array)` for multi-interest parsing
-- ✅ `POST /api/contact` - Submit contact form
-- ✅ `POST /api/refer` - Submit referral form
-
-### Admin Dashboard
-- ✅ Apple-style minimalist UI design
-- ✅ Real-time data fetching and updates
-- ✅ Interactive status management with dropdowns
-- ✅ Analytics Dashboard with Recharts (NEW!)
-  - ✅ Lead Velocity (30-day Area Chart with gradients)
-  - ✅ Program Distribution (Horizontal Bar Chart)
-  - ✅ Status Breakdown (Elegant Donut Chart)
-- ✅ Color-coded status badges
-- ✅ Toast notifications for actions
-- ✅ Beautiful loading and empty states
-- ✅ Responsive table design
-- ✅ Live statistics cards (Total Leads, Active Referrals, Enrollment Rate)
-
-### Public Forms (NEW!)
-- ✅ Contact form at `/contact`
-- ✅ Referral form at `/refer`
-- ✅ Creative success animations
-- ✅ Toast notifications
-- ✅ Form validation with Zod
-- ✅ Auto-reset after submission
-- ✅ Data appears in admin dashboard
-
-### Features
-- ✅ Query filtering (type, status, search)
-- ✅ Pagination (custom PAGE_SIZE)
-- ✅ Concurrent query execution (Performance optimization)
-- ✅ SVG Gradient visualizations
-- ✅ UUID validation
-- ✅ Error handling
-- ✅ Slow query logging
-- ✅ JWT placeholders (Phase 4)
-- ✅ CloudWatch placeholders (Phase 4)
-
-## 📁 Project Structure
-
-```
-PHM/
-├── README.md                                     # This file
-├── README_BACKEND_SETUP.md                       # Complete documentation
-├── ADMIN_DASHBOARD_GUIDE.md                      # Admin dashboard guide (NEW!)
-├── QUICK_START.md                                # Quick reference
-├── SETUP_GUIDE.md                                # Detailed setup guide
-├── IMPLEMENTATION_SUMMARY.md                     # Technical details
-├── VERIFICATION_CHECKLIST.md                     # Verification steps
-├── schema.sql                                    # Database schema
-├── test_data.sql                                 # Sample data
-├── setup.ps1                                     # Windows setup script
-├── setup.sh                                      # Linux/Mac setup script
-├── test-api.ps1                                  # Windows API test script
-├── test-api.sh                                   # Linux/Mac API test script
-└── apps/web/
-    ├── .env.local                                # DATABASE_URL configured
-    ├── src/
-    │   ├── lib/
-    │   │   └── db.ts                             # Database utility
-    │   ├── components/
-    │   │   └── ui/
-    │   │       └── sonner.tsx                    # Toast notifications (NEW!)
-    │   └── app/
-    │       ├── layout.tsx                        # Updated with Toaster (NEW!)
-    │       ├── admin/
-    │       │   ├── leads/
-    │       │   │   └── page.tsx                  # Lead management (Refactored!)
-    │       │   └── analytics/
-    │       │       └── page.tsx                  # Analytics dashboard (NEW!)
-    │       └── api/
-    │           └── admin/
-    │               ├── leads/
-    │               │   ├── route.ts              # GET all leads
-    │               │   └── [id]/
-    │               │       └── route.ts          # GET/PATCH single lead
-    │               └── analytics/
-    │                   └── route.ts              # Data aggregation (NEW!)
-```
-
-## 🔌 API Examples
-
-### Get All Leads
-```bash
-curl http://localhost:3000/api/admin/leads
-```
-
-### Filter by Status
-```bash
-curl "http://localhost:3000/api/admin/leads?status=new"
-```
-
-### Filter by Type
-```bash
-curl "http://localhost:3000/api/admin/leads?type=referral"
-```
-
-### Pagination
-```bash
-curl "http://localhost:3000/api/admin/leads?page=1&limit=10"
-```
-
-### Get Single Lead
-```bash
-curl http://localhost:3000/api/admin/leads/{uuid}
-```
-
-### Update Lead Status
-```bash
-curl -X PATCH http://localhost:3000/api/admin/leads/{uuid} \
-  -H "Content-Type: application/json" \
-  -d '{"status": "contacted"}'
-```
-
-### Get Analytics Data
-```bash
-curl http://localhost:3000/api/admin/analytics
-```
-
-## 🗄️ Database Schema
-
-### ENUMs
-- `lead_type`: 'referral' | 'consultation' | 'contact'
-- `lead_status`: 'new' | 'contacted' | 'enrolled' | 'closed'
-
-### Leads Table
-- `id` (UUID, primary key)
-- `type` (lead_type, not null)
-- `patient_name` (VARCHAR 255, not null)
-- `provider_name` (VARCHAR 255, nullable)
-- `phone` (VARCHAR 50, nullable)
-- `email` (VARCHAR 255, nullable)
-- `condition_interest` (VARCHAR 255, nullable)
-- `message` (TEXT, nullable)
-- `source_page` (VARCHAR 255, nullable)
-- `status` (lead_status, default 'new')
-- `created_at` (TIMESTAMP WITH TIME ZONE, default now)
-
-## 🛠️ Manual Setup
-
-If you prefer manual setup over automated scripts:
-
-### 1. Start PostgreSQL
-```bash
-docker run --name phm-postgres \
-  -e POSTGRES_DB=phm \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -p 5432:5432 \
-  -d postgres:16
-```
-
-### 2. Apply Schema
-```bash
-docker exec -i phm-postgres psql -U postgres -d phm < schema.sql
-```
-
-### 3. Insert Test Data (Optional)
-```bash
-docker exec -i phm-postgres psql -U postgres -d phm < test_data.sql
-```
-
-### 4. Start Dev Server
-```bash
-cd apps/web
-npm run dev
-```
-
-## ✅ Architecture Compliance
-
-| Requirement | Status | Implementation |
-|------------|--------|----------------|
-| No ORM | ✅ | Native `pg` package only |
-| PostgreSQL 16 | ✅ | Docker container |
-| Strict Schema | ✅ | Exact column names and types |
-| JWT Placeholders | ✅ | TODO comments in routes |
-| Connection Pooling | ✅ | Max 20 clients |
-| Error Handling | ✅ | Comprehensive try-catch |
-| Pagination | ✅ | Default 50 items/page |
-| UUID Validation | ✅ | Regex pattern validation |
-
-## 🔐 Security Status
-
-### Current (Development)
-- ⚠️ No authentication
-- ⚠️ Public endpoints
-- ⚠️ Local development only
-
-### Phase 4 (Production)
-- 🔒 AWS Cognito JWT verification
-- 🔒 CloudWatch audit logging
-- 🔒 Rate limiting
-- 🔒 Request validation
-- 🔒 CORS configuration
-
-## 🧪 Testing
-
-### Automated Testing
-```bash
-# Windows PowerShell
-.\test-api.ps1
-
-# Linux/Mac/WSL/Git Bash
-bash test-api.sh
-```
-
-### Manual Testing
-See [QUICK_START.md](QUICK_START.md) for curl commands.
-
-## 🐛 Troubleshooting
-
-### Docker Issues
-```bash
-# Check container status
-docker ps | grep phm-postgres
-
-# View logs
-docker logs phm-postgres
-
-# Restart container
-docker restart phm-postgres
-```
-
-### Connection Issues
-1. Verify DATABASE_URL in `apps/web/.env.local`
-2. Check Docker container is running
-3. Test connection: `docker exec phm-postgres psql -U postgres -d phm -c "SELECT 1"`
-
-### API Issues
-1. Ensure dev server is running: `npm run dev`
-2. Check browser console for errors
-3. Review API error responses
-4. Verify database schema is applied
-
-## 🎨 Admin Dashboard
-
-### Access the Dashboard
-```
-http://localhost:3000/admin/leads
-```
-
-### Features
-- **Apple-style Design**: Premium, minimalist interface
-- **Real-time Updates**: Interactive status management
-- **Color-coded Badges**: Visual status indicators
-- **Toast Notifications**: Instant feedback on actions
-- **Responsive Design**: Works on all devices
-- **Loading States**: Professional skeleton loaders
-- **Empty States**: Beautiful "no data" screens
-
-### Quick Demo
-1. Start the dev server: `npm run dev`
-2. Navigate to: `http://localhost:3000/admin/leads`
-3. View all leads in a beautiful table
-4. Click any status dropdown to update
-5. Watch the toast notification confirm the change
-
-See [ADMIN_DASHBOARD_GUIDE.md](ADMIN_DASHBOARD_GUIDE.md) for complete documentation.
-
-## 📖 Next Steps
-
-1. **Test the Implementation**
-   - Run automated tests: `.\test-api.ps1` or `bash test-api.sh`
-   - Access admin dashboard: `http://localhost:3000/admin/leads`
-   - Test status updates and interactions
-
-2. **Enhance Admin Dashboard**
-   - Add search and filtering
-   - Implement pagination controls
-   - Add lead details modal
-   - Export to CSV functionality
-
-3. **Phase 4 Implementation**
-   - AWS Cognito JWT verification
-   - CloudWatch logging integration
-   - Rate limiting and security hardening
-   - Protected routes with authentication
-
-4. **Production Deployment**
-   - AWS RDS for PostgreSQL
-   - ECS/Fargate for Next.js app
-   - CloudFront for CDN
-
-## 📞 Support
-
-For detailed information:
-- **Setup Issues**: See [SETUP_GUIDE.md](SETUP_GUIDE.md)
-- **API Documentation**: See [README_BACKEND_SETUP.md](README_BACKEND_SETUP.md)
-- **Verification**: See [VERIFICATION_CHECKLIST.md](VERIFICATION_CHECKLIST.md)
-
-## 📝 Files Summary
-
-### Setup Scripts
-- `setup.ps1` - Windows PowerShell automated setup
-- `setup.sh` - Linux/Mac/WSL automated setup
-
-### Test Scripts
-- `test-api.ps1` - Windows PowerShell API testing
-- `test-api.sh` - Linux/Mac/WSL API testing
-
-### Database Files
-- `schema.sql` - Database schema with ENUMs and tables
-- `test_data.sql` - 10 sample leads for testing
-
-### Documentation
-- `README.md` - This overview document
-- `README_BACKEND_SETUP.md` - Complete backend documentation
-- `QUICK_START.md` - Quick reference commands
-- `SETUP_GUIDE.md` - Detailed setup instructions
-- `IMPLEMENTATION_SUMMARY.md` - Technical implementation details
-- `VERIFICATION_CHECKLIST.md` - Complete verification steps
-
-### Implementation Files
-- `apps/web/src/lib/db.ts` - Database connection utility
-- `apps/web/src/app/api/admin/leads/route.ts` - GET all leads
-- `apps/web/src/app/api/admin/leads/[id]/route.ts` - GET/PATCH single lead
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://typescriptlang.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql)](https://postgresql.org)
+[![Stripe](https://img.shields.io/badge/Stripe-Payments-635bff?logo=stripe)](https://stripe.com)
 
 ---
 
-**Implementation Date**: May 7, 2026  
-**Architecture Version**: Revision 4 | April 2026  
-**Status**: ✅ Complete and Ready for Testing
+## ðŸ“‚ Monorepo Structure
 
-**Get Started**: Run `.\setup.ps1` (Windows) or `bash setup.sh` (Linux/Mac)
+```
+PHM/
+â”œâ”€â”€ apps/
+â”‚   â”œâ”€â”€ web/                        # Next.js 14 â€” Patient & Admin frontend
+â”‚   â”‚   â”œâ”€â”€ src/
+â”‚   â”‚   â”‚   â”œâ”€â”€ app/                # App Router pages & API routes
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ admin/          # Admin dashboard (leads, orders, analytics)
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ api/            # REST endpoints + Stripe webhooks
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ shop/           # Device store
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ programs/       # Clinical program pages
+â”‚   â”‚   â”‚   â”‚   â”œâ”€â”€ checkout/       # Stripe checkout flow
+â”‚   â”‚   â”‚   â”‚   â””â”€â”€ contact/ refer/ # Lead capture forms
+â”‚   â”‚   â”‚   â”œâ”€â”€ components/         # Reusable UI components
+â”‚   â”‚   â”‚   â”œâ”€â”€ lib/                # Shims â†’ shared packages
+â”‚   â”‚   â”‚   â””â”€â”€ store/              # Zustand client state (cart, checkout)
+â”‚   â”‚   â”œâ”€â”€ .env.example            # Template â€” copy to .env.local
+â”‚   â”‚   â””â”€â”€ package.json            # @phm/web
+â”‚   â”œâ”€â”€ ai-service/                 # RAG pipeline (ingestion + retrieval)
+â”‚   â””â”€â”€ backend/                    # Future standalone API service
+â”‚
+â”œâ”€â”€ packages/                       # Shared code (zero duplication)
+â”‚   â”œâ”€â”€ database/                   # @phm/database â€” PostgreSQL pool + query helper
+â”‚   â”œâ”€â”€ stripe/                     # @phm/stripe â€” Stripe server singleton
+â”‚   â””â”€â”€ types/                      # @phm/types â€” All TypeScript interfaces & enums
+â”‚
+â”œâ”€â”€ infrastructure/
+â”‚   â”œâ”€â”€ docker-compose.yml          # Local PostgreSQL 16 + pgvector
+â”‚   â””â”€â”€ database/
+â”‚       â”œâ”€â”€ schema.sql              # Core schema (leads, users, knowledge_chunks)
+â”‚       â”œâ”€â”€ orders.sql              # Orders table + Stripe payment schema
+â”‚       â””â”€â”€ test_data.sql           # Sample data for local development
+â”‚
+â”œâ”€â”€ scripts/
+â”‚   â”œâ”€â”€ setup.ps1                   # Windows: Docker DB setup
+â”‚   â””â”€â”€ setup.sh                    # Linux/macOS: Docker DB setup
+â”‚
+â”œâ”€â”€ docs/                           # Architecture PDFs and reference materials
+â”œâ”€â”€ .env.example                    # All env var documentation for the monorepo
+â”œâ”€â”€ .gitignore                      # Monorepo-wide (covers all apps & packages)
+â””â”€â”€ package.json                    # npm workspaces root
+```
+
+---
+
+## ðŸš€ Quick Start (Local Dev)
+
+### Prerequisites
+- Node.js â‰¥ 18, npm â‰¥ 9
+- Docker Desktop (for local PostgreSQL)
+
+### 1 â€” Install all dependencies (runs once for the entire repo)
+```bash
+npm install
+```
+
+### 2 â€” Start the database
+```bash
+cd infrastructure
+docker-compose up -d
+```
+
+### 3 â€” Configure environment
+```bash
+cp apps/web/.env.example apps/web/.env.local
+# Edit apps/web/.env.local with your Stripe test keys
+```
+
+### 4 â€” Start the dev server
+```bash
+npm run dev
+# or: cd apps/web && npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+---
+
+## ðŸ“¦ Shared Packages
+
+| Package | Import | Purpose |
+|---------|--------|---------|
+| `@phm/database` | `import { query } from '@phm/database'` | PostgreSQL connection pool singleton |
+| `@phm/stripe` | `import { stripe } from '@phm/stripe'` | Server-side Stripe instance (never expose to client) |
+| `@phm/types` | `import type { Lead, Order } from '@phm/types'` | All TypeScript interfaces â€” single source of truth |
+
+> These packages are resolved locally via npm workspaces. No publishing to npm registry is needed.
+
+---
+
+## ðŸŒ Key Pages & API Endpoints
+
+| Route | Description |
+|-------|-------------|
+| `/` | Homepage with hero slideshow |
+| `/programs/*` | 11 clinical program pages |
+| `/shop` | Device shop (Care Bundles & Individual Devices) |
+| `/checkout` | Stripe-powered checkout flow |
+| `/contact` | Lead capture form |
+| `/refer` | Provider referral form |
+| `/admin/leads` | Admin: lead management table |
+| `/admin/analytics` | Admin: analytics dashboard (Recharts) |
+| `/admin/orders` | Admin: order management |
+| `POST /api/contact` | Submit contact lead |
+| `POST /api/refer` | Submit referral lead |
+| `POST /api/checkout/create-intent` | Create Stripe PaymentIntent |
+| `POST /api/webhooks/stripe` | Stripe event handler (paid/failed) |
+| `GET /api/admin/leads` | Paginated lead list |
+| `GET /api/admin/analytics` | High-performance aggregation |
+
+---
+
+## â˜ï¸ AWS Deployment Architecture
+
+```
+Internet â†’ CloudFront CDN
+              â†“
+       AWS Amplify (SSR)           â† Next.js standalone build
+              â†“
+       ECS / Lambda
+              â†“
+       AWS RDS (PostgreSQL 16)     â† Replace DATABASE_URL
+       AWS Cognito                 â† JWT auth (Phase 4)
+       AWS SES                     â† Order confirmation emails
+       AWS Secrets Manager         â† STRIPE_SECRET_KEY, DB credentials
+```
+
+**Next.js is already configured for `output: "standalone"`** â€” the `.next/standalone/` directory contains everything needed for a lean Docker image or Amplify SSR deployment.
+
+---
+
+## ðŸ—„ï¸ Database Schema
+
+### Core Tables
+- **`leads`** â€” Patient and provider inquiries (type: referral | consultation | contact)
+- **`orders`** â€” Stripe-backed device orders with JSONB line items
+- **`admin_users`** â€” Cognito-linked admin accounts
+- **`knowledge_chunks`** â€” pgvector embeddings for AI RAG queries
+- **`cluster_centroids`** â€” Semantic cluster centroids for AI routing
+
+### Schema Files
+| File | Purpose |
+|------|---------|
+| `infrastructure/database/schema.sql` | Core schema with pgvector, ENUMs, indexes |
+| `infrastructure/database/orders.sql` | Orders table and Stripe-related columns |
+| `infrastructure/database/test_data.sql` | 10 sample leads for local testing |
+
+---
+
+## ðŸ” Security Status
+
+| Layer | Local Dev | AWS Production |
+|-------|-----------|----------------|
+| Database auth | Docker default | RDS IAM + Secrets Manager |
+| Admin routes | Unprotected | Cognito JWT verification |
+| Stripe keys | `.env.local` | Amplify / Secrets Manager |
+| HTTPS | localhost | CloudFront + ACM certificate |
+
+---
+
+## ðŸ§ª Testing
+
+```bash
+# Run all tests (from root)
+npm run test
+
+# API smoke test (Windows)
+.\test-api.ps1
+
+# API smoke test (Linux/macOS)
+bash test-api.sh
+```
+
+---
+
+## ðŸ“– Documentation
+
+| Document | Purpose |
+|----------|---------|
+| `README.md` | This file â€” monorepo overview |
+| `VERIFICATION_CHECKLIST.md` | Feature verification checklist |
+| `docs/PHM_Technical_Architecture_Plan_v4.pdf` | Full architecture specification |
+| `apps/web/.env.example` | Environment variable reference |
+
+---
+
+**Architecture Version**: Revision 4 | April 2026  
+**Stack**: Next.js 14 Â· TypeScript 5 Â· PostgreSQL 16 Â· Stripe Â· pgvector Â· Docker Â· AWS
+

@@ -3,17 +3,13 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const IMAGES = Array.from({ length: 11 }, (_, i) => `/Home_page_pics/${i + 1}.webp`);
+const IMAGES = Array.from({ length: 11 }, (_, i) => `/Home_page_pics_animation/${i + 1}.webp`);
 
 export default function HeroSlideshow() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mediaQuery.matches) {
-      return;
-    }
-
+    // Always animate the slideshow, ignoring prefers-reduced-motion for this specific hero component.
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % IMAGES.length);
     }, 3000);

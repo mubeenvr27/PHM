@@ -19,7 +19,7 @@ import {
   ChevronUp, ChevronDown, ChevronsUpDown,
   ChevronLeft, ChevronRight, Mail, Phone,
   Globe, MessageSquare, User, Calendar, Stethoscope,
-  ListTodo, BarChart3,
+  ListTodo, BarChart3, ShoppingBag,
 } from "lucide-react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -286,6 +286,17 @@ export default function AdminLeadsPage() {
             >
               <ListTodo size={16} />
               Lead Management
+            </Link>
+            <Link
+              href="/admin/orders"
+              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                pathname === "/admin/orders"
+                  ? "bg-slate-100 text-[#1B3A5C]"
+                  : "text-slate-500 hover:text-[#1B3A5C]"
+              }`}
+            >
+              <ShoppingBag size={16} />
+              Orders
             </Link>
             <Link
               href="/admin/analytics"
