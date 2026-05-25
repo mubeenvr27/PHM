@@ -51,7 +51,7 @@ export default function RootLayout({
         <Navbar />
 
         {/* Page content — grows to fill available height */}
-        <main id="main-content" tabIndex={-1} className="min-h-screen flex-1 w-full">
+        <main id="main-content" tabIndex={-1} className="min-h-screen flex-1 w-full animate-in fade-in duration-700">
           {children}
         </main>
 
