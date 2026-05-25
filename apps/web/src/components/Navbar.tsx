@@ -32,15 +32,15 @@ export default function Navbar() {
   return (
     <header
       role="banner"
-      className="sticky top-0 z-50 h-16 bg-[#11263d] border-b border-white/10 transition-all duration-300"
+      className="sticky top-0 z-50 h-20 bg-[#11263d]/95 backdrop-blur-md border-b border-white/10 transition-all duration-300"
     >
-      <nav className="flex items-center justify-between h-16 max-w-7xl mx-auto px-6 md:px-12 w-full" aria-label="Main navigation">
+      <nav className="flex items-center justify-between h-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" aria-label="Main navigation">
 
         {/* ── Logo ── */}
         <Logo variant="horizontal" className="shrink-0 flex items-center w-40" />
 
         {/* ── Desktop Nav ── */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-8">
           {/* Programs Dropdown */}
           <div className="relative">
             <button
@@ -48,7 +48,7 @@ export default function Navbar() {
               aria-expanded={programsOpen}
               onClick={() => setProgramsOpen((o) => !o)}
               onBlur={() => setTimeout(() => setProgramsOpen(false), 150)}
-              className="flex h-12 items-center gap-1 text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
+              className="flex h-12 items-center gap-1 text-white text-base font-medium transition-colors duration-200 hover:text-[#0D7377]"
             >
               Programs
               <ChevronDown
@@ -102,7 +102,7 @@ export default function Navbar() {
           {/* Shop */}
           <Link
             href="/shop"
-            className="flex h-12 items-center text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
+            className="flex h-12 items-center text-white text-base font-medium transition-colors duration-200 hover:text-[#0D7377]"
           >
             Shop
           </Link>
@@ -110,13 +110,13 @@ export default function Navbar() {
           {/* Cart */}
           <Link
             href="/cart"
-            className="relative flex h-12 w-12 items-center justify-center text-white rounded-md transition-colors hover:bg-white/10"
+            className="relative flex h-12 items-center justify-center text-white transition-colors duration-200 hover:text-[#0D7377]"
             aria-label={`Shopping cart${mounted && totalItems > 0 ? `, ${totalItems} item${totalItems !== 1 ? 's' : ''}` : ''}`}
           >
-            <ShoppingCart size={20} />
+            <ShoppingCart className="w-6 h-6" />
             {mounted && totalItems > 0 && (
               <span
-                className="absolute -top-0.5 -right-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#0D7377] px-1 text-[11px] font-bold text-white ring-2 ring-[#11263d] tabular-nums"
+                className="absolute -top-1 -right-2 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#0D7377] px-1 text-[11px] font-bold text-white ring-2 ring-[#1B3A5C] tabular-nums"
                 aria-hidden="true"
               >
                 {totalItems > 99 ? '99+' : totalItems}
@@ -127,7 +127,7 @@ export default function Navbar() {
           {/* Contact */}
           <Link
             href="/contact"
-            className="flex h-12 items-center text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
+            className="flex h-12 items-center text-white text-base font-medium transition-colors duration-200 hover:text-[#0D7377]"
           >
             Contact
           </Link>
@@ -137,7 +137,7 @@ export default function Navbar() {
             href="https://calendly.com/priorityhomemonitor/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-12 items-center text-white font-medium px-4 rounded-md transition-colors hover:bg-white/10"
+            className="flex h-12 items-center text-white text-base font-medium transition-colors duration-200 hover:text-[#0D7377]"
           >
             Platform Demo
           </a>
@@ -145,8 +145,7 @@ export default function Navbar() {
           {/* Primary CTA — Refer a Patient */}
           <Link
             href="/refer"
-            className="btn-primary ml-4 flex items-center justify-center rounded-md font-bold transition-colors"
-            style={{ height: "44px", backgroundColor: "#0D7377", color: "white", padding: "0 1.5rem" }}
+            className="flex h-12 items-center justify-center rounded-md bg-[#0D7377] text-white px-6 font-bold transition-all duration-300 hover:bg-[#0D7377]/90 hover:shadow-md"
           >
             Refer a Patient
           </Link>
