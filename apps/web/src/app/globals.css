@@ -50,7 +50,7 @@
   }
 
   html {
-    font-size: 16px; /* Enforce 16px minimum — never goes below this */
+    font-size: 18px; /* 18px base size for better readability */
     scroll-behavior: smooth;
   }
 
@@ -60,8 +60,8 @@
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
       'Segoe UI', sans-serif;
     font-weight: 400;
-    font-size: 1rem;      /* 16px */
-    line-height: 1.6;
+    font-size: 1rem;      /* Now 18px due to html font-size */
+    line-height: 1.625;   /* leading-relaxed equivalent */
     letter-spacing: 0.01em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -69,22 +69,22 @@
 
   /* ── Heading Scale ── */
   h1 {
-    font-size: clamp(2rem, 5vw, 3rem);   /* 32–48px */
+    font-size: clamp(2.25rem, 5vw, 3.75rem); /* text-4xl to text-6xl */
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.02em;
     color: var(--color-primary);
   }
   h2 {
-    font-size: clamp(1.75rem, 4vw, 2rem); /* 28–32px */
-    font-weight: 700;
+    font-size: clamp(1.875rem, 4vw, 2.25rem); /* text-3xl to text-4xl */
+    font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.02em;
     color: var(--color-primary);
   }
   h3 {
-    font-size: clamp(1.375rem, 3vw, 1.5rem); /* 22–24px */
-    font-weight: 600;
+    font-size: clamp(1.5rem, 3vw, 1.875rem); /* text-2xl to text-3xl */
+    font-weight: 500;
     line-height: 1.3;
     color: var(--color-primary);
   }
@@ -154,9 +154,21 @@
   }
 
   .content-max-width {
-    max-width: 1100px;
+    max-width: 80rem;
     margin-inline: auto;
-    padding-inline: 1.5rem;
+    padding-inline: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .content-max-width {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .content-max-width {
+      padding-inline: 2rem;
+    }
   }
 
   /* CTA Hierarchy */
