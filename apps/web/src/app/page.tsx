@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   Activity,
+  CalendarCheck,
   ShieldCheck,
   Clock,
   Users,
@@ -24,6 +25,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import type { Metadata } from "next";
 
@@ -180,20 +182,20 @@ export default function HomePage() {
         <HeroSlideshow />
 
         {/* Visual Overlay */}
-        <div className="absolute inset-0 w-full h-full bg-[#1B3A5C]/70" aria-hidden="true" />
+        <div className="absolute inset-0 w-full h-full bg-[#1B3A5C]/80" aria-hidden="true" />
 
         {/* Centered Main Content */}
         <div className="relative max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col items-center justify-center text-center flex-1">
           {/* Headline */}
           <h1
             id="hero-heading"
-            className="text-balance mb-6 max-w-5xl text-5xl md:text-7xl font-bold leading-[1.15] tracking-tight text-white"
+            className="text-balance mb-6 max-w-5xl text-5xl md:text-7xl font-bold leading-[1.15] tracking-tight text-white drop-shadow-lg"
           >
             Care That Watches Over You Every Day
           </h1>
 
           {/* Subheadline */}
-          <p className="mb-10 max-w-3xl text-xl md:text-2xl leading-[1.7] text-white/80">
+          <p className="mb-10 max-w-3xl mx-auto text-xl md:text-2xl leading-[1.7] text-white/90 drop-shadow-md">
             Priority Home Monitor gives patients with chronic conditions a dedicated
             clinical team that reviews their vital signs daily and acts on changes
             before they become emergencies - all from home.
@@ -418,6 +420,34 @@ export default function HomePage() {
               View All Programs
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          PLATFORM DEMO CONVERSION
+          ══════════════════════════════════════════════════════ */}
+      <section
+        aria-labelledby="platform-demo-heading"
+        className="bg-[#1B3A5C] py-20 w-full"
+      >
+        <div className="max-w-4xl mx-auto px-6 md:px-12 w-full text-center flex flex-col items-center">
+          <CalendarCheck size={48} className="text-[#0D7377] mb-6" aria-hidden="true" />
+          <h2
+            id="platform-demo-heading"
+            className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4"
+          >
+            See the Platform in Action
+          </h2>
+          <p className="text-lg md:text-xl leading-relaxed text-white/80 mb-10 max-w-2xl">
+            Book a 1-on-1 personalized demo. Our integration experts will walk you through the clinical dashboard, patient alerting system, and show you exactly how PHM seamlessly fits into your existing workflows.
+          </p>
+          <Button
+            className="bg-[#0D7377] hover:bg-[#0a5f63] h-[48px] px-8 transition-colors p-0 overflow-hidden"
+          >
+            <Link href="/platform" className="flex items-center justify-center w-full h-full px-8 text-white hover:opacity-100 font-bold text-base">
+              Request a Platform Demo
+            </Link>
+          </Button>
         </div>
       </section>
 
