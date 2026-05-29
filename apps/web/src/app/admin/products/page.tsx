@@ -122,20 +122,26 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png"] as const;
 // ─────────────────────────────────────────────────────────────
 // Zod Schema
 // ─────────────────────────────────────────────────────────────
+//
+// Note: XSS sanitisation (stripHtml) is intentionally NOT applied as a
+// Zod .transform() here. @hookform/resolvers v5 with Zod v4 does not
+// support schemas whose input type differs from the output type when
+// used as a resolver — the TFieldValues generic constraint breaks.
+// Instead, stripHtml is called explicitly inside handleSave() at the
+// point of persistence, keeping form state as raw strings throughout.
+
 const productSchema = z.object({
   name: z
     .string()
     .min(2, "Name must be at least 2 characters.")
-    .max(100, "Name cannot exceed 100 characters.")
-    .transform(stripHtml),
+    .max(100, "Name cannot exceed 100 characters."),
   description: z
     .string()
     .max(500, "Description cannot exceed 500 characters.")
-    .optional()
-    .transform((v) => (v ? stripHtml(v) : v)),
+    .optional(),
   price: z.coerce
-    .number({ invalid_type_error: "Price must be a valid number." })
-    .positive("Price must be greater than zero."),
+    .number()
+    .positive("Price must be a positive number greater than zero."),
   stock_status: z.enum(["in_stock", "out_of_stock", "archived"]),
 });
 
@@ -218,7 +224,8 @@ function ProductDialog({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<ProductFormValues>({
-    resolver: zodResolver(productSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(productSchema) as any,
     defaultValues: {
       name: editTarget?.name ?? "",
       description: editTarget?.description ?? "",
@@ -565,6 +572,12 @@ export default function AdminProductsPage() {
   };
 
   const handleSave = (values: ProductFormValues, imageUrl: string) => {
+    // XSS sanitisation applied at persistence time (stripHtml is not used
+    // as a Zod .transform() to avoid @hookform/resolvers v5 + Zod v4 type
+    // conflicts — see schema comment above for full rationale).
+    const sanitisedName = stripHtml(values.name);
+    const sanitisedDesc = values.description ? stripHtml(values.description) : "";
+
     if (editTarget) {
       // ── Update existing product ──
       setProducts((prev) =>
@@ -572,8 +585,8 @@ export default function AdminProductsPage() {
           p.id === editTarget.id
             ? {
                 ...p,
-                name: values.name,
-                description: values.description ?? "",
+                name: sanitisedName,
+                description: sanitisedDesc,
                 price: values.price,
                 stock_status: values.stock_status,
                 image_url: imageUrl,
@@ -585,8 +598,8 @@ export default function AdminProductsPage() {
       // ── Add new product ──
       const newProduct: Product = {
         id: `prod_${Date.now()}`,
-        name: values.name,
-        description: values.description ?? "",
+        name: sanitisedName,
+        description: sanitisedDesc,
         price: values.price,
         stock_status: values.stock_status,
         image_url: imageUrl,
