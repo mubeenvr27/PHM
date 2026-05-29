@@ -92,6 +92,7 @@ import {
 // Types
 // ─────────────────────────────────────────────────────────────
 type StockStatus = "in_stock" | "out_of_stock" | "archived";
+type ProductType = "individual" | "bundle";
 
 interface Product {
   id: string;
@@ -99,6 +100,7 @@ interface Product {
   description: string;
   price: number;
   stock_status: StockStatus;
+  product_type: ProductType;
   image_url: string;
 }
 
@@ -143,6 +145,7 @@ const productSchema = z.object({
     .number()
     .positive("Price must be a positive number greater than zero."),
   stock_status: z.enum(["in_stock", "out_of_stock", "archived"]),
+  product_type: z.enum(["individual", "bundle"]),
 });
 
 type ProductFormValues = z.infer<typeof productSchema>;
@@ -158,6 +161,7 @@ const SEED_PRODUCTS: Product[] = [
       "Clinical-grade continuous ECG monitor with 12-lead capability. Features AI-assisted arrhythmia detection, cloud sync, and 72-hour battery life. FDA 510(k) cleared.",
     price: 4299.0,
     stock_status: "in_stock",
+    product_type: "individual",
     image_url: "",
   },
   {
@@ -167,6 +171,7 @@ const SEED_PRODUCTS: Product[] = [
       "Medical-grade SpO2 and heart rate wristband sensor. Continuous monitoring with ±1% SpO2 accuracy, 7-day wear life, and HIPAA-compliant data transmission.",
     price: 799.5,
     stock_status: "in_stock",
+    product_type: "individual",
     image_url: "",
   },
   {
@@ -176,6 +181,7 @@ const SEED_PRODUCTS: Product[] = [
       "Portable 8-channel dry-electrode EEG headset for remote neurological assessment. Wireless BLE 5.0 with real-time signal quality indicators.",
     price: 11850.0,
     stock_status: "out_of_stock",
+    product_type: "individual",
     image_url: "",
   },
 ];
@@ -195,6 +201,26 @@ const STATUS_META: Record<
 function StatusBadge({ status }: { status: StockStatus }) {
   const meta = STATUS_META[status];
   return <Badge variant={meta.variant}>{meta.label}</Badge>;
+}
+
+// ─────────────────────────────────────────────────────────────
+// Type Badge helper
+// ─────────────────────────────────────────────────────────────
+const TYPE_META: Record<
+  ProductType,
+  { label: string; className: string }
+> = {
+  individual: { label: "Individual", className: "bg-sky-50 text-sky-700 border-sky-200 hover:bg-sky-50" },
+  bundle: { label: "Bundle Package", className: "bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-50" },
+};
+
+function ProductTypeBadge({ type }: { type: ProductType }) {
+  const meta = TYPE_META[type] || { label: type, className: "" };
+  return (
+    <Badge variant="outline" className={meta.className}>
+      {meta.label}
+    </Badge>
+  );
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -231,6 +257,7 @@ function ProductDialog({
       description: editTarget?.description ?? "",
       price: editTarget?.price ?? (undefined as unknown as number),
       stock_status: editTarget?.stock_status ?? "in_stock",
+      product_type: editTarget?.product_type ?? "individual",
     },
   });
 
@@ -243,6 +270,7 @@ function ProductDialog({
           price: editTarget.price,
           description: editTarget.description,
           stock_status: editTarget.stock_status,
+          product_type: editTarget.product_type,
           image_url: editTarget.image_url,
         } as any);
         setImagePreviewUrl(editTarget.image_url);
@@ -252,6 +280,7 @@ function ProductDialog({
           price: undefined as unknown as number,
           description: "",
           stock_status: "in_stock",
+          product_type: "individual",
           image_url: "",
         } as any);
         setImagePreviewUrl("");
@@ -413,6 +442,37 @@ function ProductDialog({
                             Out of Stock
                           </SelectItem>
                           <SelectItem value="archived">Archived</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* ── Product Type ── */}
+            <FormField
+              control={form.control}
+              name="product_type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Product Type</FormLabel>
+                  <FormControl>
+                    <div>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger
+                          id="product-type-trigger"
+                          className="w-full h-12"
+                        >
+                          <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="individual">Individual Device</SelectItem>
+                          <SelectItem value="bundle">Bundle Package</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -598,6 +658,7 @@ export default function AdminProductsPage() {
                 description: sanitisedDesc,
                 price: values.price,
                 stock_status: values.stock_status,
+                product_type: values.product_type,
                 image_url: imageUrl,
               }
             : p
@@ -611,6 +672,7 @@ export default function AdminProductsPage() {
         description: sanitisedDesc,
         price: values.price,
         stock_status: values.stock_status,
+        product_type: values.product_type,
         image_url: imageUrl,
       };
       setProducts((prev) => [newProduct, ...prev]);
@@ -714,6 +776,9 @@ export default function AdminProductsPage() {
                   Price
                 </TableHead>
                 <TableHead className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Type
+                </TableHead>
+                <TableHead className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Status
                 </TableHead>
                 <TableHead className="text-right pr-6 text-xs font-semibold uppercase tracking-wider text-slate-500">
@@ -726,7 +791,7 @@ export default function AdminProductsPage() {
               {products.length === 0 ? (
                 <TableRow>
                   <TableCell
-                    colSpan={5}
+                    colSpan={6}
                     className="py-16 text-center text-slate-400"
                   >
                     <div className="flex flex-col items-center gap-3">
@@ -775,6 +840,11 @@ export default function AdminProductsPage() {
                     {/* Price */}
                     <TableCell className="font-mono text-sm font-medium text-[#1B3A5C]">
                       {priceFormatter.format(product.price)}
+                    </TableCell>
+
+                    {/* Type */}
+                    <TableCell>
+                      <ProductTypeBadge type={product.product_type} />
                     </TableCell>
 
                     {/* Status */}

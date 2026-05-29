@@ -93,9 +93,41 @@ BEGIN
             'archived'
         );
 
+
         RAISE NOTICE 'Created ENUM type: public.product_stock_status';
     ELSE
         RAISE NOTICE 'ENUM type public.product_stock_status already exists — skipping.';
+    END IF;
+END
+$$;
+
+
+-- ---------------------------------------------------------------------------
+-- 1.5. ENUM Type — product_type
+-- ---------------------------------------------------------------------------
+-- Values:
+--   'individual'  — Standard standalone device.
+--   'bundle'      — Package consisting of multiple devices/services.
+-- ---------------------------------------------------------------------------
+
+DO $$
+BEGIN
+    -- Only create the type if it does not already exist in this schema.
+    IF NOT EXISTS (
+        SELECT 1
+        FROM   pg_type t
+        JOIN   pg_namespace n ON n.oid = t.typnamespace
+        WHERE  t.typname  = 'product_type'
+          AND  n.nspname  = 'public'
+    ) THEN
+        CREATE TYPE public.product_type AS ENUM (
+            'individual',
+            'bundle'
+        );
+
+        RAISE NOTICE 'Created ENUM type: public.product_type';
+    ELSE
+        RAISE NOTICE 'ENUM type public.product_type already exists — skipping.';
     END IF;
 END
 $$;
@@ -182,6 +214,9 @@ CREATE TABLE IF NOT EXISTS public.products (
     -- Availability lifecycle
     stock_status    public.product_stock_status  NOT NULL DEFAULT 'in_stock',
 
+    -- Product categorization: individual device or bundled package
+    type            public.product_type          NOT NULL DEFAULT 'individual',
+
     -- Media
     image_url       VARCHAR(1024),
 
@@ -190,6 +225,11 @@ CREATE TABLE IF NOT EXISTS public.products (
     updated_at      TIMESTAMPTZ     NOT NULL DEFAULT NOW()
 
 );
+
+
+-- Defensively add the 'type' column in case the products table already existed
+-- from a prior run of this migration script.
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS type public.product_type NOT NULL DEFAULT 'individual';
 
 
 -- ---------------------------------------------------------------------------
@@ -220,6 +260,10 @@ COMMENT ON COLUMN public.products.price IS
 COMMENT ON COLUMN public.products.stock_status IS
     'Lifecycle state: in_stock | out_of_stock | archived. '
     'Archived products are hidden from the storefront. Never DELETE rows; archive instead.';
+
+COMMENT ON COLUMN public.products.type IS
+    'Classification: individual | bundle. '
+    'Distinguishes between standalone devices and bundled device packages.';
 
 COMMENT ON COLUMN public.products.image_url IS
     'S3 or CDN URL of the product image. Set after the presigned upload completes. '
