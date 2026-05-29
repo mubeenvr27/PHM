@@ -12,8 +12,10 @@ services:
       - "5432:5432"
     volumes:
       # Schema files consolidated into infrastructure/database/
+      # Execution order is determined by the numeric filename prefix.
       - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
       - ./database/orders.sql:/docker-entrypoint-initdb.d/02_orders.sql
+      - ./database/02_products_schema.sql:/docker-entrypoint-initdb.d/03_products_schema.sql
       - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
 
