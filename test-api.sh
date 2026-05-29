@@ -129,7 +129,7 @@ if echo "$response" | grep -q '"success":true'; then
 
     else
         echo -e "${YELLOW}⚠ No leads found in database. Insert test data first:${NC}"
-        echo -e "${WHITE}  docker exec -i phm-postgres psql -U postgres -d phm < test_data.sql${NC}"
+        echo -e "${WHITE}  docker exec -i phm-postgres psql -U postgres -d phm < infrastructure/database/test_data.sql${NC}"
     fi
 else
     echo -e "${RED}✗ Error getting leads${NC}"

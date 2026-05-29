@@ -28,6 +28,14 @@ package-lock.json
 # .env.example files ARE committed (they contain no secrets)
 !**/.env.example
 
+# ── Credentials & API Secrets ─────────────────────────────────
+**/*credentials*
+**/*pk_test*
+**/*sk_test*
+**/.aws/
+**/aws/credentials
+**/aws/config
+
 # ── TypeScript build cache ────────────────────────────────────
 **/*.tsbuildinfo
 **/next-env.d.ts

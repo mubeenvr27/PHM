@@ -140,7 +140,7 @@ try {
 
     } else {
         Write-Host "⚠ No leads found in database. Insert test data first:" -ForegroundColor Yellow
-        Write-Host "  docker exec -i phm-postgres psql -U postgres -d phm < test_data.sql" -ForegroundColor White
+        Write-Host "  docker exec -i phm-postgres psql -U postgres -d phm < infrastructure/database/test_data.sql" -ForegroundColor White
     }
 } catch {
     Write-Host "✗ Error getting UUID: $($_.Exception.Message)" -ForegroundColor Red

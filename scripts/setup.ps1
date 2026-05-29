@@ -54,16 +54,30 @@ Write-Host ""
 
 # Apply database schema
 Write-Host "Applying database schema..." -ForegroundColor Yellow
-if (Test-Path "schema.sql") {
-    Get-Content "schema.sql" | docker exec -i phm-postgres psql -U postgres -d phm
-    if ($LASTEXITCODE -eq 0) {
-        Write-Host "✓ Database schema applied successfully" -ForegroundColor Green
-    } else {
-        Write-Host "WARNING: Schema may have already been applied or there was an error" -ForegroundColor Yellow
-    }
+$schemaApplied = $true
+
+if (Test-Path "infrastructure/database/schema.sql") {
+    Get-Content "infrastructure/database/schema.sql" | docker exec -i phm-postgres psql -U postgres -d phm
+    if ($LASTEXITCODE -ne 0) { $schemaApplied = $false }
 } else {
-    Write-Host "ERROR: schema.sql not found" -ForegroundColor Red
+    Write-Host "ERROR: infrastructure/database/schema.sql not found" -ForegroundColor Red
     exit 1
+}
+
+if (Test-Path "infrastructure/database/orders.sql") {
+    Get-Content "infrastructure/database/orders.sql" | docker exec -i phm-postgres psql -U postgres -d phm
+    if ($LASTEXITCODE -ne 0) { $schemaApplied = $false }
+}
+
+if (Test-Path "infrastructure/database/02_products_schema.sql") {
+    Get-Content "infrastructure/database/02_products_schema.sql" | docker exec -i phm-postgres psql -U postgres -d phm
+    if ($LASTEXITCODE -ne 0) { $schemaApplied = $false }
+}
+
+if ($schemaApplied) {
+    Write-Host "✓ Database schema applied successfully (leads, orders, products)" -ForegroundColor Green
+} else {
+    Write-Host "WARNING: Schema may have already been applied or there was an error" -ForegroundColor Yellow
 }
 Write-Host ""
 
@@ -71,18 +85,19 @@ Write-Host ""
 $response = Read-Host "Do you want to insert test data? (y/n)"
 if ($response -eq "y") {
     Write-Host "Inserting test data..." -ForegroundColor Yellow
-    if (Test-Path "test_data.sql") {
-        Get-Content "test_data.sql" | docker exec -i phm-postgres psql -U postgres -d phm
+    if (Test-Path "infrastructure/database/test_data.sql") {
+        Get-Content "infrastructure/database/test_data.sql" | docker exec -i phm-postgres psql -U postgres -d phm
         if ($LASTEXITCODE -eq 0) {
             Write-Host "✓ Test data inserted successfully" -ForegroundColor Green
         } else {
             Write-Host "WARNING: Failed to insert test data" -ForegroundColor Yellow
         }
     } else {
-        Write-Host "ERROR: test_data.sql not found" -ForegroundColor Red
+        Write-Host "ERROR: infrastructure/database/test_data.sql not found" -ForegroundColor Red
     }
     Write-Host ""
 }
+
 
 # Verify setup
 Write-Host "Verifying database setup..." -ForegroundColor Yellow

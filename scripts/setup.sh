@@ -62,16 +62,30 @@ echo ""
 
 # Apply database schema
 echo -e "${YELLOW}Applying database schema...${NC}"
-if [ -f "schema.sql" ]; then
-    docker exec -i phm-postgres psql -U postgres -d phm < schema.sql > /dev/null 2>&1
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓ Database schema applied successfully${NC}"
-    else
-        echo -e "${YELLOW}WARNING: Schema may have already been applied or there was an error${NC}"
-    fi
+schema_applied=true
+
+if [ -f "infrastructure/database/schema.sql" ]; then
+    docker exec -i phm-postgres psql -U postgres -d phm < infrastructure/database/schema.sql > /dev/null 2>&1
+    if [ $? -ne 0 ]; then schema_applied=false; fi
 else
-    echo -e "${RED}ERROR: schema.sql not found${NC}"
+    echo -e "${RED}ERROR: infrastructure/database/schema.sql not found${NC}"
     exit 1
+fi
+
+if [ -f "infrastructure/database/orders.sql" ]; then
+    docker exec -i phm-postgres psql -U postgres -d phm < infrastructure/database/orders.sql > /dev/null 2>&1
+    if [ $? -ne 0 ]; then schema_applied=false; fi
+fi
+
+if [ -f "infrastructure/database/02_products_schema.sql" ]; then
+    docker exec -i phm-postgres psql -U postgres -d phm < infrastructure/database/02_products_schema.sql > /dev/null 2>&1
+    if [ $? -ne 0 ]; then schema_applied=false; fi
+fi
+
+if [ "$schema_applied" = true ]; then
+    echo -e "${GREEN}✓ Database schema applied successfully (leads, orders, products)${NC}"
+else
+    echo -e "${YELLOW}WARNING: Schema may have already been applied or there was an error${NC}"
 fi
 echo ""
 
@@ -80,15 +94,15 @@ read -p "Do you want to insert test data? (y/n) " -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo -e "${YELLOW}Inserting test data...${NC}"
-    if [ -f "test_data.sql" ]; then
-        docker exec -i phm-postgres psql -U postgres -d phm < test_data.sql > /dev/null 2>&1
+    if [ -f "infrastructure/database/test_data.sql" ]; then
+        docker exec -i phm-postgres psql -U postgres -d phm < infrastructure/database/test_data.sql > /dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo -e "${GREEN}✓ Test data inserted successfully${NC}"
         else
             echo -e "${YELLOW}WARNING: Failed to insert test data${NC}"
         fi
     else
-        echo -e "${RED}ERROR: test_data.sql not found${NC}"
+        echo -e "${RED}ERROR: infrastructure/database/test_data.sql not found${NC}"
     fi
     echo ""
 fi

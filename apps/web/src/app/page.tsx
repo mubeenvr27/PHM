@@ -102,7 +102,7 @@ function DashboardMockup() {
       <div className="flex items-center justify-between mb-5">
         <div>
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Patient Overview</p>
-          <p className="text-sm font-bold text-[#1B3A5C] mt-0.5">Today — Live</p>
+          <p className="text-sm font-bold text-[#1B3A5C] mt-0.5">Today - Live</p>
         </div>
         <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
