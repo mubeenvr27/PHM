@@ -32,7 +32,7 @@
  * └─────────────────────────────────────────────────────────┘
  */
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -234,28 +234,34 @@ function ProductDialog({
     },
   });
 
-  // ── Reset when dialog opens with a new edit target ─────────
-  const resetDialog = useCallback(
-    (product: Product | null) => {
-      form.reset({
-        name: product?.name ?? "",
-        description: product?.description ?? "",
-        price: product?.price ?? (undefined as unknown as number),
-        stock_status: product?.stock_status ?? "in_stock",
-      });
-      setImagePreviewUrl(product?.image_url ?? "");
+  // Hydrate the form fields using the exact form.reset invocation requested
+  useEffect(() => {
+    if (open) {
+      if (editTarget) {
+        form.reset({
+          name: editTarget.name,
+          price: editTarget.price,
+          description: editTarget.description,
+          stock_status: editTarget.stock_status,
+          image_url: editTarget.image_url,
+        } as any);
+        setImagePreviewUrl(editTarget.image_url);
+      } else {
+        form.reset({
+          name: "",
+          price: undefined as unknown as number,
+          description: "",
+          stock_status: "in_stock",
+          image_url: "",
+        } as any);
+        setImagePreviewUrl("");
+      }
       setImageError("");
-    },
-    [form]
-  );
+    }
+  }, [open, editTarget, form]);
 
   // Called when the Dialog's open state changes
   const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) {
-      resetDialog(null);
-    } else {
-      resetDialog(editTarget);
-    }
     onOpenChange(nextOpen);
   };
 
@@ -538,6 +544,7 @@ export default function AdminProductsPage() {
   // ── Dialog state ────────────────────────────────────────────
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<Product | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   // ── Archive guard — tracks in-flight archives to prevent
   //    double-click state corruption ────────────────────────
@@ -546,11 +553,13 @@ export default function AdminProductsPage() {
   // ── Handlers ───────────────────────────────────────────────
   const openAddDialog = () => {
     setEditTarget(null);
+    setEditingId(null);
     setDialogOpen(true);
   };
 
   const openEditDialog = (product: Product) => {
     setEditTarget(product);
+    setEditingId(product.id);
     setDialogOpen(true);
   };
 
@@ -578,11 +587,11 @@ export default function AdminProductsPage() {
     const sanitisedName = stripHtml(values.name);
     const sanitisedDesc = values.description ? stripHtml(values.description) : "";
 
-    if (editTarget) {
+    if (editingId) {
       // ── Update existing product ──
       setProducts((prev) =>
         prev.map((p) =>
-          p.id === editTarget.id
+          p.id === editingId
             ? {
                 ...p,
                 name: sanitisedName,

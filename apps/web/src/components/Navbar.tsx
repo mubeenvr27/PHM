@@ -107,13 +107,7 @@ export default function Navbar() {
             Shop
           </Link>
 
-          {/* Admin */}
-          <Link
-            href="/admin/products"
-            className="flex h-12 items-center text-white text-base font-medium transition-colors duration-200 hover:text-[#0D7377]"
-          >
-            Admin
-          </Link>
+
 
           {/* Cart */}
           <Link
@@ -212,14 +206,7 @@ export default function Navbar() {
             >
               Shop
             </Link>
-            <Link
-              href="/admin/products"
-              onClick={() => setMobileOpen(false)}
-              className="text-white px-2 py-2 rounded-md hover:bg-white/10 font-medium flex items-center gap-2"
-              style={{ minHeight: "44px" }}
-            >
-              Admin
-            </Link>
+
             <Link
               href="/cart"
               onClick={() => setMobileOpen(false)}
