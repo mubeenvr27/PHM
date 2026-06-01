@@ -19,7 +19,7 @@ import {
   ChevronUp, ChevronDown, ChevronsUpDown,
   ChevronLeft, ChevronRight, Mail, Phone,
   Globe, MessageSquare, User, Calendar, Stethoscope,
-  ListTodo, BarChart3, ShoppingBag,
+  ListTodo, BarChart3, ShoppingBag, PackageSearch,
 } from "lucide-react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -70,15 +70,20 @@ function fmtDateTime(d: string) {
 }
 
 // ─── Stat Card ────────────────────────────────────────────────────────────────
-function StatCard({ icon: Icon, label, value, sub, iconColor = "#1B3A5C" }: {
-  icon: React.ElementType; label: string; value: string | number; sub: string; iconColor?: string
+// `valueNode` overrides `value` when you need rich JSX in the metric display
+// (e.g., coloring part of the text orange for out-of-stock warnings).
+function StatCard({ icon: Icon, label, value, valueNode, sub, iconColor = "#1B3A5C" }: {
+  icon: React.ElementType; label: string; value?: string | number; valueNode?: React.ReactNode; sub: string; iconColor?: string
 }) {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-slate-500">{label}</p>
-          <p className="mt-1 text-3xl font-bold tracking-tight" style={{ color: "#1B3A5C" }}>{value}</p>
+          {valueNode
+            ? <div className="mt-1 text-2xl font-bold tracking-tight" style={{ color: "#1B3A5C" }}>{valueNode}</div>
+            : <p className="mt-1 text-3xl font-bold tracking-tight" style={{ color: "#1B3A5C" }}>{value}</p>
+          }
           <p className="mt-1 text-xs text-slate-400">{sub}</p>
         </div>
         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-50">
@@ -97,6 +102,28 @@ function SortIcon({ field, sortField, sortDir }: { field: SortField; sortField: 
     ? <ChevronUp size={14} className="ml-1 text-[#0D7377]" />
     : <ChevronDown size={14} className="ml-1 text-[#0D7377]" />
 }
+
+// ─── Mock E-Commerce Inventory Stats ─────────────────────────────────────────
+//
+// TODO — Replace with live PostgreSQL aggregations once RDS is connected.
+// These values should be fetched server-side (Route Handler or Server Component)
+// using the following queries against the `products` table:
+//
+//   Total SKUs:        SELECT COUNT(*) FROM products
+//                      WHERE stock_status != 'archived';
+//
+//   In-Stock count:    SELECT COUNT(*) FROM products
+//                      WHERE stock_status = 'in_stock';
+//
+//   Out-of-Stock cnt:  SELECT COUNT(*) FROM products
+//                      WHERE stock_status = 'out_of_stock';
+//
+// Suggested API route: GET /api/admin/products/stats
+// Response shape: { total: number; in_stock: number; out_of_stock: number }
+//
+const MOCK_PRODUCT_TOTAL     = 12
+const MOCK_PRODUCT_IN_STOCK  = 10
+const MOCK_PRODUCT_OUT_STOCK = 2
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminLeadsPage() {
@@ -313,10 +340,30 @@ export default function AdminLeadsPage() {
         </div>
 
         {/* ── Stat Cards ── */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <StatCard icon={Users}     label="Total Leads"      value={totalLeads}          sub="All time submissions"          />
-          <StatCard icon={TrendingUp} label="Active Referrals" value={activeReferrals}     sub="Open provider referrals"       iconColor="#0D7377" />
-          <StatCard icon={Activity}  label="Enrollment Rate"  value={`${enrollRate}%`}    sub={`${enrolled} patients enrolled`} iconColor="#0D7377" />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          <StatCard icon={Users}        label="Total Leads"       value={totalLeads}       sub="All time submissions"             />
+          <StatCard icon={TrendingUp}   label="Active Referrals"  value={activeReferrals}  sub="Open provider referrals"          iconColor="#0D7377" />
+          <StatCard icon={Activity}     label="Enrollment Rate"   value={`${enrollRate}%`} sub={`${enrolled} patients enrolled`}  iconColor="#0D7377" />
+          <StatCard
+            icon={PackageSearch}
+            label="Total Product SKUs"
+            value={MOCK_PRODUCT_TOTAL}
+            sub="Active catalog items"
+            iconColor="#7C3AED"
+          />
+          <StatCard
+            icon={PackageSearch}
+            label="Inventory Status"
+            valueNode={
+              <span>
+                <span className="text-emerald-600">{MOCK_PRODUCT_IN_STOCK} In Stock</span>
+                <span className="text-slate-300 mx-1">/</span>
+                <span className="text-orange-500">{MOCK_PRODUCT_OUT_STOCK} Out</span>
+              </span>
+            }
+            sub="Live inventory snapshot"
+            iconColor="#F97316"
+          />
         </div>
 
         {/* ── Table Card ── */}
