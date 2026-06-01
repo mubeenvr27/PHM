@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect, useCallback } from "react"
 import { usePathname } from "next/navigation"
+import { hasPermission } from "@/lib/auth"
 import Link from "next/link"
 import { toast } from "sonner"
 import {
@@ -129,6 +130,20 @@ const MOCK_PRODUCT_OUT_STOCK = 2
 export default function AdminLeadsPage() {
   const pathname = usePathname()
   const [leads, setLeads] = useState<Lead[]>([])
+  const [role, setRole] = useState<string>("user")
+
+  // Read the role from the cookie after hydration
+  useEffect(() => {
+    const getCookieValue = (name: string): string | undefined => {
+      if (typeof document === "undefined") return undefined;
+      return document.cookie
+        .split("; ")
+        .find((row) => row.startsWith(`${name}=`))
+        ?.split("=")[1];
+    };
+    const cookieRole = getCookieValue("mock_admin_token");
+    if (cookieRole) setRole(cookieRole);
+  }, []);
   const [loading, setLoading] = useState(true)
   const [fetchError, setFetchError] = useState<string | null>(null)
   const [search, setSearch] = useState("")
@@ -381,14 +396,16 @@ export default function AdminLeadsPage() {
                 className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-4 text-sm text-slate-700 placeholder:text-slate-400 focus:border-[#0D7377] focus:outline-none focus:ring-2 focus:ring-[#0D7377]/20 transition"
               />
             </div>
-            <button
-              onClick={exportCSV}
-              className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-white transition-all hover:opacity-90 active:scale-95"
-              style={{ background: "#0D7377" }}
-            >
-              <Download size={15} />
-              Export CSV
-            </button>
+            {role === "superadmin" && (
+              <button
+                onClick={exportCSV}
+                className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-white transition-all hover:opacity-90 active:scale-95"
+                style={{ background: "#0D7377" }}
+              >
+                <Download size={15} />
+                Export CSV
+              </button>
+            )}
           </div>
 
           {/* Table */}
@@ -461,9 +478,9 @@ export default function AdminLeadsPage() {
                         <Select
                           value={lead.status}
                           onValueChange={v => handleStatusChange(lead.id, v as LeadStatus)}
-                          disabled={updatingId === lead.id}
+                          disabled={updatingId === lead.id || !hasPermission(role, "update:leads")}
                         >
-                          <SelectTrigger className={`h-7 w-[130px] border text-xs font-medium ${statusConfig[lead.status].cls} ${updatingId === lead.id ? "opacity-60" : ""}`}>
+                          <SelectTrigger className={`h-7 w-[130px] border text-xs font-medium ${statusConfig[lead.status].cls} ${(updatingId === lead.id || !hasPermission(role, "update:leads")) ? "opacity-60 cursor-not-allowed" : ""}`}>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -601,8 +618,9 @@ export default function AdminLeadsPage() {
                   <Select
                     value={selectedLead.status}
                     onValueChange={v => handleStatusChange(selectedLead.id, v as LeadStatus)}
+                    disabled={updatingId === selectedLead.id || !hasPermission(role, "update:leads")}
                   >
-                    <SelectTrigger className={`h-8 w-[140px] border text-xs font-medium ${statusConfig[selectedLead.status].cls}`}>
+                    <SelectTrigger className={`h-8 w-[140px] border text-xs font-medium ${statusConfig[selectedLead.status].cls} ${(updatingId === selectedLead.id || !hasPermission(role, "update:leads")) ? "opacity-60 cursor-not-allowed" : ""}`}>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
