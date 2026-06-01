@@ -20,6 +20,7 @@ const bundles = [
     images: ["/Devices_image/Blood_pressure_cuff.png"],
     badge: "Built-in Bluetooth",
     badgeStyle: "bg-teal-50 text-[#0D7377] border-[#0D7377]/20",
+    stock_status: "in_stock",
   },
   {
     id: "diabetes",
@@ -30,6 +31,7 @@ const bundles = [
     images: ["/Devices_image/Glucose_meter.png"],
     badge: "Independent 4G",
     badgeStyle: "bg-blue-50 text-[#1B3A5C] border-[#1B3A5C]/20",
+    stock_status: "in_stock",
   },
   {
     id: "respiratory",
@@ -43,6 +45,7 @@ const bundles = [
     ],
     badge: "Built-in Bluetooth",
     badgeStyle: "bg-teal-50 text-[#0D7377] border-[#0D7377]/20",
+    stock_status: "in_stock",
   },
   {
     id: "adv-heart",
@@ -54,6 +57,7 @@ const bundles = [
     images: ["/Devices_image/Blood_pressure_cuff.png"],
     badge: "Independent 4G",
     badgeStyle: "bg-blue-50 text-[#1B3A5C] border-[#1B3A5C]/20",
+    stock_status: "in_stock",
   },
 ]
 
@@ -68,6 +72,7 @@ const individualDevices = [
     images: ["/Devices_image/Blood_pressure_cuff.png"],
     badge: "Built-in Bluetooth",
     badgeStyle: "bg-teal-50 text-[#0D7377] border-[#0D7377]/20",
+    stock_status: "in_stock",
   },
   {
     id: "glucose-meter",
@@ -79,6 +84,7 @@ const individualDevices = [
     images: ["/Devices_image/Glucose_meter.png"],
     badge: "Independent 4G",
     badgeStyle: "bg-blue-50 text-[#1B3A5C] border-[#1B3A5C]/20",
+    stock_status: "in_stock",
   },
   {
     id: "peak-flow",
@@ -90,6 +96,7 @@ const individualDevices = [
     images: ["/Devices_image/peak_meter.png"],
     badge: "Built-in Bluetooth",
     badgeStyle: "bg-teal-50 text-[#0D7377] border-[#0D7377]/20",
+    stock_status: "in_stock",
   },
   {
     id: "pulse-ox",
@@ -101,6 +108,7 @@ const individualDevices = [
     images: ["/Devices_image/pulse_oximeter.png"],
     badge: "Built-in Bluetooth",
     badgeStyle: "bg-teal-50 text-[#0D7377] border-[#0D7377]/20",
+    stock_status: "in_stock",
   },
   {
     id: "4g-bp-cuff",
@@ -112,6 +120,7 @@ const individualDevices = [
     images: ["/Devices_image/Blood_pressure_cuff.png"],
     badge: "Independent 4G",
     badgeStyle: "bg-blue-50 text-[#1B3A5C] border-[#1B3A5C]/20",
+    stock_status: "in_stock",
   },
 ]
 
@@ -128,6 +137,7 @@ interface Product {
   images: string[]
   badge: string
   badgeStyle: string
+  stock_status: string;
 }
 
 // ── Product Card ──────────────────────────────────────────────────────────────
@@ -256,7 +266,9 @@ export default function ShopPage() {
   }
 
   const isBundle = activeTab === "bundles"
-  const displayedProducts = isBundle ? bundles : individualDevices
+  const displayedProducts = (isBundle ? bundles : individualDevices).filter(
+    (product) => product.stock_status !== "archived"
+  )
   const gridClass = isBundle
     ? "grid grid-cols-1 lg:grid-cols-2 gap-12"
     : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
