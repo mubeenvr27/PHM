@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { setMockAdminCookie } from "./actions";
+import { setMockAdminCookie, type AdminRole } from "./actions";
 import Logo from "@/components/ui/Logo";
 
 import {
@@ -26,6 +26,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { AlertCircle } from "lucide-react";
+
+// ── RBAC credential map ───────────────────────────────────────────────
+// Each email maps to a specific role value that gets written to the
+// mock_admin_token cookie. Page-level guards read this value directly.
+//
+// TODO: Replace this entire map with AWS Cognito signIn() when provisioned.
+// The role will come from the verified ID token's custom:role claim.
+const ROLE_MAP: Record<string, AdminRole> = {
+  "superadmin@phm.com": "superadmin",
+  "admin@phm.com":      "admin",
+  "manager@phm.com":    "manager",
+  "user@phm.com":       "user",
+};
+
+const MOCK_PASSWORD = "password123";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address."),
@@ -54,36 +69,34 @@ export default function AdminLoginPage() {
       /* ======================================================================
          TODO: AWS AMPLIFY COGNITO INTEGRATION
          ======================================================================
-         Replace this mock logic with actual AWS Amplify Auth when provisioned:
+         Replace the mock logic below with actual AWS Amplify Auth:
 
          import { signIn } from 'aws-amplify/auth';
-         
-         const { isSignedIn, nextStep } = await signIn({
+
+         const { isSignedIn } = await signIn({
            username: values.email,
            password: values.password,
          });
-         
-         if (isSignedIn) {
-           router.push('/admin/products');
-         } else {
-           // Handle MFA or other steps
-         }
+
+         If isSignedIn, decode the Cognito ID token to extract custom:role,
+         then call setMockAdminCookie(role) to persist it, or rely entirely
+         on the Cognito session cookie (no mock cookie needed at that point).
          ====================================================================== */
 
-      // Mock Authentication Logic
-      if (values.email === "admin@phm.com" && values.password === "password123") {
-        // Set mock cookie to bypass middleware
-        await setMockAdminCookie();
-        
-        // Redirect to admin dashboard
+      const role = ROLE_MAP[values.email.toLowerCase()];
+
+      if (role && values.password === MOCK_PASSWORD) {
+        // Write the role value into the cookie so middleware + page guards can read it
+        await setMockAdminCookie(role);
         router.push("/admin/products");
       } else {
         form.setError("root", {
           type: "manual",
-          message: "Invalid credentials. Please try again.",
+          message:
+            "Invalid credentials. Use [role]@phm.com and password123.",
         });
       }
-    } catch (error) {
+    } catch {
       form.setError("root", {
         type: "manual",
         message: "An unexpected error occurred. Please try again later.",
@@ -101,7 +114,7 @@ export default function AdminLoginPage() {
           <div className="text-center space-y-1.5">
             <CardTitle className="text-2xl font-bold text-[#1B3A5C]">Admin Login</CardTitle>
             <CardDescription>
-              Sign in to manage products and leads.
+              Sign in with your assigned role credentials.
             </CardDescription>
           </div>
         </CardHeader>
@@ -123,7 +136,7 @@ export default function AdminLoginPage() {
                     <FormLabel className="text-slate-700">Email Address</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="admin@phm.com"
+                        placeholder="superadmin@phm.com"
                         type="email"
                         autoComplete="email"
                         disabled={isLoading}
