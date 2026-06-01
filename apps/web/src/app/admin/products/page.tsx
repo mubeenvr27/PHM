@@ -52,6 +52,7 @@ import {
   Users,
 } from "lucide-react";
 import AdminNav from "@/components/admin/AdminNav";
+import { hasPermission } from "@/lib/auth";
 
 // ── Shadcn / Base-UI Components ───────────────────────────────
 import { Button } from "@/components/ui/button";
@@ -599,6 +600,19 @@ function ProductDialog({
 // ─────────────────────────────────────────────────────────────
 export default function AdminProductsPage() {
   const pathname = usePathname();
+  const [role, setRole] = useState<string>("user");
+
+  useEffect(() => {
+    const getCookieValue = (name: string): string | undefined => {
+      if (typeof document === "undefined") return undefined;
+      return document.cookie
+        .split("; ")
+        .find((row) => row.startsWith(`${name}=`))
+        ?.split("=")[1];
+    };
+    const cookieRole = getCookieValue("mock_admin_token");
+    if (cookieRole) setRole(cookieRole);
+  }, []);
 
   // ── Mock product state ──────────────────────────────────────
   const [products, setProducts] = useState<Product[]>(SEED_PRODUCTS);
@@ -713,14 +727,16 @@ export default function AdminProductsPage() {
                 {products.length} product{products.length !== 1 ? "s" : ""}
               </p>
             </div>
-            <Button
-              id="open-add-product-dialog-btn"
-              onClick={openAddDialog}
-              className="flex items-center gap-2 bg-[#1B3A5C] hover:bg-[#162f4a] text-white"
-            >
-              <PlusCircle size={16} />
-              Add Product
-            </Button>
+            {hasPermission(role, "manage:products") && (
+              <Button
+                id="open-add-product-dialog-btn"
+                onClick={openAddDialog}
+                className="flex items-center gap-2 bg-[#1B3A5C] hover:bg-[#162f4a] text-white"
+              >
+                <PlusCircle size={16} />
+                Add Product
+              </Button>
+            )}
           </div>
 
           {/* Data Table */}
@@ -742,9 +758,11 @@ export default function AdminProductsPage() {
                 <TableHead className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Status
                 </TableHead>
-                <TableHead className="text-right pr-6 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Actions
-                </TableHead>
+                {hasPermission(role, "manage:products") && (
+                  <TableHead className="text-right pr-6 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Actions
+                  </TableHead>
+                )}
               </TableRow>
             </TableHeader>
 
@@ -752,7 +770,7 @@ export default function AdminProductsPage() {
               {products.length === 0 ? (
                 <TableRow>
                   <TableCell
-                    colSpan={6}
+                    colSpan={hasPermission(role, "manage:products") ? 6 : 5}
                     className="py-16 text-center text-slate-400"
                   >
                     <div className="flex flex-col items-center gap-3">
@@ -814,36 +832,38 @@ export default function AdminProductsPage() {
                     </TableCell>
 
                     {/* Actions */}
-                    <TableCell className="pr-6 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        {/* Edit */}
-                        <Button
-                          id={`edit-product-btn-${product.id}`}
-                          variant="outline"
-                          size="sm"
-                          onClick={() => openEditDialog(product)}
-                          className="flex items-center gap-1.5 text-[#1B3A5C] border-slate-200 hover:border-[#1B3A5C] hover:bg-[#1B3A5C] hover:text-white transition-all"
-                        >
-                          <Pencil size={13} />
-                          Edit
-                        </Button>
+                    {hasPermission(role, "manage:products") && (
+                      <TableCell className="pr-6 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          {/* Edit */}
+                          <Button
+                            id={`edit-product-btn-${product.id}`}
+                            variant="outline"
+                            size="sm"
+                            onClick={() => openEditDialog(product)}
+                            className="flex items-center gap-1.5 text-[#1B3A5C] border-slate-200 hover:border-[#1B3A5C] hover:bg-[#1B3A5C] hover:text-white transition-all"
+                          >
+                            <Pencil size={13} />
+                            Edit
+                          </Button>
 
-                        {/* Archive — updates status only, never deletes */}
-                        <Button
-                          id={`archive-product-btn-${product.id}`}
-                          variant="outline"
-                          size="sm"
-                          disabled={product.stock_status === "archived"}
-                          onClick={() => handleArchive(product.id)}
-                          className="flex items-center gap-1.5 text-amber-700 border-amber-200 hover:border-amber-600 hover:bg-amber-600 hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                        >
-                          <Archive size={13} />
-                          {product.stock_status === "archived"
-                            ? "Archived"
-                            : "Archive"}
-                        </Button>
-                      </div>
-                    </TableCell>
+                          {/* Archive — updates status only, never deletes */}
+                          <Button
+                            id={`archive-product-btn-${product.id}`}
+                            variant="outline"
+                            size="sm"
+                            disabled={product.stock_status === "archived"}
+                            onClick={() => handleArchive(product.id)}
+                            className="flex items-center gap-1.5 text-amber-700 border-amber-200 hover:border-amber-600 hover:bg-amber-600 hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                          >
+                            <Archive size={13} />
+                            {product.stock_status === "archived"
+                              ? "Archived"
+                              : "Archive"}
+                          </Button>
+                        </div>
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))
               )}
