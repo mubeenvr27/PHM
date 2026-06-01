@@ -43,6 +43,7 @@ import {
   Shield,
   Mail,
 } from "lucide-react";
+import AdminNav from "@/components/admin/AdminNav";
 
 // ── Shadcn Components ─────────────────────────────────────────
 import { Button } from "@/components/ui/button";
@@ -379,59 +380,8 @@ export default function AdminUsersPage() {
             </p>
           </div>
 
-          {/* Admin nav tabs */}
-          <div className="flex w-fit items-center rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm overflow-x-auto gap-1">
-            <Link
-              href="/admin/leads"
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-all duration-200 min-h-0 min-w-0 ${
-                pathname === "/admin/leads"
-                  ? "bg-[#1B3A5C] text-white shadow-md"
-                  : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"
-              }`}
-            >
-              <ListTodo size={16} /> Leads
-            </Link>
-            <Link
-              href="/admin/orders"
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-all duration-200 min-h-0 min-w-0 ${
-                pathname === "/admin/orders"
-                  ? "bg-[#1B3A5C] text-white shadow-md"
-                  : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"
-              }`}
-            >
-              <ShoppingBag size={16} /> Orders
-            </Link>
-            <Link
-              href="/admin/products"
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-all duration-200 min-h-0 min-w-0 ${
-                pathname === "/admin/products"
-                  ? "bg-[#1B3A5C] text-white shadow-md"
-                  : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"
-              }`}
-            >
-              <PackageSearch size={16} /> Products
-            </Link>
-            <Link
-              href="/admin/analytics"
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-all duration-200 min-h-0 min-w-0 ${
-                pathname === "/admin/analytics"
-                  ? "bg-[#1B3A5C] text-white shadow-md"
-                  : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"
-              }`}
-            >
-              <BarChart3 size={16} /> Analytics
-            </Link>
-            <Link
-              href="/admin/users"
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-all duration-200 min-h-0 min-w-0 ${
-                pathname === "/admin/users"
-                  ? "bg-[#1B3A5C] text-white shadow-md"
-                  : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"
-              }`}
-            >
-              <Users size={16} /> Users
-            </Link>
-          </div>
+          {/* Admin nav tabs — role-aware via AdminNav */}
+          <AdminNav />
         </div>
 
         {/* ── Table Card ── */}
