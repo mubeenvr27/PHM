@@ -94,12 +94,10 @@ const ALL_ACTIONS: ReadonlySet<Action> = new Set<Action>([
   "view:leads",
   "create:leads",
   "update:leads",
-  "delete:leads",
   "export:leads",
   "view:products",
   "create:products",
   "update:products",
-  "delete:products",
   "manage:products",
   "view:orders",
   "update:orders",
@@ -113,36 +111,36 @@ const ALL_ACTIONS: ReadonlySet<Action> = new Set<Action>([
 
 const PERMISSION_MAP = {
   /**
-   * superadmin — Unrestricted. Automatically receives every action,
-   * including any added in the future, via the ALL_ACTIONS set.
+   * superadmin — Full system administration except hard deletes.
+   * Automatically receives every action in ALL_ACTIONS.
    */
   superadmin: ALL_ACTIONS,
 
   /**
-   * admin — Operational lead management + product visibility.
-   * Can view analytics. Cannot manage users or export lead data.
+   * admin — Operational lead management + product management.
+   * Can view and update leads, view and manage products/orders.
+   * Cannot export leads, cannot manage users.
    */
   admin: new Set<Action>([
     "view:leads",
     "update:leads",
     "view:products",
+    "manage:products",
     "view:orders",
     "update:orders",
     "view:analytics",
   ]),
 
   /**
-   * manager — Full product lifecycle control.
-   * Explicitly CANNOT: manage users, export leads, or delete leads.
-   * This enforces least privilege for operational staff.
+   * manager — Product catalog management + lead read access.
+   * Can view leads and products, manage products (create/update).
+   * Explicitly CANNOT: update leads, export leads, or manage users.
    */
   manager: new Set<Action>([
-    "view:leads",       // can see leads, but NOT export or delete
-    "update:leads",     // can update status; export:leads is intentionally absent
+    "view:leads",
     "view:products",
     "create:products",
     "update:products",
-    "delete:products",
     "manage:products",
     "view:orders",
     "view:analytics",
@@ -150,7 +148,7 @@ const PERMISSION_MAP = {
 
   /**
    * user — Strictly read-only across all resources.
-   * No write, delete, export, or management capabilities.
+   * No write, update, delete, export, or management capabilities.
    */
   user: new Set<Action>([
     "view:leads",
