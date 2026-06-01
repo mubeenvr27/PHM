@@ -16,7 +16,7 @@ export type AdminRole = "superadmin" | "admin" | "manager" | "user";
 export async function setMockAdminCookie(role: AdminRole) {
   cookies().set("mock_admin_token", role, {
     path: "/",
-    httpOnly: true,
+    httpOnly: false, // Changed to false so AdminNav can read it client-side via document.cookie
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     maxAge: 60 * 60 * 24 * 7, // 1 week
