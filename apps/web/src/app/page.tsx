@@ -442,11 +442,12 @@ export default function HomePage() {
             Book a 1-on-1 personalized demo. Our integration experts will walk you through the clinical dashboard, patient alerting system, and show you exactly how PHM seamlessly fits into your existing workflows.
           </p>
           <Button
+            asChild
             className="bg-[#0D7377] hover:bg-[#0a5f63] h-[48px] px-8 transition-colors p-0 overflow-hidden"
           >
-            <Link href="/platform" className="flex items-center justify-center w-full h-full px-8 text-white hover:opacity-100 font-bold text-base">
+            <a href="https://calendly.com/priorityhomemonitor/30min" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full h-full px-8 text-white hover:opacity-100 font-bold text-base">
               Request a Platform Demo
-            </Link>
+            </a>
           </Button>
         </div>
       </section>
@@ -622,14 +623,16 @@ export default function HomePage() {
             care revenue you are already entitled to.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/platform"
+            <a
+              href="https://calendly.com/priorityhomemonitor/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-lg bg-white px-8 text-[1.0625rem] font-bold text-[#0D7377] transition-colors hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
               style={{ height: "52px" }}
             >
               Request a Platform Demo
               <ArrowRight size={18} aria-hidden="true" />
-            </Link>
+            </a>
             <Link
               href="/refer"
               className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-lg border-2 border-white/45 px-8 text-[1.0625rem] font-bold text-white transition-colors hover:border-white/70 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
