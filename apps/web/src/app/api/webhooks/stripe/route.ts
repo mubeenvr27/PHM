@@ -6,8 +6,12 @@ import type Stripe from "stripe";
 export const dynamic = "force-dynamic";
 
 /**
- * Stripe requires the raw body (not parsed JSON) to verify webhook signatures.
- * Next.js App Router gives us request.text() for this purpose.
+ * Stripe requires the raw, unparsed body to verify webhook signatures.
+ *
+ * Critical Next.js 14 Rule: Use request.arrayBuffer() to read the raw body.
+ * This guarantees byte-perfect fidelity for the HMAC signature check —
+ * avoiding any charset re-encoding that could occur with request.text().
+ * The Buffer is then passed directly to stripe.webhooks.constructEvent().
  */
 export async function POST(request: NextRequest) {
   const sig = request.headers.get("stripe-signature");
@@ -24,8 +28,8 @@ export async function POST(request: NextRequest) {
   let event: Stripe.Event;
 
   try {
-    // Use request.text() to get raw body for signature verification
-    const rawBody = await request.text();
+    // ── Read raw body via arrayBuffer() for byte-perfect HMAC verification ──
+    const rawBody = Buffer.from(await request.arrayBuffer());
     event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
   } catch (err) {
     console.error("Webhook signature verification failed:", err);
