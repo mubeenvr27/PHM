@@ -49,6 +49,7 @@ import {
   ListTodo,
   ImageOff,
   Loader2,
+  Users,
 } from "lucide-react";
 
 // ── Shadcn / Base-UI Components ───────────────────────────────
@@ -738,6 +739,16 @@ export default function AdminProductsPage() {
               }`}
             >
               <BarChart3 size={16} /> Analytics
+            </Link>
+            <Link
+              href="/admin/users"
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-all duration-200 min-h-0 min-w-0 ${
+                pathname === "/admin/users"
+                  ? "bg-[#1B3A5C] text-white shadow-md"
+                  : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"
+              }`}
+            >
+              <Users size={16} /> Users
             </Link>
           </div>
         </div>
