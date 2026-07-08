@@ -132,12 +132,12 @@ export default function ProgramPage({
               
               <h1
                 id="hero-heading"
-                className="mb-6 text-4xl md:text-6xl lg:text-8xl font-extrabold text-balance tracking-tight text-white"
+                className="mb-5 text-balance text-[clamp(2.25rem,5vw,3.5rem)] font-extrabold leading-[1.15] tracking-tight text-white"
               >
                 {programName}
               </h1>
 
-              <p className="mb-10 max-w-xl text-lg md:text-xl lg:text-2xl text-balance leading-relaxed text-white/80">
+              <p className="mb-10 max-w-[580px] text-[clamp(1rem,2vw,1.1875rem)] leading-[1.7] text-white/80">
                 {description}
               </p>
 
@@ -172,14 +172,14 @@ export default function ProgramPage({
               {finalImage1 && finalImage2 ? (
                 /* ── Diagonal staircase: both images fully visible ── */
                 <div
-                  className="relative w-full max-w-[500px]"
-                  style={{ height: "400px" }}
+                  className="relative w-full max-w-[620px]"
+                  style={{ height: "460px" }}
                 >
                   {/* ── Card 1: top-left, tilted counter-clockwise ── */}
                   <div
                     className="absolute overflow-hidden rounded-2xl border-[3px] border-white/30 shadow-[0_16px_48px_rgba(0,0,0,0.50)] transition-transform duration-500 hover:-translate-y-1"
                     style={{
-                      width: "62%",
+                      width: "68%",
                       aspectRatio: "3/2",
                       top: "0",
                       left: "0",
@@ -197,7 +197,7 @@ export default function ProgramPage({
                       className="absolute bottom-0 left-0 right-0 px-3 py-2"
                       style={{ background: "rgba(13,115,119,0.75)", backdropFilter: "blur(10px)" }}
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-white">
+                      <p className="text-xs font-bold uppercase tracking-widest text-white">
                         {programName}
                       </p>
                     </div>
@@ -207,7 +207,7 @@ export default function ProgramPage({
                   <div
                     className="absolute overflow-hidden rounded-2xl border-[3px] border-white/30 shadow-[0_16px_48px_rgba(0,0,0,0.50)] transition-transform duration-500 hover:translate-y-1"
                     style={{
-                      width: "62%",
+                      width: "68%",
                       aspectRatio: "3/2",
                       bottom: "0",
                       right: "0",
@@ -225,7 +225,7 @@ export default function ProgramPage({
                       className="absolute bottom-0 left-0 right-0 px-3 py-2"
                       style={{ background: "rgba(27,58,92,0.75)", backdropFilter: "blur(10px)" }}
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-white">
+                      <p className="text-xs font-bold uppercase tracking-widest text-white">
                         Monitoring &amp; Support
                       </p>
                     </div>
@@ -248,7 +248,7 @@ export default function ProgramPage({
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#6EE7E9] opacity-75" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-[#6EE7E9]" />
                     </span>
-                    <span className="text-[10px] font-bold text-white">Active Monitoring</span>
+                    <span className="text-xs font-bold text-white">Active Monitoring</span>
                   </div>
 
                   {/* ── Stat chip top-right ── */}
@@ -263,7 +263,7 @@ export default function ProgramPage({
                     }}
                   >
                     <p className="text-lg font-extrabold text-white">24/7</p>
-                    <p className="text-[9px] font-semibold uppercase tracking-wider text-white/70">Care Team</p>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-white/70">Care Team</p>
                   </div>
 
                   {/* ── Stat chip bottom-left ── */}
@@ -278,13 +278,13 @@ export default function ProgramPage({
                     }}
                   >
                     <p className="text-lg font-extrabold text-white">92%</p>
-                    <p className="text-[9px] font-semibold uppercase tracking-wider text-white/70">Adherence</p>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-white/70">Adherence</p>
                   </div>
                 </div>
               ) : (
                 /* ── Single image ── */
                 <div
-                  className="relative w-full max-w-[480px] overflow-hidden rounded-2xl border-4 border-white/20 shadow-2xl hover:scale-[1.02] transition-transform duration-300"
+                  className="relative w-full max-w-[600px] overflow-hidden rounded-2xl border-4 border-white/20 shadow-2xl hover:scale-[1.02] transition-transform duration-300"
                   style={{ aspectRatio: "3/2" }}
                 >
                   <img

@@ -3,11 +3,11 @@ import { Phone, MapPin, FileDown } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
 const footerNav = [
-  { label: "Home",            href: "/" },
-  { label: "All Programs",    href: "/programs" },
-  { label: "Contact Us",      href: "/contact" },
+  { label: "Home", href: "/" },
+  { label: "All Programs", href: "/programs" },
+  { label: "Contact Us", href: "/contact" },
   { label: "Refer a Patient", href: "/refer" },
-  { label: "Platform Demo",   href: "/platform" },
+  { label: "Platform Demo", href: "/platform" },
 ];
 
 export default function Footer() {
@@ -31,7 +31,7 @@ export default function Footer() {
           {/* ── Navigation Column ── */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-widest mb-4"
-                style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.75rem" }}>
+              style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.75rem" }}>
               Navigation
             </h3>
             <ul className="flex flex-col gap-1" role="list">
@@ -52,7 +52,7 @@ export default function Footer() {
           {/* ── Contact Column ── */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-widest mb-4"
-                style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.75rem" }}>
+              style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.75rem" }}>
               Contact
             </h3>
             <ul className="flex flex-col gap-3" role="list">

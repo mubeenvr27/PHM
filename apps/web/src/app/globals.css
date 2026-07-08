@@ -50,7 +50,7 @@
   }
 
   html {
-    font-size: 18px; /* 18px base size for better readability */
+    font-size: 20px; /* 20px base size for better readability at 100% zoom */
     scroll-behavior: smooth;
   }
 

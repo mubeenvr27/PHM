@@ -89,9 +89,9 @@ export default function Navbar() {
                     <span className="transform transition-transform duration-300 group-hover:translate-x-1.5">
                       {p.label}
                     </span>
-                    <ArrowRight 
-                      size={14} 
-                      className="opacity-0 -translate-x-2 transform transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 text-[#0D7377]" 
+                    <ArrowRight
+                      size={14}
+                      className="opacity-0 -translate-x-2 transform transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 text-[#0D7377]"
                     />
                   </Link>
                 ))}

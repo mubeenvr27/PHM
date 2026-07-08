@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { format } from "date-fns";
 import { BarChart3, ListTodo, ShoppingBag, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import { OrderDetailModal } from "@/components/admin/OrderDetailModal";
+import AdminNav from "@/components/admin/AdminNav";
 
 interface OrderItem {
   id: string;
@@ -128,7 +129,6 @@ export default function AdminOrdersPage() {
     <div className="min-h-screen bg-[#F8FAFC] p-6 lg:p-10">
       <div className="mx-auto max-w-7xl space-y-8">
         
-        {/* ── Header & Tabs ── */}
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-[#1B3A5C]">
@@ -139,17 +139,7 @@ export default function AdminOrdersPage() {
             </p>
           </div>
 
-          <div className="flex w-fit items-center rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm overflow-x-auto">
-            <Link href="/admin/leads" className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-all duration-200 ${pathname === "/admin/leads" ? "bg-[#1B3A5C] text-white shadow-md" : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"}`}>
-              <ListTodo size={18} /> Lead Management
-            </Link>
-            <Link href="/admin/orders" className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-all duration-200 ${pathname === "/admin/orders" ? "bg-[#1B3A5C] text-white shadow-md" : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"}`}>
-              <ShoppingBag size={18} /> Orders
-            </Link>
-            <Link href="/admin/analytics" className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-all duration-200 ${pathname === "/admin/analytics" ? "bg-[#1B3A5C] text-white shadow-md" : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"}`}>
-              <BarChart3 size={18} /> Analytics
-            </Link>
-          </div>
+          <AdminNav />
         </div>
 
         {/* ── Table Container ── */}

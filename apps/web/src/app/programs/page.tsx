@@ -292,25 +292,25 @@ function ProgramCard({ program }: { program: Program }) {
             {badge}
           </span>
         </div>
-        <CardTitle className="text-[1.0625rem] font-semibold leading-snug text-[#1B3A5C]">
+        <CardTitle className="text-xl font-bold leading-snug text-[#1B3A5C]">
           {name}
         </CardTitle>
       </CardHeader>
 
       <CardContent className="flex flex-1 flex-col gap-4 pt-3">
         {/* Description */}
-        <p className="text-sm leading-relaxed text-slate-500">{description}</p>
+        <p className="text-[0.9375rem] leading-relaxed text-slate-500">{description}</p>
 
         {/* Benefits — CheckCircle2, no hyphens */}
         <ul role="list" className="flex flex-col gap-2">
           {benefits.map((b) => (
             <li key={b} className="flex items-start gap-2">
               <CheckCircle2
-                size={15}
-                className="mt-[2px] shrink-0 text-[#0D7377]"
+                size={16}
+                className="mt-[3px] shrink-0 text-[#0D7377]"
                 aria-hidden="true"
               />
-              <span className="text-xs leading-[1.55] text-[#1A1A2E]">{b}</span>
+              <span className="text-sm leading-relaxed text-[#1A1A2E]">{b}</span>
             </li>
           ))}
         </ul>
@@ -421,7 +421,7 @@ export default function ProgramsPage() {
                       role="tab"
                       aria-selected={isActive}
                       onClick={() => setActiveCategory(cat)}
-                      className={`min-h-[44px] min-w-[44px] rounded-xl px-5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
+                      className={`min-h-[44px] min-w-[44px] rounded-xl px-5 text-base font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
                         ${isActive
                           ? "bg-[#0D7377] text-white shadow-sm"
                           : "text-white/75 hover:bg-white/15 hover:text-white"
@@ -461,7 +461,7 @@ export default function ProgramsPage() {
                     className="absolute bottom-0 left-0 right-0 px-3 py-2"
                     style={{ background: "rgba(13,115,119,0.75)", backdropFilter: "blur(10px)" }}
                   >
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-white">
+                    <p className="text-xs font-bold uppercase tracking-widest text-white">
                       Connected Care Ecosystem
                     </p>
                   </div>
@@ -486,7 +486,7 @@ export default function ProgramsPage() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#6EE7E9] opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-[#6EE7E9]" />
                   </span>
-                  <span className="text-[10px] font-bold text-white">Active Monitoring</span>
+                  <span className="text-xs font-bold text-white">Active Monitoring</span>
                 </div>
 
                 {/* ── Stat chip top-right ── */}
@@ -501,7 +501,7 @@ export default function ProgramsPage() {
                   }}
                 >
                   <p className="text-lg font-extrabold text-white">11+</p>
-                  <p className="text-[9px] font-semibold uppercase tracking-wider text-white/70">Programs</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-white/70">Programs</p>
                 </div>
 
                 {/* ── Stat chip bottom-left ── */}
@@ -516,7 +516,7 @@ export default function ProgramsPage() {
                   }}
                 >
                   <p className="text-lg font-extrabold text-white">24/7</p>
-                  <p className="text-[9px] font-semibold uppercase tracking-wider text-white/70">Care Team</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-white/70">Care Team</p>
                 </div>
               </div>
             </div>
@@ -536,12 +536,12 @@ export default function ProgramsPage() {
           <div className="mb-8 flex items-center justify-between">
             <h2
               id="grid-label"
-              className="text-sm font-semibold text-[#1B3A5C]"
+              className="text-base font-bold text-[#1B3A5C]"
             >
               {activeCategory === "All" ? "All Programs" : activeCategory}
             </h2>
             <span
-              className="text-sm text-slate-400"
+              className="text-base text-slate-500"
               aria-live="polite"
               aria-atomic="true"
             >
@@ -579,7 +579,7 @@ export default function ProgramsPage() {
                 <p className="font-semibold text-[#1B3A5C]">
                   Cannot find a specific program?
                 </p>
-                <p className="mt-1 text-sm leading-[1.6] text-slate-500">
+                <p className="mt-1 text-base leading-[1.6] text-slate-500">
                   Our clinical team reviews each case individually. Contact us to
                   discuss whether a patient may qualify under a custom care plan.
                 </p>

@@ -22,6 +22,7 @@ import {
   Globe, MessageSquare, User, Calendar, Stethoscope,
   ListTodo, BarChart3, ShoppingBag, PackageSearch,
 } from "lucide-react"
+import AdminNav from "@/components/admin/AdminNav"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 type LeadType   = "referral" | "consultation" | "contact"
@@ -306,7 +307,6 @@ export default function AdminLeadsPage() {
     <div className="min-h-screen bg-[#F8FAFC] p-6 lg:p-10">
       <div className="mx-auto max-w-7xl space-y-8">
 
-        {/* ── Header & Tabs ── */}
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-[#1B3A5C]">
@@ -317,41 +317,7 @@ export default function AdminLeadsPage() {
             </p>
           </div>
 
-          <div className="flex w-fit items-center rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
-            <Link
-              href="/admin/leads"
-              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                pathname === "/admin/leads"
-                  ? "bg-slate-100 text-[#1B3A5C]"
-                  : "text-slate-500 hover:text-[#1B3A5C]"
-              }`}
-            >
-              <ListTodo size={16} />
-              Lead Management
-            </Link>
-            <Link
-              href="/admin/orders"
-              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                pathname === "/admin/orders"
-                  ? "bg-slate-100 text-[#1B3A5C]"
-                  : "text-slate-500 hover:text-[#1B3A5C]"
-              }`}
-            >
-              <ShoppingBag size={16} />
-              Orders
-            </Link>
-            <Link
-              href="/admin/analytics"
-              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                pathname === "/admin/analytics"
-                  ? "bg-slate-100 text-[#1B3A5C]"
-                  : "text-slate-500 hover:text-[#1B3A5C]"
-              }`}
-            >
-              <BarChart3 size={16} />
-              Analytics
-            </Link>
-          </div>
+          <AdminNav />
         </div>
 
         {/* ── Stat Cards ── */}

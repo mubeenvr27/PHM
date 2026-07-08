@@ -102,6 +102,16 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwindcss/plugin")(function ({ addVariant }: any) {
+      const states = ["active", "open", "closed", "disabled", "placeholder", "checked", "selected", "highlighted", "expanded"];
+      states.forEach((state) => {
+        addVariant(`data-${state}`, `&[data-${state}]`);
+        addVariant(`group-data-${state}`, `:merge(.group)[data-${state}] &`);
+        addVariant(`peer-data-${state}`, `:merge(.peer)[data-${state}] &`);
+      });
+    }),
+  ],
 };
 export default config;

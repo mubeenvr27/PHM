@@ -10,6 +10,7 @@ import {
 import { Activity, BarChart3, ListTodo, Users, Target, TrendingUp, ShoppingBag, DollarSign, Package } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Skeleton } from "@/components/ui/skeleton"
+import AdminNav from "@/components/admin/AdminNav"
 
 interface AnalyticsData {
   totalLeads: number
@@ -330,17 +331,7 @@ export default function AnalyticsPage() {
               High-level overview of lead velocity, conversions, and order performance.
             </p>
           </div>
-          <div className="flex w-fit items-center rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm overflow-x-auto">
-            <Link href="/admin/leads" className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-all duration-200 ${pathname === "/admin/leads" ? "bg-[#1B3A5C] text-white shadow-md" : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"}`}>
-              <ListTodo size={18} /> Lead Management
-            </Link>
-            <Link href="/admin/orders" className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-all duration-200 ${pathname === "/admin/orders" ? "bg-[#1B3A5C] text-white shadow-md" : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"}`}>
-              <ShoppingBag size={18} /> Orders
-            </Link>
-            <Link href="/admin/analytics" className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-all duration-200 ${pathname === "/admin/analytics" ? "bg-[#1B3A5C] text-white shadow-md" : "text-slate-500 hover:text-[#1B3A5C] hover:bg-slate-50"}`}>
-              <BarChart3 size={18} /> Analytics
-            </Link>
-          </div>
+          <AdminNav />
         </div>
 
         {/* ── Analytics Toggle ── */}
@@ -350,13 +341,13 @@ export default function AnalyticsPage() {
               <TabsList className="grid w-full max-w-md grid-cols-2 bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200 shadow-inner">
                 <TabsTrigger 
                   value="leads" 
-                  className="rounded-xl py-3 text-sm font-bold transition-all duration-300 data-[state=active]:bg-[#0D7377] data-[state=active]:text-white data-[state=active]:shadow-lg"
+                  className="rounded-xl py-3 text-sm font-bold transition-all duration-300 data-active:bg-[#0D7377] data-active:text-white data-active:shadow-lg"
                 >
                   Lead Analytics
                 </TabsTrigger>
                 <TabsTrigger 
                   value="orders" 
-                  className="rounded-xl py-3 text-sm font-bold transition-all duration-300 data-[state=active]:bg-[#0D7377] data-[state=active]:text-white data-[state=active]:shadow-lg"
+                  className="rounded-xl py-3 text-sm font-bold transition-all duration-300 data-active:bg-[#0D7377] data-active:text-white data-active:shadow-lg"
                 >
                   Order Analytics
                 </TabsTrigger>
